@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { SectionHeading } from "#/SectionHeading";
 import { TestimonialCard } from "#/cards";
-import { Button } from "#/base";
 
 export function TestimonialSection({
   title,

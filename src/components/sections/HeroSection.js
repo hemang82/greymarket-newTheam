@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
-import { Badge, Button } from "#/base";
-import { Brands } from "#/Brands";
-import { cn } from "@/lib/utils";
+
+import { Brands } from "../Brands";
 
 export function HeroSection({
   badge,

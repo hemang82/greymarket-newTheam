@@ -1,6 +1,6 @@
 "use client";
 import { useTheme } from "next-themes";
-import { Button } from "#/base";
+import { Button } from "./base/Button";
 
 export const ThemeSwitch = () => {
   const { theme, setTheme } = useTheme();

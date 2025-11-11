@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { Button } from "./base";
+import { Button } from "./base/Button";
 
 export const SocialLinks = ({ links, className }) => {
   return (

@@ -1,10 +1,10 @@
 "use client";
 
-import { use, useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
-import { Button } from "#/base";
-import { ThemeSwitch } from "#/ThemeSwitch";
 import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { Button } from "../base/Button";
+import Link from "next/link";
 
 export function Header({ logo, links, buttons, className, ...rest }) {
   const pathname = usePathname();
@@ -14,7 +14,7 @@ export function Header({ logo, links, buttons, className, ...rest }) {
 
   useEffect(() => {
     const pathsToPrefetch = [
-      '/home',
+      '/',
       '/ipo-details',
     ];
     pathsToPrefetch.forEach((path) => {
@@ -27,13 +27,13 @@ export function Header({ logo, links, buttons, className, ...rest }) {
     <header className="fixed w-full bg-[rgba(255,255,255,0.5)] dark:bg-[rgba(17,17,17,0.5)] backdrop-blur-xl z-10">
       <nav className={cn("relative h-14 container px-0 mx-auto border-b border-base flex flex-wrap justify-start items-center gap-4 lg:gap-8", className)}
         {...rest} >
-        <a href={logo.href}>
+        <Link href={logo.href}>
           <img
             src={logo.src}
             alt={logo.alt}
             className="h-10 w-auto dark:invert"
           />
-        </a>
+        </Link>
         <div
           className={cn(
             "hidden md:block md:w-auto",
@@ -41,7 +41,7 @@ export function Header({ logo, links, buttons, className, ...rest }) {
             "block absolute top-14 m-2 right-0 w-2/3 border border-base dark:border-base-900 rounded-lg overflow-hidden bg-base-50 dark:bg-base-900 shadow-xl"
           )}
         >
-          {pathname == '/home' &&
+          {pathname == '/' &&
             <ul className="font-medium flex flex-col gap-2 p-4 md:p-0 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0">
               {links.map((link, index) => (
                 <a

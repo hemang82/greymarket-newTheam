@@ -1,6 +1,3 @@
-import { Accordion } from "#/base";
-import { SectionHeading } from "#/SectionHeading";
-import { PricingCard } from "../cards";
 
 export function IpoListSection({ title, description, buttons, faqs, pricing, ...rest }) {
   // console.log("FaqSection -> faqs", buttons);

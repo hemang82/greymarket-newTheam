@@ -1,5 +1,5 @@
-import { Accordion } from "#/base";
 import { SectionHeading } from "#/SectionHeading";
+import { Accordion } from "../base/Accordion";
 
 export function FaqSection({ title, description, buttons, faqs, ...rest }) {
   return (

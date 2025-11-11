@@ -1,9 +1,10 @@
+"use client"
+
 import { cn } from "@/lib/utils";
-import { Icon } from "@iconify/react";
-import { Button } from "../base";
+import { DollarSign, ShoppingCart } from "lucide-react";
 import Image from "next/image";
-import { ShoppingCart, DollarSign } from "lucide-react";
 import { useRouter } from "next/navigation";
+import React from "react";
 
 export const PricingCard = ({ className,
   // company = "Company Name",
@@ -31,7 +32,7 @@ export const PricingCard = ({ className,
   }
 
   return (
-    <>
+    <React.Fragment >
       <div className={cn("flex h-full flex-col rounded-xl border border-base bg-white dark:bg-base-950 p-4 shadow-sm hover:shadow-xl  transition", className)} >
         {/* Top row: logo + name (left) | buttons (right) */}
         <div className="flex items-center justify-between gap-3">
@@ -97,7 +98,7 @@ export const PricingCard = ({ className,
         </div>
 
       </div>
-    </>
+    </React.Fragment>
   );
 };
 

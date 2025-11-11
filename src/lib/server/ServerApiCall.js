@@ -23,6 +23,7 @@ export async function getIPOs() {
 
 export async function getIPODetails(request) {
     try {
+        console.log('getIPODetailsApi res', request);
         const res = await getIPODetailsApi(request);
         console.log('getIPODetailsApi res', res);
         if (res?.meta?.status_code == 200) {

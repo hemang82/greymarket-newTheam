@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { Badge, Button } from "./base";
+import { Button } from "./base/Button";
 
 export function SectionHeading({
   align = "center",

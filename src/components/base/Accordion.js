@@ -1,7 +1,9 @@
+ "use client" 
+
 import React from "react";
 import * as RAccordion from "@radix-ui/react-accordion";
-import { Icon } from "@iconify/react";
 import { cn } from "@/lib/utils";
+import { Icon } from "@iconify/react";
 
 export function Accordion({ items = [] }) {
   return (

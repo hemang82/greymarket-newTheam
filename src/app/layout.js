@@ -3,7 +3,7 @@ import "@/styles/globals.css";
 
 import { Inter, Syne } from "next/font/google";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import { Header } from "@radix-ui/react-accordion";
+import { Header } from "../components/sections/Header";
 import { header } from "@/data";
 import { getIPOs } from "@/lib/server/ServerApiCall";
 
@@ -29,6 +29,8 @@ export default async function RootLayout({ children }) {
           enableSystem
           disableTransitionOnChange
         >
+                 <Header logo={header.logo} links={header.links} buttons={header.buttons} />
+
           {children}
         </ThemeProvider>
       </body>

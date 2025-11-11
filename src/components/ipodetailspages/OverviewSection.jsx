@@ -1,5 +1,4 @@
 // components/OverviewSection.jsx
-"use client";
 
 import { formatIndianPrice } from "@/app_config/CommonFunction";
 import { formatGmpValue } from "@/app_config/IPOCalculation";

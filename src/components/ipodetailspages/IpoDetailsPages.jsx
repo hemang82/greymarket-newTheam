@@ -3,13 +3,11 @@
 "use client";
 import StickyTabs from "@/components/ipodetailspages/StickyTabs";
 // import SectionHeading from "@/components/sections/SectionHeading";
-import { Accordion } from "#/base";
-import { SectionHeading } from "#/SectionHeading";
-import OverviewSection from "./OverviewSection";
-import { ApplicationBreakupTable, GmpTrendTable, IpoCompanyDetails, IPOReservationTable, LotDistributionTable, StrengthWeekness, SubscriptionDemandTable, SubscriptionDetailsTable } from "./IPOGmp";
+import { footer } from "@/data";
 import { gmpDetails } from "@/data/gmpdata";
-import { Footer, Header } from "../sections";
-import { footer, header, ipolist } from "@/data";
+import { Footer } from "../sections";
+import { ApplicationBreakupTable, GmpTrendTable, IpoCompanyDetails, IPOReservationTable, LotDistributionTable, StrengthWeekness, SubscriptionDemandTable, SubscriptionDetailsTable } from "./IPOGmp";
+import OverviewSection from "./OverviewSection";
 // import Accordion from "@/components/Accordion";
 
 const TABS = [
@@ -29,7 +27,7 @@ const TABS = [
 export function IpoDetailsPages({ ipoDetailsData, ...rest }) {
 
     return (<>
-        <Header logo={header.logo} links={header.links} buttons={header.buttons} />
+        {/* <Header logo={header.logo} links={header.links} buttons={header.buttons} /> */}
 
         <StickyTabs items={TABS} />
 

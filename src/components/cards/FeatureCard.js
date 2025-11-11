@@ -1,5 +1,4 @@
 import { cn } from "@/lib/utils";
-import { Icon } from "@iconify/react";
 
 // export const FeatureCard = ({ title, description, icon, className, iconClass }) => {
 //   return (
