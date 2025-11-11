@@ -34,13 +34,7 @@ export function Header({ logo, links, buttons, className, ...rest }) {
             className="h-10 w-auto dark:invert"
           />
         </a>
-        <div
-          className={cn(
-            "hidden md:block md:w-auto",
-            open &&
-            "block absolute top-14 m-2 right-0 w-2/3 border border-base dark:border-base-900 rounded-lg overflow-hidden bg-base-50 dark:bg-base-900 shadow-xl"
-          )}
-        >
+        <div className={cn("hidden md:block md:w-auto", open && "block absolute top-14 m-2 right-0 w-2/3 border border-base dark:border-base-900 rounded-lg overflow-hidden bg-base-50 dark:bg-base-900 shadow-xl")} >
           {pathname == '/home' &&
             <ul className="font-medium flex flex-col gap-2 p-4 md:p-0 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0">
               {links.map((link, index) => (
