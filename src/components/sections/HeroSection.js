@@ -13,12 +13,12 @@ export function HeroSection({
   ...rest
 }) {
   return (
-    <section {...rest} className="homebanner">
+    <section {...rest} className="homebanner border-b">
       <div className="container px-2 mx-auto">
         <div className="flex flex-col justify-center items-center mt-10 mb-5">
           <div className="flex flex-col justify-center items-center gap-4 text-center max-w-3xl mx-auto mt-12 pb-12">
             {/* <Badge {...badge} /> */}
-            <h1 className="text-5xl font-display font-semibold title-gradient">
+            <h1 className="text-5xl font-display font-semibold ">
               {title}
             </h1>
             <p className="text-xl">{description}</p>

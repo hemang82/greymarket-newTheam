@@ -1,4 +1,4 @@
- "use client" 
+"use client"
 
 import React from "react";
 import * as RAccordion from "@radix-ui/react-accordion";
@@ -19,7 +19,7 @@ export function Accordion({ items = [] }) {
           >
             <RAccordion.Header className="flex">
               <RAccordion.Trigger
-                className={cn("group flex flex-1 cursor-pointer items-center justify-between leading-none outline-none", "text-2xl text-title h-20 hover:text-muted font-normal font-display ")}
+                className={cn("group flex flex-1 cursor-pointer items-center justify-between leading-none outline-none", "text-xl text-title h-20 hover:text-muted font-normal font-display ")}
               >
                 {item.title}
                 <Icon

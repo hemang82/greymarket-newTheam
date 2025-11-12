@@ -8,6 +8,7 @@ html {
 section {
   scroll-margin-top: 4rem;
 }
+
 @layer utilities {
   .text-title {
     @apply text-base-800 dark:text-base-100;

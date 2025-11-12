@@ -26,7 +26,7 @@ export function Button({
       href={href}
       onClick={onClick}
       className={cn(
-        "group inline-flex gap-2 items-center rounded-full leading-none duration-200 ease-in-out",
+        "group inline-flex gap-2 items-center rounded-md leading-none duration-200 ease-in-out",
         {
           "text-sm px-6 py-4": size === "base",
           "text-sm px-4 py-2": size === "small",

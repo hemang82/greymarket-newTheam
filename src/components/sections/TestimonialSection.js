@@ -12,7 +12,7 @@ export function TestimonialSection({
 }) {
   return (
     <section
-      className="bg-base-100 dark:bg-base-900 py-10 min-h-screen"
+      className="bg-base-100 dark:bg-base-900 py-10 min-h-screen border-b"
       {...rest}
     >
       <div className="container px-4 mx-auto">
