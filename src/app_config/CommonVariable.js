@@ -27,7 +27,6 @@ export const TimeFormats = {
     FULL_DATETIME_24_HOUR: "dddd, MMMM D, YYYY HH:mm",  // Tuesday, July 2, 2024 18:43
 };
 
-
 export const CODES = {
     SUCCESS: 200,
     VALIDATION_ERROR: 400,
@@ -42,9 +41,8 @@ export const CODES = {
 };
 
 export const USER_ROLES = {
-    AGENT: 'agent',
+    AGENT: 'sub_admin',
     ADMIN: 'admin',
-    USER: 'user',
 };
 
 export const STORAGE_KEYS = {
@@ -55,4 +53,8 @@ export const STORAGE_KEYS = {
     LANGUAGE_KEY: 'GMI_language',
     ROLE_KEY: 'GMI_role',
     THEME_KEY: 'GMI_theme',
+}
+
+export const AWS_FOLDER = {
+    PROFILE_IMAGE: 'profile_image',
 }
