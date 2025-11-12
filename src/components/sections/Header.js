@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { Button } from "../base/Button";
 import Link from "next/link";
 import { ThemeSwitch } from "../ThemeSwitch";
+import { getSearchIPO } from "@/api";
 
 export function Header({ logo, links, buttons, className, ...rest }) {
   const pathname = usePathname();
@@ -71,9 +72,13 @@ export function Header({ logo, links, buttons, className, ...rest }) {
     debounceRef.current = setTimeout(async () => {
       setLoading(true);
       try {
-        const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
-        const data = await res.json();
-        setResults(data || []);
+        const res = await getSearchIPO({ search: query })//fetch(`/api/search?q=${encodeURIComponent(query)}`);
+        console.log('resres', res);
+        if (res?.meta?.status_code == 200) {
+          setResults(data || []);
+        } else {
+          setResults([]);
+        }
         setShowDropdown(true);
       } catch (e) {
         console.error("search error:", e);
@@ -208,7 +213,7 @@ export function Header({ logo, links, buttons, className, ...rest }) {
               <input
                 ref={inputRef}
                 value={query}
-                onChange={(e) => setQ(e.target.value)}
+                onChange={(e) => setQuery(e.target.value)}
                 onFocus={() => query && setShowDropdown(true)}
                 placeholder="Search for a company"
                 className="w-72 lg:w-80 px-9 py-2 rounded-md border border-neutral-300 dark:border-neutral-800 bg-white dark:bg-neutral-900 text-sm placeholder:text-neutral-400 focus:outline-none focus:ring-1 focus:ring-[#135c33]"
@@ -242,15 +247,15 @@ export function Header({ logo, links, buttons, className, ...rest }) {
                       </li>
                     ))
                   ) : (
-                    <li className="px-4 py-2 text-sm text-neutral-500">No results for "{q}"</li>
+                    <li className="px-4 py-2 text-sm text-neutral-500">No results for "{query}"</li>
                   )}
 
-                  {q && (
+                  {query && (
                     <li
-                      onClick={() => router.push(`/search?q=${encodeURIComponent(q)}`)}
+                      onClick={() => router.push(`/search?q=${encodeURIComponent(query)}`)}
                       className="px-4 py-3 text-sm text-emerald-700 hover:bg-emerald-50 cursor-pointer border-t"
                     >
-                      Search everywhere: {q}
+                      Search everywhere: {query}
                     </li>
                   )}
                 </ul>
