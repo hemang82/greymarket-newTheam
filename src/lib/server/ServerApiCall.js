@@ -6,9 +6,9 @@
 
 import { getIPODetailsApi, ipoListApi } from "@/api";
 
-export async function getIPOs() {
+export async function getIPOs(request) {
     try {
-        const res = await ipoListApi({});
+        const res = await ipoListApi(request);
         if (res?.meta?.status_code == 200) {
             return res?.data?.results?.length > 0 ? res?.data : [];
         } else {
@@ -19,7 +19,6 @@ export async function getIPOs() {
         return [];
     }
 }
-
 
 export async function getIPODetails(request) {
     try {

@@ -33,7 +33,7 @@ export const PricingCard = ({ className,
 
   return (
     <React.Fragment >
-      <div className={cn("flex h-full flex-col rounded-xl border border-base bg-white dark:bg-base-950 p-4 shadow-sm hover:shadow-xl  transition", className)} >
+      <div className={cn("flex h-full flex-col rounded-2xl border border-base bg-white dark:bg-base-950 p-4 shadow-sm hover:shadow-xl  transition", className)} >
         {/* Top row: logo + name (left) | buttons (right) */}
         <div className="flex items-center justify-between gap-3">
           {/* Left cluster */}
@@ -65,6 +65,7 @@ export const PricingCard = ({ className,
                 </div>
               ) : null}
             </div>
+
           </div>
 
           <div className="flex gap-2">

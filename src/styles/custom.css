@@ -10,7 +10,11 @@
 } */
 
 .bg-base-100 {
-    background-color: #edf1f6 !important
+    background-color: #f4f7fa !important
+}
+
+.bg-base-800 {
+    background-color: #135c33 !important
 }
 
 .font-family {
@@ -55,19 +59,21 @@
 }
 
 .sellButton {
-  background-color: #dc2626; /* Tailwind red-600 */
-  border: 1px solid #dc2626;
-  color: #fff;
-  font-weight: 500;
-  border-radius: 8px;
-  padding: 6px 16px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  transition: all 0.2s ease-in-out;
+    background-color: #dc2626;
+    /* Tailwind red-600 */
+    border: 1px solid #dc2626;
+    color: #fff;
+    font-weight: 500;
+    border-radius: 8px;
+    padding: 6px 16px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease-in-out;
 }
 
 .sellButton:hover {
-  background-color: #ef4444; /* red-500 */
-  transform: translateY(-2px);
+    background-color: #ef4444;
+    /* red-500 */
+    transform: translateY(-2px);
 }

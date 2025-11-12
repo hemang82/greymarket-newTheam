@@ -26,3 +26,33 @@ export const TimeFormats = {
     FULL_DATETIME_12_HOUR: "dddd, MMMM D, YYYY h:mm A", // Tuesday, July 2, 2024 6:43 PM
     FULL_DATETIME_24_HOUR: "dddd, MMMM D, YYYY HH:mm",  // Tuesday, July 2, 2024 18:43
 };
+
+
+export const CODES = {
+    SUCCESS: 200,
+    VALIDATION_ERROR: 400,
+    ACCESS_TOKEN_EXPIRE: 403,
+    INACTIVE: 423,
+    NOT_FOUND: 404,
+    ERROR: 550,
+    INTERNAL_ERROR: 500,
+    UNAUTHORIZED: 401,
+    REFRESH_TOKEN_EXPIRED: 410,
+    CREATED: 201
+};
+
+export const USER_ROLES = {
+    AGENT: 'agent',
+    ADMIN: 'admin',
+    USER: 'user',
+};
+
+export const STORAGE_KEYS = {
+    LOGIN_KEY: "GMI_is_login",
+    AUTH_KEY: 'GMI_auth',
+    ACCESS_TOKEN_KEY: 'GMI_access_token',
+    REFRESH_TOKEN_KEY: 'GMI_refresh_token',
+    LANGUAGE_KEY: 'GMI_language',
+    ROLE_KEY: 'GMI_role',
+    THEME_KEY: 'GMI_theme',
+}

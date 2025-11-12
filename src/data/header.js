@@ -29,13 +29,7 @@ export const header = {
   buttons: [
     {
       label: "Sign In",
-      href: "#",
-      color: "transparent",
-      size: "small",
-    },
-    {
-      label: "Sign Up",
-      href: "#",
+      href: "/auth/login",
       color: "dark",
       size: "small",
     },

@@ -2,10 +2,23 @@ import Head from "next/head";
 import { FeatureSection } from "@/components/sections/FeatureSection";
 import { Header, HeroSection, TestimonialSection, FaqSection, Footer, PricingSection, LargeFeatureSection, CtaSection } from "@/components/sections";
 import { header, faqs, testimonials, features, pricing, clients, footer } from "@/data";
+import { getIPOs } from "@/lib/server/ServerApiCall";
+import CustomPagination from "@/components/CustomPagination";
 
-export default function Home() {
+export default async function Home({ searchParams }) {
+
+  const resolvedSearchParams = await searchParams;
+
+  console.log('searchParams', resolvedSearchParams);
+
+  const page = Number(resolvedSearchParams?.page) || 1;
+  const pageSize = Number(resolvedSearchParams?.pageSize) || 10;
+
+  const ipos = await getIPOs({ page: page, pageSize: pageSize });
+
   return (
     <>
+
       <Head>
         <title>Unlisted IPO</title>
       </Head>
@@ -65,6 +78,9 @@ export default function Home() {
           label: "Plans",
         }}
         pricing={pricing}
+        page={page}
+        pageSize={pageSize}
+        ipoData={ipos}
       />
 
       {/* <IpoListSection

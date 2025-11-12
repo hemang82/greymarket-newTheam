@@ -6,6 +6,8 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { Header } from "../components/sections/Header";
 import { header } from "@/data";
 import { getIPOs } from "@/lib/server/ServerApiCall";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import Constant from "@/app_config/Constant";
 
 // fonts
 const display = Syne({ subsets: ["latin"], variable: "--font-display" });
@@ -18,21 +20,22 @@ export const metadata = {
 
 export default async function RootLayout({ children }) {
 
-  const ipos = await getIPOs();
 
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${display.variable} ${body.variable} flex min-h-screen flex-col font-body text-base-600 dark:text-base-500 bg-base-50 dark:bg-base-950`} >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem
-          disableTransitionOnChange
-        >
-                 <Header logo={header.logo} links={header.links} buttons={header.buttons} />
+        <GoogleOAuthProvider clientId={Constant?.GOOGLE_CLIENT_ID || ""} >
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="light"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Header logo={header.logo} links={header.links} buttons={header.buttons} />
 
-          {children}
-        </ThemeProvider>
+            {children}
+          </ThemeProvider>
+        </GoogleOAuthProvider>
       </body>
     </html>
   );
