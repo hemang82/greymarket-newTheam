@@ -179,9 +179,9 @@ export function Header({ logo, links, buttons, className, ...rest }) {
         )}
         {...rest}
       >
-        <Link href={logo.href}>
+        <div className="cursor-pointer" onClick={() => { router.push('/') }}>
           <img src={logo.src} alt={logo.alt} className="h-10 w-auto dark:invert" />
-        </Link>
+        </div>
 
         <div
           className={cn(
