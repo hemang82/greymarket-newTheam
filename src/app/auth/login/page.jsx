@@ -142,7 +142,7 @@ export default function page() {
 
                         {/* login / right */}
                         <section className="p-6 sm:p-10 bg-neutral-50/60 dark:bg-neutral-950/60">
-                            <div className="mx-auto w-full max-w-md">
+                            <div className="mx-auto w-full max-w-md px-4">
                                 <div className="rounded-2xl bg-white dark:bg-neutral-900 p-6 sm:p-8 shadow-[0_8px_30px_rgba(0,0,0,.06)] ring-1 ring-neutral-200/70 dark:ring-white/10">
                                     <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-[#115b3a] dark:text-emerald-300">
                                         Login
@@ -151,31 +151,29 @@ export default function page() {
                                         Login to access your Grey Market account
                                     </p>
 
-                                    {/* Google only */}
-                                    {/* <button
-                                        // onClick={handleGoogle}
-                                        type="button"
-                                        className="mt-8 w-full inline-flex items-center justify-center gap-3 rounded-xl border border-neutral-300 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-4 py-3 text-sm font-medium shadow-sm hover:shadow-md transition focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 disabled:opacity-60"
-                                    > */}
-                                    {/* <Image
-                                            src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
-                                            alt="Google"
-                                            width={18}
-                                            height={18}
-                                            className="shrink-0"
-                                        />
-                                        Continue with Google */}
+                                    <div className="mt-8">
+                                        <button
+                                            onClick={() => login()}
+                                            className="w-full flex items-center justify-center gap-3 px-4 py-3 rounded-lg border border-neutral-200 hover:shadow-sm transition
+                       text-sm font-medium bg-white dark:bg-neutral-800 dark:border-neutral-700"
+                                            aria-label="Continue with Google"
+                                        >
+                                            {/* Google icon (simple SVG) */}
+                                            <span className="h-5 w-5 shrink-0">
+                                                <svg viewBox="0 0 533.5 544.3" xmlns="http://www.w3.org/2000/svg" className="h-full w-full">
+                                                    <path fill="#4285F4" d="M533.5 278.4c0-18.7-1.5-37.7-4.7-55.9H272v105.7h147.2c-6.3 34-25.6 62.8-54.6 82.1v68h88.2c51.6-47.6 81.7-117.7 81.7-199.9z" />
+                                                    <path fill="#34A853" d="M272 544.3c73.6 0 135.4-24.4 180.6-66.1l-88.2-68c-24.5 16.5-56 26.2-92.4 26.2-71 0-131.2-47.9-152.6-112.1h-90.4v70.5C83.5 484.1 168.5 544.3 272 544.3z" />
+                                                    <path fill="#FBBC05" d="M119.4 326.3c-7-20.9-11-43.1-11-65.8s4-44.9 11-65.8V124.2h-90.4C6 179.9 0 224.2 0 260.5s6 80.6 28.9 136.3l90.5-70.5z" />
+                                                    <path fill="#EA4335" d="M272 107.1c39.9 0 75.6 13.7 103.8 40.9l77.9-77.9C409.6 24.4 347.8 0 272 0 168.5 0 83.5 60.2 28.9 152.4l90.5 70.5C140.8 154.9 201 107.1 272 107.1z" />
+                                                </svg>
+                                            </span>
 
-                                    {/* </button> */}
-                                    <div className='mt-8'>
-                                        <GoogleLogin
-                                            onSuccess={handleGoogleLogin}
-                                            // onError={handleGoogleError}
-                                            size="large"  // medium | large
-                                            text="continue_with" // customize button text
-                                            shape="circle"  // rect | pill | circle
-                                            width="370"
-                                        />
+                                            {/* responsive label: hides text on tiny screens if you want */}
+                                            <span className="truncate">
+                                                <span className="hidden sm:inline">Continue with Google</span>
+                                                <span className="inline sm:hidden">Sign in</span>
+                                            </span>
+                                        </button>
                                     </div>
 
                                     <p className="mt-6 text-[11px] leading-relaxed text-neutral-500">

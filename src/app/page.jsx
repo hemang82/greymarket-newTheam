@@ -36,8 +36,8 @@ export default async function Home({ searchParams }) {
           icon: "tabler:arrow-right",
           label: "😻 Learn What's New",
         }}
-        title="Buy Or Sell Unlisted Shares"
-        description="You can easily find list of unlisted shares which are available for trading, buy and sell Unlisted Shares at best prices."
+        title="Live/Upcoming IPOs"
+        description="Explore all live and upcoming IPOs with detailed insights - issue price, dates, lot size, and Grey Market Premium (GMP) updates."
         buttons={[
           {
             href: "#",
@@ -67,7 +67,7 @@ export default async function Home({ searchParams }) {
         description="You can easily find list of unlisted shares which are available for trading, buy and sell Unlisted Shares at best prices."
         features={[]}
       /> */}
-
+      {/* <div className="container"> */}
       <PricingSection
         id="pricing"
         title="Pricing for Everyone"
@@ -82,6 +82,8 @@ export default async function Home({ searchParams }) {
         pageSize={pageSize}
         ipoData={ipos}
       />
+
+      {/* </div> */}
 
       {/* <IpoListSection
         id="faqs"
@@ -171,13 +173,7 @@ export default async function Home({ searchParams }) {
         buttons={[{ label: "Start for Free", href: "#", color: "dark" }]}
       /> */}
 
-      <Footer
-        id="footer"
-        copyright={footer.copyright}
-        logo={footer.logo}
-        social={footer.social}
-        links={footer.links}
-      />
+
 
     </>
   );

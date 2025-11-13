@@ -9,6 +9,10 @@
     font-family: var(--font-primary);
 } */
 
+.container {
+    width: 97% !important
+}
+
 .bg-base-100 {
     background-color: #f4f7fa !important
 }
@@ -77,3 +81,7 @@
     /* red-500 */
     transform: translateY(-2px);
 }
+
+/* .border-neutral-200 {
+    border-color: #135c33 !important;
+} */

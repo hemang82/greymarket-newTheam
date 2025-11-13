@@ -4,11 +4,12 @@ import "@/styles/globals.css";
 import { Inter, Syne } from "next/font/google";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Header } from "../components/sections/Header";
-import { header } from "@/data";
+import { footer, header } from "@/data";
 import { getIPOs } from "@/lib/server/ServerApiCall";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import Constant from "@/app_config/Constant";
 import { Toaster, toast } from "sonner";
+import { Footer } from "@/components/sections";
 
 // fonts
 const display = Syne({ subsets: ["latin"], variable: "--font-display" });
@@ -39,6 +40,14 @@ export default async function RootLayout({ children }) {
             <Header logo={header.logo} links={header.links} buttons={header.buttons} />
 
             {children}
+            
+            <Footer
+              id="footer"
+              copyright={footer.copyright}
+              logo={footer.logo}
+              social={footer.social}
+              links={footer.links}
+            />
           </ThemeProvider>
         </GoogleOAuthProvider>
       </body>

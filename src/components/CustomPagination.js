@@ -44,13 +44,11 @@ export default function CustomPagination({
     };
 
     const baseBtn = "h-8 min-w-8 px-2 inline-flex items-center justify-center rounded-lg border text-sm transition";
-    const neutral =
-        "border-gray-300 text-gray-700 hover:bg-gray-50 dark:border-base-700 dark:text-gray-200 dark:hover:bg-base-900";
-    const active =
-        "border-indigo-500 text-indigo-700 bg-indigo-50 dark:border-indigo-400 dark:text-indigo-300 dark:bg-indigo-950/40";
+    const neutral = "border-gray-300 text-gray-700 hover:bg-gray-50 dark:border-base-700 dark:text-gray-200 dark:hover:bg-base-900";
+    const active ="border-indigo-500 text-indigo-700 bg-indigo-50 dark:border-indigo-400 dark:text-indigo-300 dark:bg-indigo-950/40";
 
     return (
-        <div className="flex items-center justify-center w-full py-6 border-t border-gray-200 dark:border-base-800">
+        <div className="flex items-center justify-center w-full py-6  border-b bg-base-100 border-gray-200 dark:border-base-800">
 
             <div className={["w-[90%] lg:w-[68%] md:w-[68%] flex flex-wrap items-center justify-between gap-3 rounded-2xl", "bg-white dark:bg-base-950 ring-1 ring-gray-200 dark:ring-base-800 p-3", className,].join(" ")}
                 role="navigation"
