@@ -1,6 +1,8 @@
 import moment from "moment";
-import { DateFormats } from "./CommonVariable";
+import { DateFormats, STORAGE_KEYS } from "./CommonVariable";
 import DOMPurify from "isomorphic-dompurify";
+import { toast } from "sonner";
+
 
 export function formatIndianPrice(price) {
     try {
@@ -64,8 +66,6 @@ export function formatToFixed(value, decimals = 2) {
 
     return num.toFixed(decimals);
 }
-
-
 
 /**
  * Format a number to 2 decimals, but show "-" if the value is 0, null, or invalid.
@@ -132,3 +132,54 @@ export function cleanHTMLContent(html = "") {
 
     return { dangerouslySetInnerHTML: { __html: safe } };
 }
+
+export const loginRedirection = (data) => {
+    setLocalStorage(STORAGE_KEYS.LOGIN_KEY, true);
+    setLocalStorage(STORAGE_KEYS.ACCESS_TOKEN_KEY, data?.token);
+    setLocalStorage(STORAGE_KEYS.REFRESH_TOKEN_KEY, data?.token);
+    setLocalStorage(STORAGE_KEYS.AUTH_KEY, JSON.stringify(data));
+    setLocalStorage(STORAGE_KEYS.ROLE_KEY, data?.role);
+}
+
+export const TOAST_SUCCESS = (message) => {
+    return toast.success(message);
+};
+
+export const TOAST_ERROR = (message) => {
+    return toast.error(message);
+};
+
+export const TOAST_INFO = (message) => {
+    return toast.info(message);
+};
+
+export const TOAST_WARNING = (message) => {
+    return toast.warning(message);
+};
+
+export const setLocalStorage = (key, value) => {
+    try {
+        const data = typeof value === "object" ? JSON.stringify(value) : value;
+        localStorage.setItem(key, data);
+    } catch (error) {
+        console.error("Error setting localStorage:", error);
+    }
+};
+
+export const getLocalStorage = (key) => {
+    try {
+        const data = localStorage.getItem(key);
+        return data ? JSON.parse(data) : null;
+    } catch (error) {
+        console.error("Error getting localStorage:", error);
+        return null;
+    }
+};
+
+export const removeLocalStorage = (key) => {
+    try {
+        localStorage.removeItem(key);
+    } catch (error) {
+        console.error("Error removing localStorage:", error);
+    }
+};

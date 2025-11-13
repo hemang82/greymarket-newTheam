@@ -5,10 +5,15 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Button } from "../base/Button";
 import Link from "next/link";
+import { getLocalStorage } from "@/app_config/CommonFunction";
+import { STORAGE_KEYS } from "@/app_config/CommonVariable";
 
 export function Header({ logo, links, buttons, className, ...rest }) {
   const pathname = usePathname();
   const router = useRouter();
+
+  // const localTokenData = getLocalStorage(STORAGE_KEYS.ACCESS_TOKEN_KEY);
+  const localUserData = getLocalStorage(STORAGE_KEYS.AUTH_KEY);
 
   const [open, setOpen] = useState(false);
 
@@ -21,6 +26,8 @@ export function Header({ logo, links, buttons, className, ...rest }) {
       router.prefetch(path);
     });
   }, [router]);
+
+  console.log('localUserData', localUserData);
 
   return (
     // <header className="fixed w-full bg-base-50/50 dark:bg-base-950/50 backdrop-blur-xl z-10">
@@ -57,10 +64,10 @@ export function Header({ logo, links, buttons, className, ...rest }) {
           }
         </div>
         <div className="flex gap-2 ml-auto">
+
           {/* <ThemeSwitch /> */}
-          {buttons.map((button, index) => (
-            <Button key={index} {...button} />
-          ))}
+
+        
         </div>
         <Button
           icon={open ? "tabler:x" : "tabler:menu-2"}

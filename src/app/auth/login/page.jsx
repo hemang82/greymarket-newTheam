@@ -3,6 +3,9 @@
 import Image from 'next/image'
 import React from 'react'
 import { GoogleLogin } from "@react-oauth/google";
+import { login } from '@/api';
+import { CODES } from '@/app_config/CommonVariable';
+import { loginRedirection, TOAST_ERROR, TOAST_SUCCESS } from '@/app_config/CommonFunction';
 
 export default function page() {
 
@@ -20,7 +23,6 @@ export default function page() {
             return null;
         }
     }
-
 
     function decodeJwt(token) {
         try {
@@ -43,10 +45,31 @@ export default function page() {
     }
 
     const handleGoogleLogin = async (data) => {
+
         const updatedUserData = await decodeJwt(data.credential);
         console.log('updatedUserData', updatedUserData);
-        
-        // example: await signIn("google");
+
+        let datas = {
+            email: updatedUserData?.email,
+            register_type: 'google',
+            login_domain: 'check-allotment'
+        }
+
+        let response = await login(datas);
+        if (response?.meta?.status_code == CODES?.SUCCESS) {
+            loginRedirection({
+                token: updatedUserData?.aud,
+                user: {
+                    name: updatedUserData?.given_name,
+                    email: updatedUserData?.email,
+                    picture: updatedUserData?.picture
+                },
+                role: 'user'
+            })
+            TOAST_SUCCESS("Login Successful");
+        } else {
+            TOAST_ERROR("Login Failed");
+        }
     };
 
     return (
