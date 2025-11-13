@@ -8,7 +8,7 @@ export default async function page({ params }) {
   // console.log('====================================');
   // console.log(params);
   // console.log('====================================');
- const { id } = await params; 
+  const { id } = await params;
   const IPODetailsResponse = await getIPODetails({ id: id });
 
   return (<>

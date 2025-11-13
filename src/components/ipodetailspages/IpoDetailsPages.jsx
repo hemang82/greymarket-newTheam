@@ -27,12 +27,8 @@ const TABS = [
 export function IpoDetailsPages({ ipoDetailsData, ...rest }) {
 
     return (<>
-        {/* <Header logo={header.logo} links={header.links} buttons={header.buttons} /> */}
-
         <StickyTabs items={TABS} />
-
         <section className="bg-base-100 dark:bg-base-900 pt-24" {...rest}>
-
             {/* Tabs */}
             <div className="container px-4 mx-auto space-y-10">
 
@@ -106,14 +102,6 @@ export function IpoDetailsPages({ ipoDetailsData, ...rest }) {
 
             </div>
         </section>
-
-        <Footer
-            id="footer"
-            copyright={footer.copyright}
-            logo={footer.logo}
-            social={footer.social}
-            links={footer.links}
-        />
     </>);
 }
 

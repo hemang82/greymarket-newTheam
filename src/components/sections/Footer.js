@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { SocialLinks } from "../SocialLinks";
 import { cn } from "@/lib/utils";
+import React from "react";
 
 export function Footer({ copyright, logo, links, social, ...rest }) {
   return (
@@ -17,23 +18,34 @@ export function Footer({ copyright, logo, links, social, ...rest }) {
             alt="logo"
             className="h-10 w-auto   dark:invert"
           />
-          <div className="flex flex-row gap-4 text-sm">
+          <div className="flex flex-row gap-2 text-sm">
             {links.map((link, index) => (
-              <Link href={link.href} key={index}>
-                {link.label}
-              </Link>
+              <React.Fragment key={index}>
+                <Link href={link.href} className="hover:underline">
+                  {link.label}
+                </Link>
+                {index < links.length - 1 && <span>|</span>}
+              </React.Fragment>
             ))}
           </div>
-          <SocialLinks links={social} />
+
+          {/* <SocialLinks links={social} /> */}
         </div>
 
-        <div className="border-t border-base py-4 text-center flex justify-between">
+        <div className="border-t border-base py-4 text-center flex justify-between items-center flex-wrap gap-2">
           <p className="text-sm">&copy; {copyright}</p>
-          {/* <a href="https://bansal.io" className="text-sm text-muted italic">
-            Themed by Bansal
-          </a>  */}
-          {/* <p className="text-sm">Distributed by <a href="https://themewagon.com" className="text-sm">ThemeWagon</a></p> */}
+
+          <p className="text-sm">
+            <a href="mailto:info@greymarketipo.com" className="hover:underline">
+              info@greymarketipo.com
+            </a>{' '}
+            |{' '}
+            <a href="tel:+919529327230" className="hover:underline">
+              +91 95293 27230
+            </a>
+          </p>
         </div>
+
       </div>
     </footer>
   );

@@ -135,10 +135,10 @@ export function cleanHTMLContent(html = "") {
 
 export const loginRedirection = (data) => {
     setLocalStorage(STORAGE_KEYS.LOGIN_KEY, true);
-    setLocalStorage(STORAGE_KEYS.ACCESS_TOKEN_KEY, data?.token);
-    setLocalStorage(STORAGE_KEYS.REFRESH_TOKEN_KEY, data?.token);
+    // setLocalStorage(STORAGE_KEYS.ACCESS_TOKEN_KEY, data?.token);
+    // setLocalStorage(STORAGE_KEYS.REFRESH_TOKEN_KEY, data?.token);
     setLocalStorage(STORAGE_KEYS.AUTH_KEY, JSON.stringify(data));
-    setLocalStorage(STORAGE_KEYS.ROLE_KEY, data?.role);
+    // setLocalStorage(STORAGE_KEYS.ROLE_KEY, data?.role);
 }
 
 export const TOAST_SUCCESS = (message) => {
@@ -159,8 +159,13 @@ export const TOAST_WARNING = (message) => {
 
 export const setLocalStorage = (key, value) => {
     try {
-        const data = typeof value === "object" ? JSON.stringify(value) : value;
-        localStorage.setItem(key, data);
+        if (typeof window === "undefined") return; // SSR safety
+
+        if (typeof value === "object") {
+            localStorage.setItem(key, JSON.stringify(value));
+        } else {
+            localStorage.setItem(key, String(value));
+        }
     } catch (error) {
         console.error("Error setting localStorage:", error);
     }
@@ -168,8 +173,15 @@ export const setLocalStorage = (key, value) => {
 
 export const getLocalStorage = (key) => {
     try {
+        if (typeof window === "undefined") return null; // SSR safety
         const data = localStorage.getItem(key);
-        return data ? JSON.parse(data) : null;
+        if (!data) return null;
+
+        try {
+            return JSON.parse(data);
+        } catch {
+            return data;
+        }
     } catch (error) {
         console.error("Error getting localStorage:", error);
         return null;
@@ -178,8 +190,15 @@ export const getLocalStorage = (key) => {
 
 export const removeLocalStorage = (key) => {
     try {
-        localStorage.removeItem(key);
+        if (typeof window === "undefined") return null; // SSR safety
+        localStorage.clear();
     } catch (error) {
         console.error("Error removing localStorage:", error);
     }
 };
+
+export default function ClientOnly({ children, fallback = null }) {
+    const [mounted, setMounted] = useState(false);
+    useEffect(() => setMounted(true), []);
+    return mounted ? children : fallback;
+}

@@ -45,7 +45,7 @@ export default function CustomPagination({
 
     const baseBtn = "h-8 min-w-8 px-2 inline-flex items-center justify-center rounded-lg border text-sm transition";
     const neutral = "border-gray-300 text-gray-700 hover:bg-gray-50 dark:border-base-700 dark:text-gray-200 dark:hover:bg-base-900";
-    const active ="border-indigo-500 text-indigo-700 bg-indigo-50 dark:border-indigo-400 dark:text-indigo-300 dark:bg-indigo-950/40";
+    const active = "border-[#135c33] text-[#135c33] bg-[#135c3317] dark:border-[#135c33] dark:text-[#135c33] dark:bg-[#135c3317]";
 
     return (
         <div className="flex items-center justify-center w-full py-6  border-b bg-base-100 border-gray-200 dark:border-base-800">
