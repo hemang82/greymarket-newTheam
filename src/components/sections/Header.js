@@ -204,6 +204,7 @@ export function Header({ logo, links, buttons, className, ...rest }) {
           <div className="relative hidden md:block">
             <form onSubmit={handleSubmit} role="search" className="relative">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400">
+
                 {/* magnifier icon */}
                 <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
