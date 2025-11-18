@@ -18,7 +18,7 @@ export function HeroSection({
         <div className="flex flex-col justify-center items-center mt-10 mb-5">
           <div className="flex flex-col justify-center items-center gap-4 text-center max-w-3xl mx-auto mt-12 pb-12">
             {/* <Badge {...badge} /> */}
-            <h1 className="text-5xl font-display font-semibold ">
+            <h1 className="text-4xl font-display font-semibold ">
               {title}
             </h1>
             <p className="text-xl">{description}</p>

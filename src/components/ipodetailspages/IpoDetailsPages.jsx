@@ -3,20 +3,18 @@
 "use client";
 import StickyTabs from "@/components/ipodetailspages/StickyTabs";
 // import SectionHeading from "@/components/sections/SectionHeading";
-import { footer } from "@/data";
 import { gmpDetails } from "@/data/gmpdata";
-import { Footer } from "../sections";
-import { ApplicationBreakupTable, GmpTrendTable, IpoCompanyDetails, IPOReservationTable, LotDistributionTable, StrengthWeekness, SubscriptionDemandTable, SubscriptionDetailsTable } from "./IPOGmp";
+import { ApplicationBreakupTable, FinancialTable, GmpTrendTable, IpoCompanyDetails, IPOReservationTable, KeyPerfomanceTable, LotDistributionTable, StrengthWeekness, SubscriptionDemandTable, SubscriptionDetailsTable } from "./IPOGmp";
 import OverviewSection from "./OverviewSection";
 // import Accordion from "@/components/Accordion";
 
 const TABS = [
     { id: "overview", label: "Overview" },
     { id: "gmpDetails", label: "GMP" },
+    { id: "financial_data", label: "Financial Data" },
     { id: "subscriptionDetails", label: "Subscription" },
     { id: "ipoReservation", label: "IPO Reservation" },
     { id: "comapnyDetails", label: "Comapny Details" },
-    // { id: "pnl", label: "Profit & Loss" },
     // { id: "balance-sheet", label: "Balance Sheet" },
     // { id: "cash-flow", label: "Cash Flow" },
     // { id: "ratios", label: "Ratios" },
@@ -25,12 +23,13 @@ const TABS = [
 ];
 
 export function IpoDetailsPages({ ipoDetailsData, ...rest }) {
-
     return (<>
-        <StickyTabs items={TABS} />
-        <section className="bg-base-100 dark:bg-base-900 pt-24" {...rest}>
+                <StickyTabs items={TABS} />
+                
+        <section className="bg-base-100 dark:bg-base-900 pt-20" {...rest}>
+
             {/* Tabs */}
-            <div className="container px-4 mx-auto space-y-10">
+            <div className="container mx-auto space-y-10">
 
                 {/* Overview */}
                 <OverviewSection
@@ -58,45 +57,84 @@ export function IpoDetailsPages({ ipoDetailsData, ...rest }) {
                     </div>
                 </div> */}
 
+                {/* <div id="chart" className="scroll-mt-20">
+                    <FinancialsChart
+                        financialData={ipoDetailsData?.company_financial_data?.financial_data}
+                        amountType={ipoDetailsData?.company_financial_data?.financial_amount_type}
+                    />
+                </div> */}
+
                 {/* Gmp */}
-                <div id="gmpDetails" className="scroll-mt-20">
-                    <Card title="">
-                        <GmpTrendTable title="Gmp Details" rows={gmpDetails?.ipo_gmp?.length > 0 ? gmpDetails?.ipo_gmp : []} />
-                    </Card>
-                </div>
+                {
+                    gmpDetails?.ipo_gmp?.length > 0 && <div id="gmpDetails" className="scroll-mt-20 !mt-0 sm:!mt-[2.5rem]">
+                        <Card title="">
+                            <GmpTrendTable title="Gmp Details" rows={gmpDetails?.ipo_gmp?.length > 0 ? gmpDetails?.ipo_gmp : []} />
+                        </Card>
+                    </div>
+                }
+
+                {
+                    ipoDetailsData?.company_financial_data?.financial_data?.length > 0 && <div id="financial_data" className="scroll-mt-20 !mt-0 sm:!mt-[2.5rem]">
+                        <Card title="">
+                            <FinancialTable title="Financials ( In Crores )" rows={ipoDetailsData?.company_financial_data?.financial_data?.length > 0 ? ipoDetailsData?.company_financial_data?.financial_data : []} />
+                        </Card>
+                    </div>
+                }
+
+                {
+                    ipoDetailsData?.key_performance_indicator?.length > 0 && <div id="financial_data" className="scroll-mt-20 !mt-0 sm:!mt-[2.5rem]">
+                        <Card title="">
+                            <KeyPerfomanceTable title="Key Performance" rows={ipoDetailsData?.key_performance_indicator?.length > 0 ? ipoDetailsData?.key_performance_indicator : []} />
+                        </Card>
+                    </div>
+                }
 
                 {/* subscriptionDetails */}
-                <div id="subscriptionDetails" className="scroll-mt-20">
-                    <Card title="">
-                        <SubscriptionDetailsTable title="Subscription Details (No. of Shares)" rows={ipoDetailsData?.ipo_subscription_detail?.length > 0 ? ipoDetailsData?.ipo_subscription_detail : []} />
-                    </Card>
-
-                    <Card title="">
-                        <SubscriptionDemandTable title=" Subscription Demand (in ₹ Crore)" rows={ipoDetailsData?.subscription_demand?.length > 0 ? ipoDetailsData?.subscription_demand : []} />
-                    </Card>
-
-                    <Card title="">
-                        <ApplicationBreakupTable title="Application Wise Breakup (Approx. no of Apps)" rows={ipoDetailsData?.appplication_wise_breakup?.data?.length > 0 ? ipoDetailsData?.appplication_wise_breakup?.data : []} />
-                    </Card>
+                <div id="subscriptionDetails" className="scroll-mt-20 !mt-0 sm:!mt-[2.5rem]">
+                    {
+                        ipoDetailsData?.ipo_subscription_detail?.length > 0 && <Card title="">
+                            <SubscriptionDetailsTable title="Subscription Details (No. of Shares)" rows={ipoDetailsData?.ipo_subscription_detail?.length > 0 ? ipoDetailsData?.ipo_subscription_detail : []} />
+                        </Card>
+                    }
+                    {
+                        ipoDetailsData?.subscription_demand?.length > 0 && <Card title="">
+                            <SubscriptionDemandTable title=" Subscription Demand (in ₹ Crore)" rows={ipoDetailsData?.subscription_demand?.length > 0 ? ipoDetailsData?.subscription_demand : []} />
+                        </Card>
+                    }
+                    {
+                        ipoDetailsData?.appplication_wise_breakup?.data?.length > 0 && <Card title="">
+                            <ApplicationBreakupTable title="Application Wise Breakup (Approx. no of Apps)" rows={ipoDetailsData?.appplication_wise_breakup?.data?.length > 0 ? ipoDetailsData?.appplication_wise_breakup?.data : []} />
+                        </Card>
+                    }
                 </div>
 
                 {/* ipoReservation */}
-                <div id="ipoReservation" className="scroll-mt-20">
-                    <Card title="">
-                        <IPOReservationTable title="IPO Reservation" rows={ipoDetailsData?.ipo_reservation?.length > 0 ? ipoDetailsData?.ipo_reservation : []} />
-                    </Card>
-                    <Card title="">
-                        <LotDistributionTable title="Lot(s) Distribution" rows={ipoDetailsData?.ipo_lot_description?.length > 0 ? ipoDetailsData?.ipo_lot_description : []} />
-                    </Card>
+                <div id="ipoReservation" className="scroll-mt-20 !mt-0 sm:!mt-[2.5rem]">
+                    {
+                        ipoDetailsData?.ipo_reservation?.length > 0 &&
+                        <Card title="">
+                            <IPOReservationTable title="IPO Reservation" rows={ipoDetailsData?.ipo_reservation?.length > 0 ? ipoDetailsData?.ipo_reservation : []} />
+                        </Card>
+                    }
+                    {
+                        ipoDetailsData?.ipo_lot_description?.length > 0 && <Card title="">
+                            <LotDistributionTable title="Lot(s) Distribution" rows={ipoDetailsData?.ipo_lot_description?.length > 0 ? ipoDetailsData?.ipo_lot_description : []} />
+                        </Card>
+                    }
                 </div>
 
                 {/* comapnyDetails */}
-                <div id="comapnyDetails" className="scroll-mt-20 !mb-20">
+                <div id="comapnyDetails" className="scroll-mt-20 !mb-20  !mt-0 sm:!mt-[2.5rem]">
                     <Card title="">
                         <IpoCompanyDetails companyDetails={ipoDetailsData?.company_address} registrarDetail={ipoDetailsData?.registrar_detail} />
                     </Card>
-                    <Card title="">
-                        <StrengthWeekness strength={ipoDetailsData?.company_strenght} weakness={ipoDetailsData?.company_weakness ? ipoDetailsData?.company_weakness : ""} />
+                    {
+                        ipoDetailsData?.company_weakness && <Card title="">
+                            <StrengthWeekness strength={ipoDetailsData?.company_strenght} weakness={ipoDetailsData?.company_weakness ? ipoDetailsData?.company_weakness : ""} />
+                        </Card>
+                    }
+                    <Card title="About Company">
+                        {ipoDetailsData?.about_the_company}
                     </Card>
                 </div>
 
@@ -108,8 +146,8 @@ export function IpoDetailsPages({ ipoDetailsData, ...rest }) {
 // tiny helper card
 function Card({ title, children }) {
     return (
-        <div className="bg-white dark:bg-base-950 p-6 rounded-2xl border border-gray-200 dark:border-base-800 mt-10">
-            <h3 className="text-lg font-semibold mb-3">{title}</h3>
+        <div className="bg-white dark:bg-base-950 p-3 sm:p-6 rounded-2xl border border-gray-200 dark:border-base-800 !mt-5 sm:!mt-10">
+            {title && <h3 className="text-lg font-semibold mb-3">{title}</h3>}
             <div className="text-sm text-gray-600 dark:text-gray-300">{children}</div>
         </div>
     );

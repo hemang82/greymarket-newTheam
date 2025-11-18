@@ -20,4 +20,6 @@ export function getSearchIPO(request) {
     return axiosInstance.get(`ipo/ipo-list-for-dropdown?platform=Android${search}`, {}, true)
 }
 
-// {{local}}ipo/ipo-list-for-dropdown?search=968566&platform=Android
+export function getNewsListApi(request) {
+    return axiosInstance.get(`news/?page=${request?.page}&page_size=${request?.pageSize}&platform=Android`, {}, true)
+}

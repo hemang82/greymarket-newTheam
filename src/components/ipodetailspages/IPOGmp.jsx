@@ -78,6 +78,108 @@ export function GmpTrendTable({ title = "", rows = [] }) {
             title={title}
             columns={tableColumns}
             rows={transformIPOData(rows)}
+            mobileMode="scroll"        // default, mobile shows scrollable table
+            columnMinWidth={40}       // smaller width per column
+        />
+    );
+}
+
+export function FinancialTable({ title = "", rows = [] }) {
+
+    const tableColumns = [
+        { key: `metric`, label: "Period Ended" },
+        ...(rows?.slice(1) || []).map(
+            (row, index) => ({
+                key: `col${index}`,
+                label: row.period_ended,
+            })
+        ),
+    ];
+    const transposeFinancialData = (data) => {
+        if (!data || data.length < 2) return [];
+
+        const headers = data[0]; // first object = labels
+        const rows = data.slice(1); // remaining = data rows
+
+        let datas = Object.keys(headers)
+            .map((key) => {
+                const row = {
+                    metric: headers[key],
+                    ...rows.reduce((acc, row, index) => {
+                        acc[`col${index}`] = row[key];
+                        return acc;
+                    }, {}),
+                };
+
+                return row;
+            })
+            .filter((row) => {
+                // check if all col values are numeric
+                const values = Object.entries(row)
+                    .filter(([k]) => k.startsWith("col"))
+                    .map(([_, v]) => v);
+
+                return values.every((v) => !isNaN(parseFloat(v)));
+            });
+        datas = [
+            ...datas.filter(item => item.metric !== "Total Borrowing"),
+            ...datas.filter(item => item.metric === "Total Borrowing")
+        ];
+
+        return datas
+
+    };
+
+    return (
+        <ResponsiveTable
+            title={title}
+            columns={tableColumns}
+            rows={transposeFinancialData(rows)}
+            mobileMode="scroll"
+            columnMinWidth={40}
+        />
+    );
+}
+
+export function KeyPerfomanceTable({ title = "", rows = [] }) {
+
+    const tableColumns = [
+        { key: `metric`, label: "KPI" },
+        ...(rows?.slice(1) || []).map(
+            (row, index) => ({
+                key: `col_${index + 1}`,
+                label: row.kpi,
+            })
+        ),
+    ];
+
+    const transformIPOData = (data) => {
+        if (!data || data.length < 2) return [];
+
+        // First row = header names
+        const header = data[0]; // {eps:"EPS", kpi:"KPI", ...}
+        const body = data.slice(1); // actual values
+
+        // All keys except "kpi" (because kpi is year/label)
+        const keys = Object.keys(header).filter((k) => k !== "kpi");
+
+        // Build transposed rows
+        return keys.map((key) => {
+            let row = { metric: header[key] }; // e.g. "ROE"
+            body.forEach((item, idx) => {
+                row[`col_${idx + 1}`] = item[key];
+            });
+            return row;
+        });
+    };
+
+    return (
+        <ResponsiveTable
+            title={title}
+            columns={tableColumns}
+            rows={transformIPOData(rows)}
+            mobileMode="scroll"
+            columnMinWidth={40}
         />
     );
 }
@@ -137,13 +239,13 @@ export function SubscriptionDetailsTable({ title = "", rows = [] }) {
             title={title}
             columns={tableColumns}
             rows={transformIPOData(rows)}
+            mobileMode="scroll"
+            columnMinWidth={40}
         />
     );
-
 }
 
 export function SubscriptionDemandTable({ title = "", rows = [] }) {
-
     const tableColumns = [
         { key: "category", label: "Category" },
         {
@@ -220,13 +322,13 @@ export function SubscriptionDemandTable({ title = "", rows = [] }) {
             title={title}
             columns={tableColumns}
             rows={transformIPOData(rows)}
+            mobileMode="scroll"
+            columnMinWidth={40}
         />
     );
-
 }
 
 export function ApplicationBreakupTable({ title = "", rows = [] }) {
-
     const tableColumns = [
         { key: "category", label: "Category" },
         {
@@ -307,9 +409,10 @@ export function ApplicationBreakupTable({ title = "", rows = [] }) {
             title={title}
             columns={tableColumns}
             rows={transformIPOData(rows)}
+            mobileMode="scroll"
+            columnMinWidth={40}
         />
     );
-
 }
 
 export function LotDistributionTable({ title = "", rows = [] }) {
@@ -377,15 +480,16 @@ export function LotDistributionTable({ title = "", rows = [] }) {
             title={title}
             columns={tableColumns}
             rows={transformIPOData(rows)}
+            mobileMode="scroll"
+            columnMinWidth={40}
         />
     );
-
 }
 
 export function IPOReservationTable({ title = "", rows = [] }) {
 
     const tableColumns = [
-        { key: "investor_category", label: "Inventory Category" },
+        { key: "investor_category", label: "Category" },
         { key: "shares_offered", label: "Shares Offers" },
         { key: "no_of_shares", label: "No. of Shares" },
     ];
@@ -425,9 +529,10 @@ export function IPOReservationTable({ title = "", rows = [] }) {
             title={title}
             columns={tableColumns}
             rows={transformIPOData(rows)}
+            mobileMode="scroll"
+            columnMinWidth={40}
         />
     );
-
 }
 
 export function IpoCompanyDetails({ companyDetails = {}, registrarDetail = "" }) {

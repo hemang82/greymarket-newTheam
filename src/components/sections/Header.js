@@ -19,6 +19,7 @@ export default function ClientOnly({ children, fallback = null }) {
 }
 
 export function Header({ logo, links, buttons, className, ...rest }) {
+
   const pathname = usePathname();
   const router = useRouter();
 
@@ -171,10 +172,10 @@ export function Header({ logo, links, buttons, className, ...rest }) {
     //   </nav>
     // </header>
 
-    <header className="fixed w-full bg-[rgba(255,255,255,0.5)] dark:bg-[rgba(17,17,17,0.5)] backdrop-blur-xl z-[31]">
+    <header className="fixed w-full bg-[#edf1f645] border-b dark:bg-[rgba(17,17,17,0.5)] backdrop-blur-xl z-[31]">
       <nav
         className={cn(
-          "relative h-14 container px-0 mx-auto border-b border-base flex flex-wrap justify-start items-center gap-4 lg:gap-8",
+          "relative h-14 container px-0 mx-auto  flex flex-wrap justify-start items-center gap-4 lg:gap-8",
           className
         )}
         {...rest}
@@ -300,15 +301,16 @@ export function Header({ logo, links, buttons, className, ...rest }) {
           </div>
 
         </div>
+        {
+          pathname == "/" && <Button
+            icon={open ? "tabler:x" : "tabler:menu-2"}
+            color="transparent"
+            className="p-2 md:hidden"
+            onClick={() => setOpen(!open)}
+          />
+        }
 
-        <Button
-          icon={open ? "tabler:x" : "tabler:menu-2"}
-          color="transparent"
-          className="p-2 md:hidden"
-          onClick={() => setOpen(!open)}
-        />
       </nav>
-
     </header>
   );
 }

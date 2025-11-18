@@ -38,9 +38,7 @@ export default async function RootLayout({ children }) {
             disableTransitionOnChange
           >
             <Header logo={header.logo} links={header.links} buttons={header.buttons} />
-
             {children}
-            
             <Footer
               id="footer"
               copyright={footer.copyright}
