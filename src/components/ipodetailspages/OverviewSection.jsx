@@ -162,8 +162,8 @@ export default function OverviewSection({ id = "overview", ipoDetailsData }) {
                             <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                                 {metrics.map((m, idx) => (
                                     <div key={idx} className="flex flex-col gap-1">
-                                        <span className="text-[13px] text-gray-500 dark:text-gray-400">{m.label}</span>
-                                        <span className={[`text-base font-semibold text-gray-900 dark:text-gray-100 break-words break-all whitespace-normal ${m.customClass ? m.customClass : ""}`, m.highlight ? "bg-gray-50 dark:bg-base-900 rounded-md px-3 py-2" : ""].join(" ")}
+                                        <span className="text-sm text-gray-500 dark:text-gray-400 font-medium ">{m.label}</span>
+                                        <span className={[`text-base text-sm font-semibold text-gray-900 dark:text-gray-100 break-words break-all whitespace-normal ${m.customClass ? m.customClass : ""}`, m.highlight ? "bg-gray-50 dark:bg-base-900 rounded-md px-3 py-2" : ""].join(" ")}
                                             dangerouslySetInnerHTML={{ __html: m.label != "GMP" ? breakBeforeBracket(m.value) : m.value }}
                                         />
                                         {/* {m.value} */}

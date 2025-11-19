@@ -5,7 +5,7 @@ import { Inter, Syne } from "next/font/google";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Header } from "../components/sections/Header";
 import { footer, header } from "@/data";
-import { getIPOs } from "@/lib/server/ServerApiCall";
+import { getIPOsServer } from "@/lib/server/ServerApiCall";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import Constant from "@/app_config/Constant";
 import { Toaster, toast } from "sonner";

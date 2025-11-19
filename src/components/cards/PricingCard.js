@@ -84,7 +84,7 @@ export const PricingCard = ({ className,
 
               {price ? (
                 <div className="mt-0.5 flex items-baseline gap-2">
-                  <span className="text-sm font-medium text-title">{price}</span>
+                  <span className="text-sm font-semibold text-gray-900 text-title">{price}</span>
                   {changeText ? (
                     <span className="text-xs text-green-600">{changeText}</span>
                   ) : null}
@@ -131,8 +131,8 @@ export const PricingCard = ({ className,
 function Field({ label, value, className }) {
   return (
     <div className="flex items-start justify-between sm:block">
-      <p className="text-muted">{label}</p>
-      <p className={`text-body font-medium sm:mt-0.5 ${className}`}>{value}</p>
+      <p className="text-muted font-medium">{label}</p>
+      <p className={`text-body font-semibold text-sm text-base sm:mt-0.5 ${className}`}>{value}</p>
     </div>
   );
 }

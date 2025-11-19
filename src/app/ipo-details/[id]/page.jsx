@@ -1,6 +1,6 @@
 // "use client"
 import { IpoDetailsPages } from '@/components/ipodetailspages/IpoDetailsPages';
-import { getIPODetails, getIPOs } from '@/lib/server/ServerApiCall';
+import { getIPODetailsServer, getIPOsServer } from '@/lib/server/ServerApiCall';
 import Head from 'next/head';
 import React from 'react'
 
@@ -11,7 +11,7 @@ export default async function page({ params }) {
   // console.log('====================================');
 
   const { id } = await params;
-  const IPODetailsResponse = await getIPODetails({ id: id });
+  const IPODetailsResponse = await getIPODetailsServer({ id: id });
 
   return (<>
     <Head>

@@ -1,144 +1,180 @@
-// components/FinancialsChart.jsx
+// components/StyledGroupedBarChartFinal.jsx
 "use client";
 
-import React from "react";
-import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, Legend, CartesianGrid } from "recharts";
+import React, { useMemo } from "react";
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend,
+} from "chart.js";
+import { Bar } from "react-chartjs-2";
 
-const COLORS = [
-    "#4F46E5", // indigo
-    "#06B6D4", // cyan
-    "#10B981", // emerald
-    "#F59E0B", // amber
-    "#EF4444", // red
-    "#8B5CF6", // purple
-];
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-function NumberTooltip({ value }) {
-    if (value == null) return "-";
-    // format Indian style with 2 decimals
-    return value.toLocaleString("en-IN", { maximumFractionDigits: 2 });
-}
+// ---------- helpers (keep keys unchanged) ----------
+const toNumber = (v) => {
+    if (v === null || v === undefined) return 0;
+    const s = String(v).replace(/,/g, "").trim();
+    if (s === "" || s === "-") return 0;
+    const n = parseFloat(s);
+    return Number.isNaN(n) ? 0 : n;
+};
 
-// lib/financeUtils.js
-// Parse numeric string like "10,904.32" or "-145.49" -> number
-export function parseNumber(val) {
-    if (val == null) return null;
-    // Remove commas, whitespace, and non-digit except leading minus and dot
-    const cleaned = String(val).replace(/,/g, "").trim();
-    const n = Number(cleaned);
-    return Number.isFinite(n) ? n : null;
-}
+const monthIndex = {
+    Jan: 1, Feb: 2, Mar: 3, Apr: 4, May: 5, Jun: 6,
+    Jul: 7, Aug: 8, Sep: 9, Oct: 10, Nov: 11, Dec: 12,
+};
+const sortKey = (period) => {
+    if (!period || typeof period !== "string") return 0;
+    const parts = period.split("-");
+    const mon = (parts[0] || "").substring(0, 3);
+    const yr = (parts[1] || "");
+    const y = parseInt(yr.length === 2 ? "20" + yr : yr, 10) || 0;
+    const m = monthIndex[mon] || 0;
+    return y * 100 + m;
+};
 
-// Remove any header/meta row (where period_ended looks like 'Period Ended' or 'Period Ended')
-// and transform into array of objects with numeric values
-export function normalizeFinancialData(raw = []) {
-    if (!Array.isArray(raw) || raw.length === 0) return { rows: [], seriesKeys: [] };
+const hexToRgba = (hex, alpha = 1) => {
+    const h = hex.replace("#", "");
+    const r = parseInt(h.substring(0, 2), 16);
+    const g = parseInt(h.substring(2, 4), 16);
+    const b = parseInt(h.substring(4, 6), 16);
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+};
 
-    // detect header-like row (first row often contains column labels)
-    const first = raw[0] || {};
-    const looksLikeHeader =
-        Object.values(first).some((v) =>
-            /Period Ended|Period Ended|Assets|Revenue|Net Worth/i.test(String(v))
-        );
+// ---------- component ----------
+export default function StyledGroupedBarChartFinal({
+    financialData = [],
+    amountType = "In Crores",
+}) {
+    // parse & sort DESC (newest first) and keep your key names intact
+    const parsed = useMemo(() => {
+        const arr = Array.isArray(financialData) ? financialData : [];
 
-    const rows = raw
-        .filter((r, idx) => !(looksLikeHeader && idx === 0))
-        .map((r) => {
-            // map each row's numeric fields
-            const mapped = {};
-            Object.entries(r).forEach(([k, v]) => {
-                if (k === "period_ended") mapped.period = String(v);
-                else mapped[k] = parseNumber(v) ?? v; // numeric if parseable, else keep original
-            });
-            return mapped;
+        // filter header-like rows (period_ended = "Period Ended")
+        const rows = arr.filter((r) => {
+            if (!r || typeof r.period_ended !== "string") return false;
+            return r.period_ended.toLowerCase().indexOf("period") === -1;
         });
 
-    // Collect keys that are numeric series (exclude 'period' and any string values)
-    const sample = rows[0] || {};
-    const seriesKeys = Object.keys(sample).filter(
-        (k) => k !== "period" && typeof sample[k] === "number"
-    );
+        // sort descending (newest first)
+        rows.sort((a, b) => sortKey(b.period_ended) - sortKey(a.period_ended));
 
-    return { rows, seriesKeys };
-}
+        return {
+            periods: rows.map((r) => r.period_ended || ""),
+            assets: rows.map((r) => toNumber(r.assets)),
+            revenue: rows.map((r) => toNumber(r.revenue)),
+            net_worth: rows.map((r) => toNumber(r.net_worth)),
+            profit_after_tax: rows.map((r) => toNumber(r.profit_after_tax)),
+            reserves_and_surpluse: rows.map((r) => toNumber(r.reserves_and_surpluse)),
+            total_borrowing: rows.map((r) => toNumber(r.total_borrowing)),
+        };
+    }, [financialData]);
 
+    // palette: border color + light fill (alpha ~0.06) to match your screenshot
+    const PALETTE = [
+        "#9ebae9", // Total Assets (blue)
+        "#dc6967", // Total Revenue (red)
+        "#85e3c9", // Profit After Tax (cyan)
+        "#e3db85", // Net Worth (yellow)
+        "#ace99e", // Reserves And Surplus (pink)
+        "#ffd08a", // Total Borrowing (light orange)
+    ];
 
-export default function FinancialsChart({ financialData = [], amountType = "In Crores" }) {
-    const { rows, seriesKeys } = normalizeFinancialData(financialData);
+    // order & friendly labels to match screenshot
+    const KEYS = [
+        { key: "assets", label: "Total Assets" },
+        { key: "revenue", label: "Total Revenue" },
+        { key: "profit_after_tax", label: "Profit After Tax" },
+        { key: "net_worth", label: "Net Worth" },
+        { key: "reserves_and_surpluse", label: "Reserves And Surplus" },
+        { key: "total_borrowing", label: "Total Borrowing" },
+    ];
 
-    // reverse rows so time flows left-to-right (if needed). Comment if not needed.
-    const chartData = [...rows].reverse();
+    // build datasets (outlined + light fill)
+    const buildDatasets = () => {
+        return KEYS.map((k, i) => {
+            const col = PALETTE[i % PALETTE.length];
+            return {
+                label: k.label,
+                data: parsed[k.key] || [],
+                borderColor: col,
+                borderWidth: 2,
+                backgroundColor: hexToRgba(col, 0.06), // subtle fill
+                borderRadius: 6,
+                // barThickness controlled responsively via options.datasets.bar.barThickness
+            };
+        });
+    };
 
+    const data = {
+        labels: parsed.periods || [],
+        datasets: buildDatasets(),
+    };
+
+    // options tuned to match screenshot: more group spacing, slim bars, top legend
+    const options = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: "top",
+                labels: {
+                    usePointStyle: true,
+                    pointStyle: "rectRounded",
+                    padding: 12,
+                    boxWidth: 18,
+                    boxHeight: 12,
+                },
+            },
+            title: {
+                display: true,
+                text: `Financial Overview (${amountType})`,
+            },
+            tooltip: {
+                backgroundColor: "#fff",
+                borderColor: "rgba(0,0,0,0.1)",
+                borderWidth: 1,
+                titleColor: "#111",
+                bodyColor: "#333",
+            },
+        },
+        scales: {
+            x: {
+                grid: { display: false },
+            },
+            y: {
+                beginAtZero: true,
+                grid: { color: "rgba(0,0,0,0.06)" },
+            },
+        },
+
+        // ⭐ Normal spacing settings ⭐
+        categoryPercentage: 0.75,    // space between GROUPS
+        datasetPercentage: 0.85,     // space between BARS inside group
+
+        // Clean bar thickness for normal layout
+        datasets: {
+            bar: {
+                barThickness: 22,
+            },
+        },
+    };
     return (
-        <section className="bg-white dark:bg-base-950 rounded-2xl ring-1 ring-gray-200 dark:ring-base-800 p-6">
-            <div className="flex items-center justify-between mb-4">
-                <div>
-                    <h3 className="text-lg font-semibold text-title">Profit &amp; Loss</h3>
-                    <p className="text-sm text-gray-500">Consolidated Figures {amountType}</p>
-                </div>
-                <div className="text-sm text-gray-500">Last periods: {chartData.length}</div>
-            </div>
-
-            <div className="w-full h-64">
-                {seriesKeys.length === 0 ? (
-                    <div className="flex items-center justify-center h-full text-gray-400">No numeric series available</div>
-                ) : (
-                    <ResponsiveContainer width="100%" height="100%">
-                        <LineChart data={chartData} margin={{ top: 10, right: 20, left: 0, bottom: 0 }}>
-                            <CartesianGrid strokeDasharray="3 3" stroke="#f3f4f6" />
-                            <XAxis dataKey="period" tick={{ fontSize: 12 }} />
-                            <YAxis tickFormatter={(v) => (v == null ? "" : v.toLocaleString("en-IN"))} />
-                            <Tooltip formatter={(value) => NumberTooltip({ value })} />
-                            <Legend verticalAlign="top" />
-                            {seriesKeys.map((key, i) => (
-                                <Line
-                                    key={key}
-                                    type="monotone"
-                                    dataKey={key}
-                                    name={formatSeriesKey(key)}
-                                    stroke={COLORS[i % COLORS.length]}
-                                    strokeWidth={2}
-                                    dot={{ r: 2 }}
-                                    activeDot={{ r: 5 }}
-                                />
-                            ))}
-                        </LineChart>
-                    </ResponsiveContainer>
-                )}
-            </div>
-
-            {/* table summary below chart */}
-            <div className="mt-6 overflow-x-auto">
-                <table className="w-full text-sm text-left">
-                    <thead>
-                        <tr className="text-xs text-gray-500">
-                            <th className="py-2">Metric</th>
-                            {chartData.map((r) => (
-                                <th key={r.period} className="py-2">{r.period}</th>
-                            ))}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {seriesKeys.map((key) => (
-                            <tr key={key} className="border-t">
-                                <td className="py-2 font-medium">{formatSeriesKey(key)}</td>
-                                {chartData.map((r) => (
-                                    <td key={r.period + key} className="py-2">
-                                        {r[key] == null ? "-" : r[key].toLocaleString("en-IN", { maximumFractionDigits: 2 })}
-                                    </td>
-                                ))}
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-        </section>
+        <div style={{
+            width: "100%",
+            height: 520,
+            padding: 12,
+            background: "#fff",
+            borderRadius: 8,
+            boxShadow: "0 6px 20px rgba(0,0,0,0.03)",
+            border: "1px solid rgba(0,0,0,0.03)",
+        }}>
+            <Bar data={data} options={options} />
+        </div>
     );
-}
-
-// small helper to make labels prettier
-function formatSeriesKey(k) {
-    return k
-        .replace(/_/g, " ")
-        .replace(/\b\w/g, (c) => c.toUpperCase());
 }

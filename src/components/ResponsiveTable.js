@@ -169,7 +169,7 @@ export default function ResponsiveTable({
                                 <td
                                     key={c.key}
                                     className={cn(
-                                        "[&>div]:px-4 [&>div]:sm:px-6 py-3 align-top bg-white dark:bg-base-950",
+                                        "[&>div]:px-4 [&>div]:sm:px-6 py-3 align-top bg-white dark:bg-base-950 font-medium",
                                         stickyFirstColumn && colIndex === 0 && "sticky left-0 z-[5] shadow-sm bg-white dark:bg-base-950"
                                     )}
                                     style={{

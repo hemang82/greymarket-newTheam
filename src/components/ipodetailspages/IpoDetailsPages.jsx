@@ -6,6 +6,11 @@ import StickyTabs from "@/components/ipodetailspages/StickyTabs";
 import { gmpDetails } from "@/data/gmpdata";
 import { ApplicationBreakupTable, FinancialTable, GmpTrendTable, IpoCompanyDetails, IPOReservationTable, KeyPerfomanceTable, LotDistributionTable, StrengthWeekness, SubscriptionDemandTable, SubscriptionDetailsTable } from "./IPOGmp";
 import OverviewSection from "./OverviewSection";
+import dynamic from "next/dynamic";
+// import GroupedBarChart from "./FinancialsChart";
+const GroupedBarChart = dynamic(() => import("./FinancialsChart"), { ssr: false }
+);
+
 // import Accordion from "@/components/Accordion";
 
 const TABS = [
@@ -24,8 +29,8 @@ const TABS = [
 
 export function IpoDetailsPages({ ipoDetailsData, ...rest }) {
     return (<>
-                <StickyTabs items={TABS} />
-                
+        <StickyTabs items={TABS} />
+
         <section className="bg-base-100 dark:bg-base-900 pt-20" {...rest}>
 
             {/* Tabs */}
@@ -57,12 +62,12 @@ export function IpoDetailsPages({ ipoDetailsData, ...rest }) {
                     </div>
                 </div> */}
 
-                {/* <div id="chart" className="scroll-mt-20">
-                    <FinancialsChart
-                        financialData={ipoDetailsData?.company_financial_data?.financial_data}
-                        amountType={ipoDetailsData?.company_financial_data?.financial_amount_type}
-                    />
-                </div> */}
+                <div id="chart" className="scroll-mt-20">
+                    <Card title={`Financials overview ${ipoDetailsData?.company_financial_data?.financial_amount_type}`}>
+                        <GroupedBarChart financialData={ipoDetailsData?.company_financial_data?.financial_data} amountType={ipoDetailsData?.company_financial_data?.financial_amount_type} />
+                    </Card>
+
+                </div>
 
                 {/* Gmp */}
                 {

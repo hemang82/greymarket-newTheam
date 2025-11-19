@@ -2,7 +2,7 @@ import Head from "next/head";
 import { FeatureSection } from "@/components/sections/FeatureSection";
 import { Header, HeroSection, TestimonialSection, FaqSection, Footer, PricingSection, LargeFeatureSection, CtaSection } from "@/components/sections";
 import { header, faqs, testimonials, features, pricing, clients, footer } from "@/data";
-import { getIPOs, getNewsListServer } from "@/lib/server/ServerApiCall";
+import { getIPOsServer, getNewsListServer } from "@/lib/server/ServerApiCall";
 import CustomPagination from "@/components/CustomPagination";
 
 export default async function Home({ searchParams }) {
@@ -12,7 +12,7 @@ export default async function Home({ searchParams }) {
   const page = Number(resolvedSearchParams?.page) || 1;
   const pageSize = Number(resolvedSearchParams?.pageSize) || 10;
 
-  const ipos = await getIPOs({ page: page, pageSize: pageSize });
+  const ipos = await getIPOsServer({ page: page, pageSize: pageSize });
 
   const newsList = await getNewsListServer({ page: 1, pageSize: 4 })
 
@@ -178,7 +178,6 @@ export default async function Home({ searchParams }) {
         description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis similique"
         buttons={[{ label: "Start for Free", href: "#", color: "dark" }]}
       /> */}
-
 
 
     </>

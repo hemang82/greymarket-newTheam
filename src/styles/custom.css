@@ -119,3 +119,8 @@
 .border-base {
     border-color: #0438732e !important
 }
+
+li{
+line-height: 23px !important;
+font-size: 14px !important;
+}
