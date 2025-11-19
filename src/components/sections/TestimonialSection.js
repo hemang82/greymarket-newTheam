@@ -38,7 +38,7 @@ export function TestimonialSection({ title, description, badge, testimonials, bu
 
   return (
     <section
-      className={`bg-base-100 dark:bg-base-900 py-10   ${!paginationShow && 'border-b'}`}
+      className={`bg-base-100 dark:bg-base-900 py-16 ${!paginationShow && ''}`}
       {...rest}
     >
       <div className="container px-4 mx-auto">

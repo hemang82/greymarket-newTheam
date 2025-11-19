@@ -123,7 +123,6 @@ export function Header({ logo, links, buttons, className, ...rest }) {
   }
 
   return (
-
     // <header className="fixed w-full bg-base-50/50 dark:bg-base-950/50 backdrop-blur-xl z-10">
     // <header className="fixed w-full bg-[rgba(255,255,255,0.5)] dark:bg-[rgba(17,17,17,0.5)] backdrop-blur-xl z-10">
     //   <nav className={cn("relative h-14 container px-0 mx-auto border-b border-base flex flex-wrap justify-start items-center gap-4 lg:gap-8", className)}
@@ -171,11 +170,11 @@ export function Header({ logo, links, buttons, className, ...rest }) {
     //     />
     //   </nav>
     // </header>
-
-    <header className="fixed w-full bg-[#edf1f645] border-b dark:bg-[rgba(17,17,17,0.5)] backdrop-blur-xl z-[31]">
+    // #edf1f645
+    <header className="fixed w-full bg-[#ffffff] border-b dark:bg-[rgba(17,17,17,0.5)] backdrop-blur-xl z-[31]">
       <nav
         className={cn(
-          "relative h-14 container px-0 mx-auto  flex flex-wrap justify-start items-center gap-4 lg:gap-8",
+          "relative h-16 container px-0 mx-auto  flex flex-wrap justify-start items-center gap-4 lg:gap-8",
           className
         )}
         {...rest}

@@ -634,6 +634,28 @@ export function IpoCompanyDetails({ companyDetails = {}, registrarDetail = "" })
     );
 }
 
+export function DetailsCommonCard({ title, data }) {
+    // Parse registrar details from comma-separated string
+    return (
+        <section className="scroll-mt-20">
+            <div className="grid grid-cols-1  gap-6">
+                {/* Company Details Card */}
+                <div className="rounded-xl ring-1 ring-gray-200 dark:ring-base-800 bg-white dark:bg-base-950">
+                    <div className="bg-gray-50 dark:bg-base-900/40 rounded-t-xl px-4 py-3 border-b border-gray-200 dark:border-base-800">
+                        <h3 className="text-sm font-semibold ">
+                            {title}
+                        </h3>
+                    </div>
+                    <div className="p-5 text-sm text-gray-700 dark:text-gray-300 space-y-2">
+                        <div className="text-sm text-gray-600 dark:text-gray-300">{data}</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+
 export function StrengthWeekness({ strength = "", weakness = "", note = "The pros and cons are machine generated.", showNote = false }) {
     return (
         <section className="scroll-mt-24">
@@ -642,6 +664,7 @@ export function StrengthWeekness({ strength = "", weakness = "", note = "The pro
                 {/* Strengths */}
                 <div className="rounded-xl bg-white dark:bg-base-950 p-5 ring-1 ring-emerald-600">
                     <h3 className="text-sm font-semibold tracking-widest text-emerald-600">Strength Factors</h3>
+                    
                     <div className="mt-3">
                         <div className="prose prose-sm max-w-none text-gray-700 dark:prose-invert dark:text-gray-300 prose-ul:list-disc prose-ol:list-decimal prose-li:my-1"
                             {...cleanHTMLContent(strength)}

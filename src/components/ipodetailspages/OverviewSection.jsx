@@ -98,7 +98,7 @@ export default function OverviewSection({ id = "overview", ipoDetailsData }) {
                         {/* Logo */}
                         <div className="flex-shrink-0">
                             {ipoDetailsData?.ipo_image ? (
-                                <div className="w-16 h-16 rounded-lg overflow-hidden border border-base p-1 bg-gray-50 dark:bg-base-900 flex items-center justify-center">
+                                <div className="w-16 h-16 rounded-lg overflow-hidden border border-base p-1 dark:bg-base-900 flex items-center justify-center">
                                     <Image
                                         src={ipoDetailsData?.ipo_image}
                                         alt={ipoDetailsData?.company_name || "Company logo"}

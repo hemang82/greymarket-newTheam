@@ -59,12 +59,12 @@ export const PricingCard = ({ className,
 
   return (
     <React.Fragment >
-      <div className={cn("flex h-full flex-col rounded-2xl border border-base bg-white dark:bg-base-950 p-4 shadow-sm hover:shadow-xl  transition", className)} >
+      <div className={cn("flex h-full flex-col rounded-2xl border border-base bg-white dark:bg-base-950 p-4 shadow-sm hover:shadow-xl transition", className)} >
         {/* Top row: logo + name (left) | buttons (right) */}
         <div className="flex items-center justify-between gap-3">
           {/* Left cluster */}
           <div className="flex items-center gap-3 min-w-0 hover:cursor-pointer" onClick={() => ipoDetailsNavigation(router, ipoListData?.symbol)}>
-            <div className="w-12 h-12 rounded-md bg-base-100 overflow-hidden shrink-0 flex items-center justify-center">
+            <div className="w-12 h-12 rounded-md border border-base p-1 overflow-hidden shrink-0 flex items-center justify-center">
               <Image
                 src={ipoListData?.ipo_image}
                 alt={company}

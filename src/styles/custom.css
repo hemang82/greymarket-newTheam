@@ -8,7 +8,7 @@
 /* body {
     font-family: var(--font-primary);
 } */
- 
+
 .container {
     width: 95% !important
 }
@@ -120,7 +120,40 @@
     border-color: #0438732e !important
 }
 
-li{
-line-height: 23px !important;
-font-size: 14px !important;
+li {
+    line-height: 23px !important;
+    font-size: 14px !important;
+}
+
+.min-height-screen {
+    height: 360px;
+    /* default for desktop */
+}
+
+/* Large tablets (max-width: 1024px) */
+@media (max-width: 1024px) {
+    .min-height-screen {
+        height: 350px;
+    }
+}
+
+/* Tablets (max-width: 768px) */
+@media (max-width: 768px) {
+    .min-height-screen {
+        height: 310px;
+    }
+}
+
+/* Mobile landscape (max-width: 576px) */
+@media (max-width: 576px) {
+    .min-height-screen {
+        height: 310px;
+    }
+}
+
+/* Small mobile (max-width: 420px) */
+@media (max-width: 420px) {
+    .min-height-screen {
+        height: 310px;
+    }
 }

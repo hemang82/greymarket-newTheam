@@ -4,12 +4,14 @@
 import StickyTabs from "@/components/ipodetailspages/StickyTabs";
 // import SectionHeading from "@/components/sections/SectionHeading";
 import { gmpDetails } from "@/data/gmpdata";
-import { ApplicationBreakupTable, FinancialTable, GmpTrendTable, IpoCompanyDetails, IPOReservationTable, KeyPerfomanceTable, LotDistributionTable, StrengthWeekness, SubscriptionDemandTable, SubscriptionDetailsTable } from "./IPOGmp";
+import { ApplicationBreakupTable, DetailsCommonCard, FinancialTable, GmpTrendTable, IpoCompanyDetails, IPOReservationTable, KeyPerfomanceTable, LotDistributionTable, StrengthWeekness, SubscriptionDemandTable, SubscriptionDetailsTable } from "./IPOGmp";
 import OverviewSection from "./OverviewSection";
 import dynamic from "next/dynamic";
+import { useState } from "react";
 // import GroupedBarChart from "./FinancialsChart";
 const GroupedBarChart = dynamic(() => import("./FinancialsChart"), { ssr: false }
 );
+import { BsGraphDown, BsTable } from "react-icons/bs";
 
 // import Accordion from "@/components/Accordion";
 
@@ -28,6 +30,8 @@ const TABS = [
 ];
 
 export function IpoDetailsPages({ ipoDetailsData, ...rest }) {
+    const [fincialGraphShow, setFinancialGraphShow] = useState("")
+
     return (<>
         <StickyTabs items={TABS} />
 
@@ -44,6 +48,7 @@ export function IpoDetailsPages({ ipoDetailsData, ...rest }) {
                 />
 
                 {/* Chart */}
+
                 {/* <div id="chart" className="scroll-mt-20">
                     <div className="bg-white dark:bg-base-950 p-6 rounded-2xl border border-gray-200 dark:border-base-800">
                         <div className="flex items-center justify-between mb-4">
@@ -62,12 +67,7 @@ export function IpoDetailsPages({ ipoDetailsData, ...rest }) {
                     </div>
                 </div> */}
 
-                <div id="chart" className="scroll-mt-20">
-                    <Card title={`Financials overview ${ipoDetailsData?.company_financial_data?.financial_amount_type}`}>
-                        <GroupedBarChart financialData={ipoDetailsData?.company_financial_data?.financial_data} amountType={ipoDetailsData?.company_financial_data?.financial_amount_type} />
-                    </Card>
 
-                </div>
 
                 {/* Gmp */}
                 {
@@ -77,18 +77,24 @@ export function IpoDetailsPages({ ipoDetailsData, ...rest }) {
                         </Card>
                     </div>
                 }
-
                 {
                     ipoDetailsData?.company_financial_data?.financial_data?.length > 0 && <div id="financial_data" className="scroll-mt-20 !mt-0 sm:!mt-[2.5rem]">
-                        <Card title="">
-                            <FinancialTable title="Financials ( In Crores )" rows={ipoDetailsData?.company_financial_data?.financial_data?.length > 0 ? ipoDetailsData?.company_financial_data?.financial_data : []} />
-                        </Card>
+                        <div id="financial_data" className="scroll-mt-20">
+                            <Card title={`Financials overview ${ipoDetailsData?.company_financial_data?.financial_amount_type}`} showModes={true} onGraphClick={() => setFinancialGraphShow("graph")} onTableClick={() => setFinancialGraphShow("table")}>
+
+                                {
+                                    fincialGraphShow == 'table' ?
+                                        <FinancialTable title="Financials ( In Crores )" rows={ipoDetailsData?.company_financial_data?.financial_data?.length > 0 ? ipoDetailsData?.company_financial_data?.financial_data : []} />
+                                        : <GroupedBarChart financialData={ipoDetailsData?.company_financial_data?.financial_data} amountType={ipoDetailsData?.company_financial_data?.financial_amount_type} />
+                                }
+                            </Card>
+                        </div>
                     </div>
                 }
 
                 {
                     ipoDetailsData?.key_performance_indicator?.length > 0 && <div id="financial_data" className="scroll-mt-20 !mt-0 sm:!mt-[2.5rem]">
-                        <Card title="">
+                        <Card title="" >
                             <KeyPerfomanceTable title="Key Performance" rows={ipoDetailsData?.key_performance_indicator?.length > 0 ? ipoDetailsData?.key_performance_indicator : []} />
                         </Card>
                     </div>
@@ -133,27 +139,56 @@ export function IpoDetailsPages({ ipoDetailsData, ...rest }) {
                     <Card title="">
                         <IpoCompanyDetails companyDetails={ipoDetailsData?.company_address} registrarDetail={ipoDetailsData?.registrar_detail} />
                     </Card>
+
+                    <Card title="">
+                        <DetailsCommonCard title={"About Company"} data={ipoDetailsData?.about_the_company} />
+                    </Card>
+
                     {
                         ipoDetailsData?.company_weakness && <Card title="">
                             <StrengthWeekness strength={ipoDetailsData?.company_strenght} weakness={ipoDetailsData?.company_weakness ? ipoDetailsData?.company_weakness : ""} />
                         </Card>
                     }
-                    <Card title="About Company">
-                        {ipoDetailsData?.about_the_company}
-                    </Card>
                 </div>
-
             </div>
         </section>
     </>);
 }
 
-// tiny helper card
-function Card({ title, children }) {
+function Card({ title, children, showModes = false, onGraphClick, onTableClick }) {
     return (
         <div className="bg-white dark:bg-base-950 p-3 sm:p-6 rounded-2xl border border-gray-200 dark:border-base-800 !mt-5 sm:!mt-10">
-            {title && <h3 className="text-lg font-semibold mb-3">{title}</h3>}
-            <div className="text-sm text-gray-600 dark:text-gray-300">{children}</div>
+
+            {title && (
+                <div className="flex items-center justify-between mb-3">
+                    <h3 className="text-lg font-semibold">{title}</h3>
+
+                    {showModes && (
+                        <div className="flex items-center gap-2">
+                            {/* Graph View Button */}
+                            <button
+                                onClick={onGraphClick}
+                                className="p-2 rounded-lg border  bg-[#135c331c] dark:border-base-700 hover:border-[#135c33e0] dark:hover:bg-base-900 transition"
+                            >
+                                <BsGraphDown color="#135c33e0"/>
+                            </button>
+
+                            {/* Table View Button */}
+                            <button
+                                onClick={onTableClick}
+                                className="p-2 rounded-lg border dark:border-base-700 bg-[#135c331c] hover:border-[#135c33e0] dark:hover:bg-base-900 transition"
+                            >
+                                <BsTable color="#135c33e0"/>
+                            </button>
+                        </div>
+                    )}
+                </div>
+            )}
+
+            <div className="text-sm text-gray-600 dark:text-gray-300">
+                {children}
+            </div>
         </div>
     );
 }
+

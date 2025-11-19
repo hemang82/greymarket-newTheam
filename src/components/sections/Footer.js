@@ -6,7 +6,7 @@ import React from "react";
 
 export function Footer({ copyright, logo, links, social, ...rest }) {
   return (
-    <footer className="bg-base-100 dark:bg-base-900 pt-6" {...rest}>
+    <footer className="bg-[#ffffff] dark:bg-base-900 pt-6" {...rest}>
       <div className="container px-4 mx-auto">
         <div
           className={cn(

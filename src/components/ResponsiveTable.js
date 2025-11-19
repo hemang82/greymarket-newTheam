@@ -211,6 +211,7 @@ export default function ResponsiveTable({
 
     return (
         <div className={cn("rounded-2xl bg-white dark:bg-base-950 ring-1 ring-gray-200 dark:ring-base-800 overflow-hidden", className)}>
+
             {/* Header */}
             {title && (
                 <div className="flex items-center justify-between px-4 sm:px-6 py-3 bg-gray-50 dark:bg-base-900/60 border-b border-gray-200 dark:border-base-800">

@@ -10,7 +10,7 @@ export default async function Home({ searchParams }) {
   const resolvedSearchParams = await searchParams;
 
   const page = Number(resolvedSearchParams?.page) || 1;
-  const pageSize = Number(resolvedSearchParams?.pageSize) || 10;
+  const pageSize = Number(resolvedSearchParams?.pageSize) || 20;
 
   const ipos = await getIPOsServer({ page: page, pageSize: pageSize });
 
@@ -22,11 +22,11 @@ export default async function Home({ searchParams }) {
         <title>Unlisted IPO</title>
       </Head>
 
-      <Header
+      {/* <Header
         logo={header.logo}
         links={header.links}
         buttons={header.buttons}
-      />
+      /> */}
 
       <HeroSection
         id="home"
@@ -132,7 +132,7 @@ export default async function Home({ searchParams }) {
 
       <FeatureSection
         id="features"
-        title="Process to Buy Unlisted Shares"
+        title="Process to Buy"
         description="Recommended for those interested in dealing with unlisted shares."
         features={features}
       />
@@ -178,8 +178,6 @@ export default async function Home({ searchParams }) {
         description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis similique"
         buttons={[{ label: "Start for Free", href: "#", color: "dark" }]}
       /> */}
-
-
     </>
   );
 }
