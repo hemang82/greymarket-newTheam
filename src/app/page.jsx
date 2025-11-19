@@ -9,16 +9,22 @@ export default async function Home({ searchParams }) {
 
   const resolvedSearchParams = await searchParams;
 
-  console.log('searchParams', resolvedSearchParams);
-
   const page = Number(resolvedSearchParams?.page) || 1;
   const pageSize = Number(resolvedSearchParams?.pageSize) || 10;
 
   const ipos = await getIPOs({ page: page, pageSize: pageSize });
 
+
+  console.log('iposiposiposipos', ipos?.results?.length > 0
+    ? ipos.results.map((ipo, index) => ({
+      src: ipo.ipo_image,
+      name: ipo.company_name,
+      symbol: ipo.symbol,
+    }))
+    : []);
+
   return (
     <>
-
       <Head>
         <title>Unlisted IPO</title>
       </Head>
@@ -58,7 +64,12 @@ export default async function Home({ searchParams }) {
           className: "w-full h-auto",
         }}
         clientsLabel="Trusted by 100+ Brands"
-        clients={clients}
+        clients={ipos?.results?.length > 0 ? ipos.results.slice(0, 8).map((ipo, index) => ({
+          src: ipo.ipo_image,
+          name: ipo.company_name,
+          symbol: ipo.symbol,
+        }))
+          : []}
       />
 
       {/* <FeatureSection

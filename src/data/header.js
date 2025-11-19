@@ -28,6 +28,14 @@ export const header = {
   ],
   buttons: [
     {
+      key: 'logout',
+      label: "Logout",
+      href: "#",
+      color: "light",
+      size: "small",
+    },
+    {
+      key: 'signin',
       label: "Sign In",
       href: "/auth/login",
       color: "dark",

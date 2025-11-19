@@ -1,18 +1,19 @@
 // components/OverviewSection.jsx
 
-import { formatIndianPrice } from "@/app_config/CommonFunction";
+import { formatDateTime, formatIndianPrice } from "@/app_config/CommonFunction";
+import { DateFormats } from "@/app_config/CommonVariable";
 import { formatGmpValue } from "@/app_config/IPOCalculation";
 
 export default function OverviewSection({ id = "overview", ipoDetailsData }) {
     const metrics = [
-        { label: "Start Date", value: `${ipoDetailsData?.start_date}` },
-        { label: "End Date", value: `${ipoDetailsData?.end_date}` },
-        { label: "Listing Date", value: `${ipoDetailsData?.listing_date}` },
+        { label: "Start Date", value: `${formatDateTime(ipoDetailsData?.start_date , DateFormats?.DATE_DD_MM_YYYY)}` },
+        { label: "End Date", value: `${formatDateTime(ipoDetailsData?.end_date , DateFormats?.DATE_DD_MM_YYYY)}` },
+        { label: "Listing Date", value: `${formatDateTime(ipoDetailsData?.listing_date , DateFormats?.DATE_DD_MM_YYYY)}` },
         { label: "Current Price", value: `${formatIndianPrice(ipoDetailsData?.listed_price)}` },
         { label: "Issue Price", value: `${ipoDetailsData?.price_range}` },
         { label: "GMP", value: `${formatGmpValue(ipoDetailsData)}` },
         { label: "Lot Size", value: `${ipoDetailsData?.bid_lot} Shares` },
-        { label: "Subscription", value: `${ipoDetailsData?.subscription}` },
+        { label: "Subscription", value: `${ipoDetailsData?.subscription} Times` },
         { label: "Face Value", value: `${ipoDetailsData?.face_value}` },
         { label: "Listing at", value: `${ipoDetailsData?.listing_at_group}` },
         { label: "Pre Issue", value: `${formatIndianPrice(ipoDetailsData?.pre_issue_share_holding)}` },

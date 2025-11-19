@@ -1,10 +1,16 @@
 "use client"
 
+import { formatDateTime, formatIndianNumber, formatIndianPrice } from "@/app_config/CommonFunction";
+import { DateFormats } from "@/app_config/CommonVariable";
 import { cn } from "@/lib/utils";
 import { DollarSign, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
+
+export const ipoDetailsNavigation = (router, id) => {
+  router.push(`/ipo-details/${id}`);
+}
 
 export const PricingCard = ({ className,
   // company = "Company Name",
@@ -27,17 +33,13 @@ export const PricingCard = ({ className,
 
   const router = useRouter();
 
-  const ipoDetailsNavigation = (id) => {
-    router.push(`/ipo-details/${id}`);
-  }
-
   return (
     <React.Fragment >
       <div className={cn("flex h-full flex-col rounded-2xl border border-base bg-white dark:bg-base-950 p-4 shadow-sm hover:shadow-xl  transition", className)} >
         {/* Top row: logo + name (left) | buttons (right) */}
         <div className="flex items-center justify-between gap-3">
           {/* Left cluster */}
-          <div className="flex items-center gap-3 min-w-0 hover:cursor-pointer" onClick={() => ipoDetailsNavigation(ipoListData?.symbol)}>
+          <div className="flex items-center gap-3 min-w-0 hover:cursor-pointer" onClick={() => ipoDetailsNavigation(router, ipoListData?.symbol)}>
 
             <div className="w-12 h-12 rounded-md bg-base-100 overflow-hidden shrink-0 flex items-center justify-center">
               <Image
@@ -71,16 +73,16 @@ export const PricingCard = ({ className,
           <div className="flex gap-2">
             {/* icon + text on sm+, icon-only on xs to save space */}
             <button className="h-9 px-3 rounded-full min-w-max border border-1 buyButton">
-              <ShoppingCart className="mr-2 h-4 w-4 hidden sm:inline" />
-              <span className="hidden sm:inline">Buy</span>
+              {/* <ShoppingCart className="mr-2 h-4 w-4 hidden sm:inline" /> */}
+              <span className="">Buy</span>
               {/* Buy */}
-              <ShoppingCart className="h-4 w-4 sm:hidden" aria-hidden />
+              {/* <ShoppingCart className="h-4 w-4 sm:hidden" aria-hidden /> */}
             </button>
             <button className="h-9 px-3 rounded-full min-w-max border border-1 sellButton">
-              <DollarSign className="mr-2 h-4 w-4 hidden sm:inline" />
-              <span className="hidden sm:inline">Sell</span>
+              {/* <DollarSign className="mr-2 h-4 w-4 hidden sm:inline" /> */}
+              <span className="">Sell</span>
               {/* Sell */}
-              <DollarSign className="h-4 w-4 sm:hidden" aria-hidden />
+              {/* <DollarSign className="h-4 w-4 sm:hidden" aria-hidden /> */}
             </button>
           </div>
         </div>
@@ -90,12 +92,12 @@ export const PricingCard = ({ className,
 
         {/* Details */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-8 gap-y-2 text-sm">
-          <Field label="Offer Date" value={ipoListData?.start_date} />
-          <Field label="Listed At" value={ipoListData.listing_date} />
-          <Field label="Allotment Date" value={ipoListData.allotment_date} />
-          <Field label="Offer Price" value={ipoListData.listed_price} />
-          <Field label="Listing Date" value={ipoListData.listingDate} />
-          <Field label="Lot Size" value={ipoListData.bid_lot} />
+          <Field label="Offer Date" value={formatDateTime(ipoListData?.start_date, DateFormats?.DATE_DD_MM_YYYY)} />
+          <Field label="Listed At" value={formatDateTime(ipoListData?.listing_date, DateFormats?.DATE_DD_MM_YYYY)} />
+          <Field label="Allotment Date" value={formatDateTime(ipoListData?.allotment_date, DateFormats?.DATE_DD_MM_YYYY)} />
+          <Field label="Subscription" value={ipoListData.subscription + ' Times'} />
+          <Field label="Lot Size" value={formatIndianNumber(ipoListData.bid_lot)} />
+          <Field label="Price Range" value={ipoListData.price_range} />
         </div>
 
       </div>

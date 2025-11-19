@@ -8,6 +8,7 @@ import { footer, header } from "@/data";
 import { getIPOs } from "@/lib/server/ServerApiCall";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import Constant from "@/app_config/Constant";
+import { Toaster, toast } from "sonner";
 import { Footer } from "@/components/sections";
 
 // fonts
@@ -20,12 +21,16 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-
-
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${display.variable} ${body.variable} flex min-h-screen flex-col font-body text-base-600 dark:text-base-500 bg-base-50 dark:bg-base-950`} >
         <GoogleOAuthProvider clientId={Constant?.GOOGLE_CLIENT_ID || ""} >
+          <Toaster richColors position="top-right"
+            toastOptions={{
+              style: {
+                fontSize: "1rem",
+              }
+            }} />
           <ThemeProvider
             attribute="class"
             defaultTheme="light"

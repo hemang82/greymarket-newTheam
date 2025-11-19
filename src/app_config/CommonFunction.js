@@ -1,6 +1,8 @@
 import moment from "moment";
-import { DateFormats } from "./CommonVariable";
+import { DateFormats, STORAGE_KEYS } from "./CommonVariable";
 import DOMPurify from "isomorphic-dompurify";
+import { toast } from "sonner";
+
 
 export function formatIndianPrice(price) {
     try {
@@ -64,8 +66,6 @@ export function formatToFixed(value, decimals = 2) {
 
     return num.toFixed(decimals);
 }
-
-
 
 /**
  * Format a number to 2 decimals, but show "-" if the value is 0, null, or invalid.
@@ -131,4 +131,74 @@ export function cleanHTMLContent(html = "") {
     });
 
     return { dangerouslySetInnerHTML: { __html: safe } };
+}
+
+export const loginRedirection = (data) => {
+    setLocalStorage(STORAGE_KEYS.LOGIN_KEY, true);
+    // setLocalStorage(STORAGE_KEYS.ACCESS_TOKEN_KEY, data?.token);
+    // setLocalStorage(STORAGE_KEYS.REFRESH_TOKEN_KEY, data?.token);
+    setLocalStorage(STORAGE_KEYS.AUTH_KEY, JSON.stringify(data));
+    // setLocalStorage(STORAGE_KEYS.ROLE_KEY, data?.role);
+}
+
+export const TOAST_SUCCESS = (message) => {
+    return toast.success(message);
+};
+
+export const TOAST_ERROR = (message) => {
+    return toast.error(message);
+};
+
+export const TOAST_INFO = (message) => {
+    return toast.info(message);
+};
+
+export const TOAST_WARNING = (message) => {
+    return toast.warning(message);
+};
+
+export const setLocalStorage = (key, value) => {
+    try {
+        if (typeof window === "undefined") return; // SSR safety
+
+        if (typeof value === "object") {
+            localStorage.setItem(key, JSON.stringify(value));
+        } else {
+            localStorage.setItem(key, String(value));
+        }
+    } catch (error) {
+        console.error("Error setting localStorage:", error);
+    }
+};
+
+export const getLocalStorage = (key) => {
+    try {
+        if (typeof window === "undefined") return null; // SSR safety
+        const data = localStorage.getItem(key);
+        if (!data) return null;
+
+        try {
+            return JSON.parse(data);
+        } catch {
+            return data;
+        }
+    } catch (error) {
+        console.error("Error getting localStorage:", error);
+        return null;
+    }
+};
+
+export const removeLocalStorage = (key) => {
+    try {
+        if (typeof window === "undefined") return null; // SSR safety
+        localStorage.clear();
+    } catch (error) {
+        console.error("Error removing localStorage:", error);
+    }
+};
+
+export default function ClientOnly({ children, fallback = null }) {
+    const [mounted, setMounted] = useState(false);
+    useEffect(() => setMounted(true), []);
+    return mounted ? children : fallback;
 }

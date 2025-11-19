@@ -209,6 +209,7 @@ export function Header({ logo, links, buttons, className, ...rest }) {
                 <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
                 </svg>
+
               </span>
 
               <input
@@ -277,6 +278,7 @@ export function Header({ logo, links, buttons, className, ...rest }) {
           className="p-2 md:hidden"
           onClick={() => setOpen(!open)}
         />
+
       </nav>
     </header>
   );

@@ -52,7 +52,6 @@ export const STORAGE_KEYS = {
     REFRESH_TOKEN_KEY: 'GMI_refresh_token',
     LANGUAGE_KEY: 'GMI_language',
     ROLE_KEY: 'GMI_role',
-    THEME_KEY: 'GMI_theme',
 }
 
 export const AWS_FOLDER = {
