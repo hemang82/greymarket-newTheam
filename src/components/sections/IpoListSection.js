@@ -1,6 +1,5 @@
 
 export function IpoListSection({ title, description, buttons, faqs, pricing, ...rest }) {
-  // console.log("FaqSection -> faqs", buttons);
   return (
     <section className="bg-base-100 dark:bg-base-900 pt-24" {...rest}>
       <div className="container px-2 mx-auto ">

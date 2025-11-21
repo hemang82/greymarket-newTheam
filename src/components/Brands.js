@@ -36,7 +36,7 @@ export const Brands = ({ clients, className, ...rest }) => {
     //   </div>
     //   </div>  
     
-    <div className="marquee-container max-w-screen-xl">
+    <div className="marquee-container ">
       <div className="marquee-track">
         <div className="marquee-group">
           {clients.map((client, index) => (

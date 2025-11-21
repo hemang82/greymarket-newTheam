@@ -5,6 +5,7 @@ import { DateFormats } from "@/app_config/CommonVariable";
 import { formatGmpValue } from "@/app_config/IPOCalculation";
 import Image from "next/image";
 import { Label } from "recharts";
+import Labels from "../cards/Labels";
 
 const formatValue = (...values) => {
     const isValid = (v) => {
@@ -49,14 +50,11 @@ export default function OverviewSection({ id = "overview", ipoDetailsData }) {
                 +ipoDetailsData?.offer_of_sale_value ? `(aggregating up to ${ipoDetailsData?.offer_of_sale_value} Cr)` : null
             )
         },
-
     ];
 
     const breakBeforeBracket = (text = "") => {
         return text.replace(/\s*\(/, "<br/>(");
     };
-
-    console.log('ipoDetailsData', ipoDetailsData);
 
     return (
         <section id={id} className="scroll-mt-24">
@@ -92,6 +90,8 @@ export default function OverviewSection({ id = "overview", ipoDetailsData }) {
                         ))}
                     </div>
                 </div> */}
+
+                <Labels data={ipoDetailsData} live={false} className={''} position={"right"} />
 
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     {/* Left: logo + title + website */}

@@ -34,9 +34,6 @@ export default function CustomPagination({
     className = "",
 }) {
     const { pages, totalPages } = usePageRange({ total, pageSize, current });
-
-    console.log('CustomPagination total', total, 'pageSize', pageSize, 'current', current);
-
     const go = (p) => {
         if (p < 1 || p > totalPages || p === current) return;
         onChange({ page: p, pageSize });

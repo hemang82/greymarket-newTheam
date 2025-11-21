@@ -1,4 +1,47 @@
 
+
+export const metadata = {
+    title: `Privacy Policy | ${process.env.SITE_NAME}`,
+
+    description:
+        `Read the Privacy Policy of ${process.env.SITE_NAME}. Learn how we collect, use, store, and protect your personal information when accessing IPO grey market updates, live GMP data, and upcoming IPO insights.`,
+
+    keywords: [
+        'Privacy Policy',
+        'data protection',
+        'user privacy',
+        'personal data',
+        `${process.env.SITE_NAME} privacy`,
+    ],
+
+    alternates: {
+        canonical: `${process.env.SITE_URL}privacy-policy`,
+    },
+
+    openGraph: {
+        title: `Privacy Policy | ${process.env.SITE_NAME}`,
+        description:
+            `Understand how ${process.env.SITE_NAME} handles user data, privacy practices, cookies, and security when you use our IPO Grey Market and IPO updates platform.`,
+        url: `${process.env.SITE_URL}privacy-policy`,
+        images: [
+            {
+                url: '/og-default.png', // You can also create: /og-privacy.png
+                width: 1200,
+                height: 630,
+                alt: `${process.env.SITE_NAME} – Privacy Policy`,
+            },
+        ],
+    },
+
+    twitter: {
+        card: 'summary_large_image',
+        title: `Privacy Policy | ${process.env.SITE_NAME}`,
+        description:
+            `Read how ${process.env.SITE_NAME} protects your privacy, data usage, and cookie practices.`,
+        images: ['/og-default.png'],
+    },
+};
+
 export default function PrivacyPolicy({
     title = "Privacy Policy",
     lastUpdated = "Jun 4, 2025",
@@ -64,9 +107,9 @@ export default function PrivacyPolicy({
     const sections = content && Array.isArray(content) && content.length ? content : defaultContent;
 
     return (
-        <section className="bg-base-100  dark:bg-base-950 py-20">
+        <section className="bg-base-100 dark:bg-base-950 py-20">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="max-w-3xl mx-auto">
+                <div className="px-20 mx-auto">
                     {/* Header */}
                     <div className="text-center mb-8">
                         <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-[#2d6d4b26] dark:bg-indigo-900 mb-4">
