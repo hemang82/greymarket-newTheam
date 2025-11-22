@@ -24,7 +24,6 @@ export async function getIPODetailsServer(request) {
     try {
         const res = await getIPODetailsApi(request);
         if (res?.meta?.status_code == 200) {
-            console.log(`IPO Details request = ${request} data = `,res?.data);
             return res?.data || {};
         } else {
             return {};

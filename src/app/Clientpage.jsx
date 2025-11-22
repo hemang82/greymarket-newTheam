@@ -6,9 +6,6 @@ import { useRouter } from 'next/navigation';
 export default function Clientpage({ ipos }) {
     const router = useRouter();
     const setIPOs = useIPOStore((s) => s.setIPOs);
-    console.log('====================================');
-    console.log("asjdajksdkdh");
-    console.log('====================================');
     // useEffect(() => {
     //     (async () => {
     //         setIPOs(ipos || {});

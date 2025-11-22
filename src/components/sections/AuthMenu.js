@@ -17,7 +17,6 @@ export default function AuthMenu() {
     const token = getLocalStorage(STORAGE_KEYS?.LOGIN_KEY);
     const user = getLocalStorage(STORAGE_KEYS?.AUTH_KEY); // you can store username/email here
     setIsLogin(!!token);
-    console.log('useruser', user);
     setUsername(user?.user?.name || "User");
   }, []);
 

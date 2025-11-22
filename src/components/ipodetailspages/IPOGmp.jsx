@@ -231,9 +231,6 @@ export function SubscriptionDetailsTable({ title = "", rows = [] }) {
         // strip meta
         return [...rows.map(({ _off, _app, _include, ...r }) => r), totalRow];
     }
-
-    console.log('SubscriptionDetailsTable', rows);
-
     return (
         <ResponsiveTable
             title={title}
@@ -314,9 +311,6 @@ export function SubscriptionDemandTable({ title = "", rows = [] }) {
         // })
         return finalReservation
     }
-
-    // console.log('SubscriptionDetailsTable', rows);
-
     return (
         <ResponsiveTable
             title={title}

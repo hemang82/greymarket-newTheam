@@ -29,7 +29,7 @@ export function PricingSection({ title, description, badge, pricing, ipoData, pa
 
   return (<>
     <section className="bg-base-100 dark:bg-base-900 pt-16 pb-16" {...rest}>
-      <div className="mx-auto max-w-screen-xl px-2 sm:px-3 md:px-4">
+      <div className="mx-auto container px-2 sm:px-3 md:px-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
           {ipoListData?.results?.length > 0 && ipoListData?.results?.map((p, i) => (
             <PricingCard ipoListData={p} key={i} />

@@ -17,8 +17,8 @@ export function HeroSection({
     // min-height-screen
     <section {...rest} className="homebanner ">
       <div className="container px-2 mx-auto ">
-        <div className="flex flex-col justify-center items-center my-5 ">
-          <div className="flex flex-col justify-center items-center gap-4 text-center max-w-3xl mx-auto mt-20 mb-5">
+        <div className="flex flex-col justify-center items-center my-16">
+          <div className="flex flex-col justify-center items-center gap-4 text-center max-w-3xl mx-auto mt-20 mb-12">
             {/* <Badge {...badge} /> */}
             <SectionHeading align="center" title={title} description={description} badge={badge} />
             {/* {buttons.length > 0 && (

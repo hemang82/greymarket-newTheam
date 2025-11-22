@@ -12,6 +12,8 @@ import { useState } from "react";
 const GroupedBarChart = dynamic(() => import("./FinancialsChart"), { ssr: false }
 );
 import { BsGraphDown, BsTable } from "react-icons/bs";
+import { formatGmpValue } from "@/app_config/IPOCalculation";
+import { formatIndianPrice } from "@/app_config/CommonFunction";
 
 // import Accordion from "@/components/Accordion";
 
@@ -72,7 +74,24 @@ export function IpoDetailsPages({ ipoDetailsData, ...rest }) {
                 {/* Gmp */}
                 {
                     gmpDetails?.ipo_gmp?.length > 0 && <div id="gmpDetails" className="scroll-mt-20 !mt-0 sm:!mt-[2.5rem]">
-                        <Card title="">
+                        <Card title="" >
+                            <div className="text-sm text-gray-600 dark:text-gray-300 px-3 pb-3">
+                                The Grey Market Premium (GMP) for{" "}
+                                <span className="text-sm font-semibold text-gray-900">
+                                    {ipoDetailsData?.company_name}
+                                </span>{" "}
+                                is currently around{" "}
+                                <span className="text-sm font-semibold text-gray-900">
+                                    {formatGmpValue(ipoDetailsData)}
+                                </span>
+                                . This indicates an estimated listing price of approximately{" "}
+                                <span className="text-sm font-semibold text-gray-900">
+                                    {formatIndianPrice(+ipoDetailsData?.gmp + +ipoDetailsData?.ipo_min_value)}
+                                </span>{" "}
+                                based on the latest market sentiment.
+                                Please note that GMP values are unofficial and can change frequently as they depend
+                                on demand, market conditions, and investor activity.
+                            </div>
                             <GmpTrendTable title="Gmp Details" rows={gmpDetails?.ipo_gmp?.length > 0 ? gmpDetails?.ipo_gmp : []} />
                         </Card>
                     </div>
@@ -81,10 +100,13 @@ export function IpoDetailsPages({ ipoDetailsData, ...rest }) {
                     ipoDetailsData?.company_financial_data?.financial_data?.length > 0 && <div id="financial_data" className="scroll-mt-20 !mt-0 sm:!mt-[2.5rem]">
                         <div id="financial_data" className="scroll-mt-20">
                             <Card title={`Financials overview ${ipoDetailsData?.company_financial_data?.financial_amount_type}`} showModes={true} onGraphClick={() => setFinancialGraphShow("graph")} onTableClick={() => setFinancialGraphShow("table")}>
-
+                                <div className="text-sm text-gray-600 dark:text-gray-300 px-3 pb-3"> Here is a quick look at the recent financial performance of{" "} <span className="text-sm font-semibold text-gray-900"> {ipoDetailsData?.company_name} </span> . The numbers below ({" "} <span className="text-sm font-semibold text-gray-900">{ipoDetailsData?.company_financial_data?.financial_amount_type}</span> ) show how the company’s revenue and profits have changed over the last few
+                                    years. This helps investors understand how strongly the business is growing
+                                    and how stable its financial health is before applying for the IPO.
+                                </div>
                                 {
                                     fincialGraphShow == 'table' ?
-                                        <FinancialTable title="Financials ( In Crores )" rows={ipoDetailsData?.company_financial_data?.financial_data?.length > 0 ? ipoDetailsData?.company_financial_data?.financial_data : []} />
+                                        <FinancialTable title={`Financials (${ipoDetailsData?.company_financial_data?.financial_amount_type})`} rows={ipoDetailsData?.company_financial_data?.financial_data?.length > 0 ? ipoDetailsData?.company_financial_data?.financial_data : []} />
                                         : <GroupedBarChart financialData={ipoDetailsData?.company_financial_data?.financial_data} amountType={ipoDetailsData?.company_financial_data?.financial_amount_type} />
                                 }
                             </Card>
@@ -104,6 +126,17 @@ export function IpoDetailsPages({ ipoDetailsData, ...rest }) {
                 <div id="subscriptionDetails" className="scroll-mt-20 !mt-0 sm:!mt-[2.5rem]">
                     {
                         ipoDetailsData?.ipo_subscription_detail?.length > 0 && <Card title="">
+                            <div className="text-sm text-gray-600 dark:text-gray-300 px-3 pb-3">
+                                The below shows how many shares were subscribed by each investor
+                                category in the{" "}
+                                <span className="text-sm font-semibold text-gray-900">
+                                    {ipoDetailsData?.company_name}
+                                </span>{" "}
+                                IPO. These numbers help you understand where the demand is coming from -
+                                whether it’s retail investors, QIBs, or NIBs. Higher subscription usually
+                                indicates strong interest and confidence from the market.
+                            </div>
+
                             <SubscriptionDetailsTable title="Subscription Details (No. of Shares)" rows={ipoDetailsData?.ipo_subscription_detail?.length > 0 ? ipoDetailsData?.ipo_subscription_detail : []} />
                         </Card>
                     }
@@ -124,6 +157,17 @@ export function IpoDetailsPages({ ipoDetailsData, ...rest }) {
                     {
                         ipoDetailsData?.ipo_reservation?.length > 0 &&
                         <Card title="">
+                            <div className="text-sm text-gray-600 dark:text-gray-300 px-3 pb-3">
+                                The IPO reservation for{" "}
+                                <span className="text-sm font-semibold text-gray-900">
+                                    {ipoDetailsData?.company_name}
+                                </span>{" "}
+                                shows how the total issue is divided among different investor categories.
+                                This includes allocations for Retail Investors, Qualified Institutional
+                                Buyers (QIBs), and Non-Institutional Investors (NIIs). Understanding the
+                                reservation structure helps investors know how much of the issue is set
+                                aside for their category before applying.
+                            </div>
                             <IPOReservationTable title="IPO Reservation" rows={ipoDetailsData?.ipo_reservation?.length > 0 ? ipoDetailsData?.ipo_reservation : []} />
                         </Card>
                     }
@@ -137,6 +181,16 @@ export function IpoDetailsPages({ ipoDetailsData, ...rest }) {
                 {/* comapnyDetails */}
                 <div id="comapnyDetails" className="scroll-mt-20 !mb-20  !mt-0 sm:!mt-[2.5rem]">
                     <Card title="">
+                        <div className="text-sm text-gray-600 dark:text-gray-300 px-3 pb-4">
+                            Below you can find the official contact details of{" "}
+                            <span className="text-sm font-semibold text-gray-900">
+                                {ipoDetailsData?.company_name}
+                            </span>{" "}
+                            along with the registrar handling the IPO process. This information helps
+                            investors reach out for queries related to the company or for checking the
+                            allotment status and application updates once the IPO process begins.
+                        </div>
+
                         <IpoCompanyDetails companyDetails={ipoDetailsData?.company_address} registrarDetail={ipoDetailsData?.registrar_detail} />
                     </Card>
 
@@ -170,7 +224,7 @@ function Card({ title, children, showModes = false, onGraphClick, onTableClick }
                                 onClick={onGraphClick}
                                 className="p-2 rounded-lg border  bg-[#135c331c] dark:border-base-700 hover:border-[#135c33e0] dark:hover:bg-base-900 transition"
                             >
-                                <BsGraphDown color="#135c33e0"/>
+                                <BsGraphDown color="#135c33e0" />
                             </button>
 
                             {/* Table View Button */}
@@ -178,17 +232,15 @@ function Card({ title, children, showModes = false, onGraphClick, onTableClick }
                                 onClick={onTableClick}
                                 className="p-2 rounded-lg border dark:border-base-700 bg-[#135c331c] hover:border-[#135c33e0] dark:hover:bg-base-900 transition"
                             >
-                                <BsTable color="#135c33e0"/>
+                                <BsTable color="#135c33e0" />
                             </button>
                         </div>
                     )}
                 </div>
             )}
-
             <div className="text-sm text-gray-600 dark:text-gray-300">
                 {children}
             </div>
         </div>
     );
 }
-

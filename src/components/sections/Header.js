@@ -74,7 +74,6 @@ export function Header({ logo, links, buttons, className, ...rest }) {
       setLoading(true);
       try {
         const res = await getSearchIPO({ search: query })//fetch(`/api/search?q=${encodeURIComponent(query)}`);
-        console.log('resres', res);
         if (res?.meta?.status_code == 200) {
           setResults(data || []);
         } else {
@@ -277,7 +276,7 @@ export function Header({ logo, links, buttons, className, ...rest }) {
             onClick={() => setOpen(!open)}
           />
         }
-        
+
       </nav>
     </header>
   );

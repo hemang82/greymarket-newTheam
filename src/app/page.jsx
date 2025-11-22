@@ -5,6 +5,50 @@ import { header, faqs, testimonials, features, pricing, clients, footer } from "
 import { getIPOsServer, getNewsListServer } from "@/lib/server/ServerApiCall";
 import CustomPagination from "@/components/CustomPagination";
 
+export const metadata = {
+  title: `IPO Grey Market Premium (GMP) Today – Live & Upcoming IPO GMP Updates | ${process.env.SITE_NAME}`,
+
+  description: "Track real-time IPO Grey Market Premium (GMP) for live and upcoming IPOs. Stay updated with the latest unofficial premium, estimated listing gains, price trends, and market sentiment for ongoing and future IPOs.",
+
+  keywords: [
+    'IPO Grey Market',
+    'GMP Today',
+    'Upcoming IPO GMP',
+    'Live IPO GMP',
+    'IPO Grey Market Premium',
+    'unofficial GMP',
+    'IPO listing gain estimate',
+    'latest IPO GMP',
+    'new IPO GMP',
+    process.env.SITE_NAME || 'GreymarketIPO',
+  ],
+
+  alternates: {
+    canonical: `${process.env.SITE_URL}`,
+  },
+
+  openGraph: {
+    title: `IPO Grey Market Premium (GMP) Today – Live & Upcoming IPO GMP | ${process.env.SITE_NAME}`,
+    description:
+      "Get accurate IPO Grey Market Premium (GMP) for live and upcoming IPOs. Check market trends, demand sentiment, and expected listing premiums.",
+    url: `${process.env.SITE_URL}`,
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: `${process.env.SITE_NAME} – Live & Upcoming IPO GMP`,
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: `Live & Upcoming IPO GMP – IPO Grey Market Premium Today | ${process.env.SITE_NAME}`,
+    description: "Check real-time IPO Grey Market Premium (GMP) for ongoing and upcoming IPOs. Reliable and fast GMP updates.",
+    images: ['/og-image.png'],
+  },
+};
+
 export default async function Home({ searchParams }) {
 
   const resolvedSearchParams = await searchParams;
@@ -18,10 +62,7 @@ export default async function Home({ searchParams }) {
 
   return (
     <>
-      <Head>
-        <title>Unlisted IPO</title>
-      </Head>
-
+      
       {/* <Header
         logo={header.logo}
         links={header.links}

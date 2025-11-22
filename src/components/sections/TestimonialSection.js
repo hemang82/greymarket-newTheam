@@ -20,8 +20,6 @@ export function TestimonialSection({ title, description, badge, testimonials, bu
 
   useEffect(() => { (async () => { setNews(newsList || {}) })() }, [newsList, setNews]);
 
-  console.log('newslistZustend', newslistZustend);
-
   const handleNavigation = (data) => {
     router.push('/news')
   }
