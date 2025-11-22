@@ -10,7 +10,7 @@
 } */
 
 .container {
-    width: 97% !important
+    width: 95% !important
 }
 
 .bg-base-100 {
@@ -82,8 +82,8 @@
     transform: translateY(-2px);
 }
 
-.profile_hover:hover .profile_hover_list::before{
-     content: "";
+.profile_hover:hover .profile_hover_list::before {
+    content: "";
     z-index: -1;
     width: 100%;
     height: 26px;
@@ -95,3 +95,65 @@
 /* .border-neutral-200 {
     border-color: #135c33 !important;
 } */
+
+/* smoother momentum scrolling on iOS */
+.scroll-x-smooth {
+    -webkit-overflow-scrolling: touch;
+}
+
+/* optional thin scrollbar styling (WebKit) */
+.scrollbar-thin::-webkit-scrollbar {
+    height: 3px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.12);
+    border-radius: 999px;
+}
+
+.gmp_color {
+    color: #16a34a !important;
+    font-weight: 700 !important;
+}
+
+.border-base {
+    border-color: #0438732e !important
+}
+
+li {
+    line-height: 23px !important;
+    font-size: 14px !important;
+}
+
+.min-height-screen {
+    height: 360px;
+    /* default for desktop */
+}
+
+/* Large tablets (max-width: 1024px) */
+@media (max-width: 1024px) {
+    .min-height-screen {
+        height: 350px;
+    }
+}
+
+/* Tablets (max-width: 768px) */
+@media (max-width: 768px) {
+    .min-height-screen {
+        height: 310px;
+    }
+}
+
+/* Mobile landscape (max-width: 576px) */
+@media (max-width: 576px) {
+    .min-height-screen {
+        height: 310px;
+    }
+}
+
+/* Small mobile (max-width: 420px) */
+@media (max-width: 420px) {
+    .min-height-screen {
+        height: 310px;
+    }
+}

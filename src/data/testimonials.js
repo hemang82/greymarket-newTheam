@@ -1,58 +1,38 @@
 export const testimonials = [
   {
-    name: "John Doe",
-    title: "CEO of  a Company",
-    avatar: "https://i.pravatar.cc/150?img=1",
-    testimonial:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur expedita, ipsam nobis blanditiis provident ducimus aut",
+    image: "https://i.pravatar.cc/150?img=1",
+    title: "Evening Market Recap: Sensex Up ~388 Points, Mid-Caps Shine",
+    excerpt: "The BSE Sensex surged approximately 388 points and the Nifty 50 reclaimed the 26,000 mark as mid-caps and financials led the rally...",
+    author: "Team GAINIPO",
+    date: "2025-11-17",
+    href: "/news/1",
+    tag: "Market",
   },
   {
-    name: "Jane Doe",
-    title: "CTO of a Company",
-    avatar: "https://i.pravatar.cc/150?img=2",
-    testimonial:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur expedita, ipsam nobis blanditiis provident ducimus aut, velit facere fugit praesentium, necessitatibus voluptatem consequuntur amet ratione? Sint distinctio quod non quae?",
+    image: "https://i.pravatar.cc/150?img=1",
+    title: "Evening Market Recap: Sensex Up ~388 Points, Mid-Caps Shine",
+    excerpt: "The BSE Sensex surged approximately 388 points and the Nifty 50 reclaimed the 26,000 mark as mid-caps and financials led the rally...",
+    author: "Team GAINIPO",
+    date: "2025-11-17",
+    href: "/news/1",
+    tag: "Market",
   },
   {
-    name: "John Smith",
-    title: "COO of a Company",
-    avatar: "https://i.pravatar.cc/150?img=3",
-    testimonial:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur expedita, ipsam nobis blanditiis provident ducimus aut, velit facere fugit praesentium, necessitatibus voluptatem consequuntur amet ratione? Sint distinctio quod non quae?",
+    image: "https://i.pravatar.cc/150?img=1",
+    title: "Evening Market Recap: Sensex Up ~388 Points, Mid-Caps Shine",
+    excerpt: "The BSE Sensex surged approximately 388 points and the Nifty 50 reclaimed the 26,000 mark as mid-caps and financials led the rally...",
+    author: "Team GAINIPO",
+    date: "2025-11-17",
+    href: "/news/1",
+    tag: "Market",
   },
   {
-    name: "Jane Smith",
-    title: "CFO of a Company",
-    avatar: "https://i.pravatar.cc/150?img=4",
-    testimonial:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur expedita, ipsam nobis blanditiis provident ducimus aut, velit facere fugit praesentium",
-  },
-  {
-    name: "John Doe",
-    title: "CEO of  a Company",
-    avatar: "https://i.pravatar.cc/150?img=5",
-    testimonial:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. provident ducimus aut, velit facere fugit praesentium, necessitatibus voluptatem consequuntur amet ratione? Sint distinctio quod non quae?",
-  },
-  {
-    name: "Jane Doe",
-    title: "CTO of a Company",
-    avatar: "https://i.pravatar.cc/150?img=6",
-    testimonial:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur expedita, ipsam nobis blanditiis provident ducimus aut, velit facere fugit praesent necessitatibus",
-  },
-  {
-    name: "John Smith",
-    title: "COO of a Company",
-    avatar: "https://i.pravatar.cc/150?img=7",
-    testimonial:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur expedita, ipsam nobis blanditiis provident ducimus aut, velit facere fugit praesentium, necessitatibus voluptatem consequuntur amet ratione? Sint distinctio quod non quae?",
-  },
-  {
-    name: "Jane Smith",
-    title: "CFO of a Company",
-    avatar: "https://i.pravatar.cc/150?img=8",
-    testimonial:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur expedita, ipsam nobis blanditiis provident ducimus aut, velit facere fugit praesentium",
-  },
+    image: "https://i.pravatar.cc/150?img=1",
+    title: "Evening Market Recap: Sensex Up ~388 Points, Mid-Caps Shine",
+    excerpt: "The BSE Sensex surged approximately 388 points and the Nifty 50 reclaimed the 26,000 mark as mid-caps and financials led the rally...",
+    author: "Team GAINIPO",
+    date: "2025-11-17",
+    href: "/news/1",
+    tag: "Market",
+  }
 ];

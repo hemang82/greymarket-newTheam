@@ -9,6 +9,7 @@ import { ThemeSwitch } from "../ThemeSwitch";
 import { getSearchIPO } from "@/api";
 
 export function Header({ logo, links, buttons, className, ...rest }) {
+
   const pathname = usePathname();
   const router = useRouter();
 
@@ -109,7 +110,6 @@ export function Header({ logo, links, buttons, className, ...rest }) {
   }
 
   return (
-
     // <header className="fixed w-full bg-base-50/50 dark:bg-base-950/50 backdrop-blur-xl z-10">
     // <header className="fixed w-full bg-[rgba(255,255,255,0.5)] dark:bg-[rgba(17,17,17,0.5)] backdrop-blur-xl z-10">
     //   <nav className={cn("relative h-14 container px-0 mx-auto border-b border-base flex flex-wrap justify-start items-center gap-4 lg:gap-8", className)}
@@ -157,11 +157,11 @@ export function Header({ logo, links, buttons, className, ...rest }) {
     //     />
     //   </nav>
     // </header>
-
-    <header className="fixed w-full bg-[rgba(255,255,255,0.5)] dark:bg-[rgba(17,17,17,0.5)] backdrop-blur-xl z-10">
+    // #edf1f645
+    <header className="fixed w-full bg-[#ffffff] border-b dark:bg-[rgba(17,17,17,0.5)] backdrop-blur-xl z-[31]">
       <nav
         className={cn(
-          "relative h-14 container px-0 mx-auto border-b border-base flex flex-wrap justify-start items-center gap-4 lg:gap-8",
+          "relative h-16 container px-0 mx-auto  flex flex-wrap justify-start items-center gap-4 lg:gap-8",
           className
         )}
         {...rest}
@@ -199,7 +199,6 @@ export function Header({ logo, links, buttons, className, ...rest }) {
 
         {/* -------- RIGHT SIDE: search + existing controls (ThemeSwitch + Buttons) -------- */}
         <div className="flex gap-2 ml-auto items-center">
-
           {/* --- Search (visible md+) : placed on the right inside existing area --- */}
           <div className="relative hidden md:block">
             <form onSubmit={handleSubmit} role="search" className="relative">
@@ -211,7 +210,6 @@ export function Header({ logo, links, buttons, className, ...rest }) {
                 </svg>
 
               </span>
-
               <input
                 ref={inputRef}
                 value={query}
@@ -271,14 +269,15 @@ export function Header({ logo, links, buttons, className, ...rest }) {
             <Button key={index} {...button} />
           ))}
         </div>
-
-        <Button
-          icon={open ? "tabler:x" : "tabler:menu-2"}
-          color="transparent"
-          className="p-2 md:hidden"
-          onClick={() => setOpen(!open)}
-        />
-
+        {
+          pathname == "/" && <Button
+            icon={open ? "tabler:x" : "tabler:menu-2"}
+            color="transparent"
+            className="p-2 md:hidden"
+            onClick={() => setOpen(!open)}
+          />
+        }
+        
       </nav>
     </header>
   );

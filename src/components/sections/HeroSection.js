@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { Brands } from "../Brands";
+import { SectionHeading } from "../SectionHeading";
 
 export function HeroSection({
   badge,
@@ -13,15 +14,13 @@ export function HeroSection({
   ...rest
 }) {
   return (
-    <section {...rest} className="homebanner border-b">
-      <div className="container px-2 mx-auto">
-        <div className="flex flex-col justify-center items-center mt-10 mb-5">
-          <div className="flex flex-col justify-center items-center gap-4 text-center max-w-3xl mx-auto mt-12 pb-12">
+    // min-height-screen
+    <section {...rest} className="homebanner ">
+      <div className="container px-2 mx-auto ">
+        <div className="flex flex-col justify-center items-center my-5 ">
+          <div className="flex flex-col justify-center items-center gap-4 text-center max-w-3xl mx-auto mt-20 mb-5">
             {/* <Badge {...badge} /> */}
-            <h1 className="text-5xl font-display font-semibold ">
-              {title}
-            </h1>
-            <p className="text-xl">{description}</p>
+            <SectionHeading align="center" title={title} description={description} badge={badge} />
             {/* {buttons.length > 0 && (
               <div className="flex justify-center items-center gap-4 mt-8">
                 {buttons.map((button, index) => (

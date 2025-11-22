@@ -25,7 +25,7 @@ import { FeatureCard } from "../cards/FeatureCard";
 
 export function FeatureSection({ title, description, badge, features = [], ...rest }) {
   return (
-    <section className="bg-base-100 dark:bg-base-900 py-10 border-b" {...rest}>
+    <section className="bg-[#ffffff] dark:bg-base-900 py-16" {...rest}>
       <div className="container px-4 mx-auto">
         <SectionHeading align="center" title={title} description={description} badge={badge} />
 

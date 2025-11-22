@@ -75,11 +75,11 @@ export default function page() {
 
     return (
         <>
-            <main className="min-h-screen w-full bg-neutral-50 dark:bg-neutral-950 flex items-center justify-center px-4 py-10">
+            <main className="min-h-[calc(100vh-165px)] w-full bg-neutral-50 dark:bg-neutral-950 flex items-center justify-center px-4 py-10">
+
                 <div className="w-full max-w-5xl">
                     {/* card */}
                     <div className="grid grid-cols-1 md:grid-cols-2 rounded-2xl overflow-hidden bg-white/80 dark:bg-neutral-900/80 shadow-[0_10px_40px_rgba(0,0,0,.08)] ring-1 ring-black/5 backdrop-blur-md">
-
                         {/* brand / left */}
                         <section className="relative p-10 sm:p-12 text-white">
                             {/* dotted grid */}
@@ -87,20 +87,13 @@ export default function page() {
                                 aria-hidden="true"
                                 className="absolute inset-0 opacity-20"
                                 style={{
-                                    backgroundImage:
-                                        "radial-gradient(circle at 1px 1px, rgba(255,255,255,.6) 1px, transparent 0)",
+                                    backgroundImage: "radial-gradient(circle at 1px 1px, rgba(255,255,255,.6) 1px, transparent 0)",
                                     backgroundSize: "22px 22px",
                                 }}
                             />
+
                             {/* gradient overlay */}
-                            <div
-                                aria-hidden="true"
-                                className="absolute inset-0"
-                                style={{
-                                    background:
-                                        "linear-gradient(135deg, #0f4f33 0%, #115b3a 35%, #0f6b41 100%)",
-                                }}
-                            />
+                            <div aria-hidden="true" className="absolute inset-0" style={{ background: "linear-gradient(135deg, #0f4f33 0%, #115b3a 35%, #0f6b41 100%)" }} />
 
                             <div className="relative flex h-full flex-col items-center justify-center text-center gap-5">
                                 <div className="space-y-3">
@@ -165,10 +158,10 @@ export default function page() {
                                             height={18}
                                             className="shrink-0"
                                         />
-                                        Continue with Google */}
+                                    Continue with Google */}
 
                                     {/* </button> */}
-                                    <div className='mt-8'>
+                                    <div className='mt-8 goole_login'>
                                         <GoogleLogin
                                             onSuccess={handleGoogleLogin}
                                             // onError={handleGoogleError}

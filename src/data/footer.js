@@ -8,11 +8,11 @@ export const footer = {
   links: [
     {
       label: "Privacy Policy",
-      href: "#",
+      href: "/PrivacyPolicy",
     },
     {
       label: "Terms of Service",
-      href: "#",
+      href: "/TermsConditions",
     },
   ],
   social: [

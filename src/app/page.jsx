@@ -2,7 +2,7 @@ import Head from "next/head";
 import { FeatureSection } from "@/components/sections/FeatureSection";
 import { Header, HeroSection, TestimonialSection, FaqSection, Footer, PricingSection, LargeFeatureSection, CtaSection } from "@/components/sections";
 import { header, faqs, testimonials, features, pricing, clients, footer } from "@/data";
-import { getIPOs } from "@/lib/server/ServerApiCall";
+import { getIPOsServer, getNewsListServer } from "@/lib/server/ServerApiCall";
 import CustomPagination from "@/components/CustomPagination";
 
 export default async function Home({ searchParams }) {
@@ -10,18 +10,11 @@ export default async function Home({ searchParams }) {
   const resolvedSearchParams = await searchParams;
 
   const page = Number(resolvedSearchParams?.page) || 1;
-  const pageSize = Number(resolvedSearchParams?.pageSize) || 10;
+  const pageSize = Number(resolvedSearchParams?.pageSize) || 20;
 
-  const ipos = await getIPOs({ page: page, pageSize: pageSize });
+  const ipos = await getIPOsServer({ page: page, pageSize: pageSize });
 
-
-  console.log('iposiposiposipos', ipos?.results?.length > 0
-    ? ipos.results.map((ipo, index) => ({
-      src: ipo.ipo_image,
-      name: ipo.company_name,
-      symbol: ipo.symbol,
-    }))
-    : []);
+  const newsList = await getNewsListServer({ page: 1, pageSize: 4 })
 
   return (
     <>
@@ -29,11 +22,11 @@ export default async function Home({ searchParams }) {
         <title>Unlisted IPO</title>
       </Head>
 
-      <Header
+      {/* <Header
         logo={header.logo}
         links={header.links}
         buttons={header.buttons}
-      />
+      /> */}
 
       <HeroSection
         id="home"
@@ -79,6 +72,7 @@ export default async function Home({ searchParams }) {
         features={[]}
       /> */}
       {/* <div className="container"> */}
+
       <PricingSection
         id="pricing"
         title="Pricing for Everyone"
@@ -95,7 +89,6 @@ export default async function Home({ searchParams }) {
       />
 
       {/* </div> */}
-
       {/* <IpoListSection
         id="faqs"
         title="Frequently Asked Questions"
@@ -139,14 +132,14 @@ export default async function Home({ searchParams }) {
 
       <FeatureSection
         id="features"
-        title="Process to Buy Unlisted Shares"
+        title="Process to Buy"
         description="Recommended for those interested in dealing with unlisted shares."
         features={features}
       />
 
       <TestimonialSection
         id="testimonials"
-        title="Unlisted Shares News"
+        title="IPO News & Market Updates"
         description="Discover the latest updates and analysis from India’s unlisted share market, covering company news, pre-IPO performance, and exclusive investment insights."
         badge={{
           leading: true,
@@ -155,11 +148,13 @@ export default async function Home({ searchParams }) {
         }}
         testimonials={testimonials}
         button={{
-          icon: "tabler:brand-x",
-          label: "Share Your Feedback on",
-          href: "#",
+          // icon: "tabler:brand-x",
+          label: "Read All",
+          href: "/news",
           color: "white",
         }}
+        newsList={newsList}
+        paginationShow={false}
       />
 
       <FaqSection
@@ -183,9 +178,6 @@ export default async function Home({ searchParams }) {
         description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis similique"
         buttons={[{ label: "Start for Free", href: "#", color: "dark" }]}
       /> */}
-
-
-
     </>
   );
 }
