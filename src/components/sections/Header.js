@@ -7,11 +7,23 @@ import { Button } from "../base/Button";
 import Link from "next/link";
 import { ThemeSwitch } from "../ThemeSwitch";
 import { getSearchIPO } from "@/api";
+import { STORAGE_KEYS } from "@/app_config/CommonVariable";
+import { getLocalStorage, removeLocalStorage } from "@/app_config/CommonFunction";
+import AuthMenu from "./AuthMenu";
+import { ipoDetailsNavigation } from "../cards/PricingCard";
+
+export default function ClientOnly({ children, fallback = null }) {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  return mounted ? children : fallback;
+}
 
 export function Header({ logo, links, buttons, className, ...rest }) {
-
   const pathname = usePathname();
   const router = useRouter();
+
+  const is_login = getLocalStorage(STORAGE_KEYS.LOGIN_KEY);
+  const localUserData = getLocalStorage(STORAGE_KEYS.AUTH_KEY);
 
   const [open, setOpen] = useState(false);
 
@@ -74,8 +86,9 @@ export function Header({ logo, links, buttons, className, ...rest }) {
       setLoading(true);
       try {
         const res = await getSearchIPO({ search: query })//fetch(`/api/search?q=${encodeURIComponent(query)}`);
+        console.log('resres', res);
         if (res?.meta?.status_code == 200) {
-          setResults(data || []);
+          setResults(res?.data?.results || []);
         } else {
           setResults([]);
         }
@@ -92,13 +105,13 @@ export function Header({ logo, links, buttons, className, ...rest }) {
   function handleSelect(item) {
     setQuery("");
     setShowDropdown(false);
-    router.push(`/company/${item.slug}`);
+    ipoDetailsNavigation(router, item.symbol);
   }
 
   function handleSubmit(e) {
     e?.preventDefault();
     if (!query.trim()) return;
-    router.push(`/search?q=${encodeURIComponent(query.trim())}`);
+    // router.push(`/search?q=${encodeURIComponent(query.trim())}`);
     setShowDropdown(false);
     setMobileSearchOpen(false);
   }
@@ -109,6 +122,7 @@ export function Header({ logo, links, buttons, className, ...rest }) {
   }
 
   return (
+
     // <header className="fixed w-full bg-base-50/50 dark:bg-base-950/50 backdrop-blur-xl z-10">
     // <header className="fixed w-full bg-[rgba(255,255,255,0.5)] dark:bg-[rgba(17,17,17,0.5)] backdrop-blur-xl z-10">
     //   <nav className={cn("relative h-14 container px-0 mx-auto border-b border-base flex flex-wrap justify-start items-center gap-4 lg:gap-8", className)}
@@ -142,12 +156,12 @@ export function Header({ logo, links, buttons, className, ...rest }) {
     //         </ul>
     //       }
     //     </div>
-    //     <div className="flex gap-2 ml-auto">
-    //       <ThemeSwitch />
-    //       {buttons.map((button, index) => (
-    //         <Button key={index} {...button} />
-    //       ))}
-    //     </div>
+    // <div className="flex gap-2 ml-auto">
+    //   <ThemeSwitch />
+    //   {buttons.map((button, index) => (
+    //     <Button key={index} {...button} />
+    //   ))}
+    // </div>
     //     <Button
     //       icon={open ? "tabler:x" : "tabler:menu-2"}
     //       color="transparent"
@@ -156,11 +170,11 @@ export function Header({ logo, links, buttons, className, ...rest }) {
     //     />
     //   </nav>
     // </header>
-    // #edf1f645
-    <header className="fixed w-full bg-[#ffffff] border-b dark:bg-[rgba(17,17,17,0.5)] backdrop-blur-xl z-[31]">
+
+    <header className="fixed w-full bg-[rgba(255,255,255,0.5)] dark:bg-[rgba(17,17,17,0.5)] backdrop-blur-xl z-[31]">
       <nav
         className={cn(
-          "relative h-16 container px-0 mx-auto  flex flex-wrap justify-start items-center gap-4 lg:gap-8",
+          "relative h-14 container px-0 mx-auto border-b border-base flex flex-wrap justify-start items-center gap-4 lg:gap-8",
           className
         )}
         {...rest}
@@ -198,17 +212,17 @@ export function Header({ logo, links, buttons, className, ...rest }) {
 
         {/* -------- RIGHT SIDE: search + existing controls (ThemeSwitch + Buttons) -------- */}
         <div className="flex gap-2 ml-auto items-center">
+
           {/* --- Search (visible md+) : placed on the right inside existing area --- */}
-          <div className="relative hidden md:block">
+          <div className="relative hidden md:block me-4">
             <form onSubmit={handleSubmit} role="search" className="relative">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400">
-
                 {/* magnifier icon */}
                 <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
                 </svg>
-
               </span>
+
               <input
                 ref={inputRef}
                 value={query}
@@ -240,9 +254,9 @@ export function Header({ logo, links, buttons, className, ...rest }) {
                       <li
                         key={i}
                         onClick={() => handleSelect(r)}
-                        className="px-4 py-3 text-sm cursor-pointer hover:bg-emerald-100 dark:hover:bg-neutral-800"
+                        className="px-2 py-2 text-sm cursor-pointer hover:bg-emerald-100 dark:hover:bg-neutral-800"
                       >
-                        {r.name}
+                        {r.company_name}
                       </li>
                     ))
                   ) : (
@@ -251,7 +265,7 @@ export function Header({ logo, links, buttons, className, ...rest }) {
 
                   {query && (
                     <li
-                      onClick={() => router.push(`/search?q=${encodeURIComponent(query)}`)}
+                      // onClick={() => router.push(`/search?q=${encodeURIComponent(query)}`)}
                       className="px-4 py-3 text-sm text-emerald-700 hover:bg-emerald-50 cursor-pointer border-t"
                     >
                       Search everywhere: {query}
@@ -264,20 +278,37 @@ export function Header({ logo, links, buttons, className, ...rest }) {
 
           {/* Keep your existing ThemeSwitch and buttons exactly as before */}
           {/* <ThemeSwitch /> */}
-          {buttons.map((button, index) => (
-            <Button key={index} {...button} />
-          ))}
-        </div>
-        {
-          pathname == "/" && <Button
-            icon={open ? "tabler:x" : "tabler:menu-2"}
-            color="transparent"
-            className="p-2 md:hidden"
-            onClick={() => setOpen(!open)}
-          />
-        }
 
+          <div className="flex gap-2 ml-auto">
+            {/* <ThemeSwitch /> */}
+            {/* {buttons.map((button, index) => (
+              <Button key={index} {...button} />
+            ))} */}
+            {/* <ClientOnly
+              fallback={
+                <Button
+                  key="signin"
+                  label="Sign In"
+                  href="/auth/login"
+                  color="dark"
+                  size="small"
+                />
+              }
+            > */}
+            <AuthMenu />
+            {/* </ClientOnly> */}
+          </div>
+
+        </div>
+
+        <Button
+          icon={open ? "tabler:x" : "tabler:menu-2"}
+          color="transparent"
+          className="p-2 md:hidden"
+          onClick={() => setOpen(!open)}
+        />
       </nav>
+
     </header>
   );
 }
