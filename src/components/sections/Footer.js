@@ -1,10 +1,16 @@
+
+"use client";
+
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import { SocialLinks } from "../SocialLinks";
 import { cn } from "@/lib/utils";
 import React from "react";
+import { safePrefetch } from "./Header";
+import { useRouter } from "next/navigation";
 
 export function Footer({ copyright, logo, links, social, ...rest }) {
+  const router = useRouter();
   return (
     <footer className="bg-[#ffffff] dark:bg-base-900 pt-6" {...rest}>
       <div className="container px-4 mx-auto">
@@ -21,7 +27,7 @@ export function Footer({ copyright, logo, links, social, ...rest }) {
           <div className="flex flex-row gap-2 text-sm">
             {links.map((link, index) => (
               <React.Fragment key={index}>
-                <Link href={link.href} className="hover:underline">
+                <Link href={link.href} className="hover:underline" onMouseEnter={() => safePrefetch(router, link.href)} onFocus={() => safePrefetch(router, link.href)}>
                   {link.label}
                 </Link>
                 {index < links.length - 1 && <span>|</span>}

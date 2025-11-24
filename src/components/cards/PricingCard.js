@@ -9,9 +9,15 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
 import Labels from "./Labels";
+import { safePrefetch } from "../sections/Header";
 
 export const ipoDetailsNavigation = (router, id) => {
   router.push(`/ipo-details/${id}`);
+}
+
+export const ipoDetailsNavigationPrefetch = (router, id) => {
+  // router.push(`/ipo-details/${id}`);
+  safePrefetch(router, `/ipo-details/${id}`)
 }
 
 export const PricingCard = ({ className,
@@ -65,7 +71,7 @@ export const PricingCard = ({ className,
 
         <div className="flex items-center justify-between gap-3">
           {/* Left cluster */}
-          <div className="flex items-center gap-3 min-w-0 hover:cursor-pointer" onClick={() => ipoDetailsNavigation(router, ipoListData?.symbol)}>
+          <div className="flex items-center gap-3 min-w-0 hover:cursor-pointer" onMouseEnter={() => ipoDetailsNavigationPrefetch(router, ipoListData?.symbol)} onFocus={() => ipoDetailsNavigationPrefetch(router, ipoListData?.symbol)} onClick={() => ipoDetailsNavigation(router, ipoListData?.symbol)}>
             <div className="w-12 h-12 rounded-md border border-base p-1 overflow-hidden shrink-0 flex items-center justify-center">
               <Image
                 src={ipoListData?.ipo_image}

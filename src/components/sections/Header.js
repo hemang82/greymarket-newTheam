@@ -18,6 +18,57 @@ export default function ClientOnly({ children, fallback = null }) {
   return mounted ? children : fallback;
 }
 
+export function safePrefetch(router, href) {
+  if (!href || typeof href !== 'string') return;
+
+  // Log the path you are trying to prefetch
+  if (process.env.NODE_ENV === 'development') {
+    console.log("Prefetching:", href);
+  }
+
+  // Respect slow connections / save-data
+  try {
+    const conn = navigator.connection;
+    if (conn && (conn.saveData || /2g/.test(conn.effectiveType))) {
+      if (process.env.NODE_ENV === 'development') {
+        console.log("Skipping prefetch due to slow network:", href);
+      }
+      return;
+    }
+  } catch (e) {
+    // ignore errors
+  }
+
+  try {
+    const maybePromise = router.prefetch(href);
+
+    // If router.prefetch returned a promise, attach a catch
+    if (maybePromise && typeof maybePromise.then === 'function') {
+      maybePromise
+        .then(() => {
+          if (process.env.NODE_ENV === 'development') {
+            console.log("Prefetch success:", href);
+          }
+        })
+        .catch(() => {
+          if (process.env.NODE_ENV === 'development') {
+            console.log("Prefetch failed:", href);
+          }
+        });
+    } else {
+      // router.prefetch returned undefined → still log
+      if (process.env.NODE_ENV === 'development') {
+        console.log("Prefetch triggered (sync):", href);
+      }
+    }
+  } catch (err) {
+    // router.prefetch itself may throw
+    if (process.env.NODE_ENV === 'development') {
+      console.warn("Prefetch error for", href, "=>", err);
+    }
+  }
+}
+
 export function Header({ logo, links, buttons, className, ...rest }) {
   const pathname = usePathname();
   const router = useRouter();
@@ -179,7 +230,7 @@ export function Header({ logo, links, buttons, className, ...rest }) {
         )}
         {...rest}
       >
-        <Link href={logo.href}>
+        <Link href={logo.href} onMouseEnter={() => safePrefetch(router, logo.href)} onFocus={() => safePrefetch(router, logo.href)}>
           <img src={logo.src} alt={logo.alt} className="h-10 w-auto dark:invert" />
         </Link>
 
