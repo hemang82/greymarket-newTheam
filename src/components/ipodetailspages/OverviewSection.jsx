@@ -1,6 +1,6 @@
 // components/OverviewSection.jsx
 
-import { formatDateTime, formatIndianPrice } from "@/app_config/CommonFunction";
+import { formatDateTime, formatIndianPrice, IPODetailsSummary } from "@/app_config/CommonFunction";
 import { DateFormats } from "@/app_config/CommonVariable";
 import { formatGmpValue } from "@/app_config/IPOCalculation";
 import Image from "next/image";
@@ -158,14 +158,9 @@ export default function OverviewSection({ id = "overview", ipoDetailsData }) {
 
                 {/* Content grid */}
                 <div className="mt-6 grid grid-cols-12 gap-6">
+
                     <div className="col-span-12 lg:col-span-12">
-
-                        <div className="text-sm text-gray-600 dark:text-gray-300 px-3 pb-2">
-                            <span className="text-sm font-semibold text-gray-900">{ipoDetailsData?.company_name} </span> is launching a public issue worth <span className="text-sm font-semibold text-gray-900">{formatIndianPrice(ipoDetailsData?.issue_size)} crore </span>. The offer includes a fresh issue of <span className="text-sm font-semibold text-gray-900"> {formatIndianPrice(ipoDetailsData?.fresh_issue_value)} </span> crore and an offer for sale (OFS) of <span className="text-sm font-semibold text-gray-900">{formatIndianPrice(ipoDetailsData?.offer_of_sale)} crore </span>. Together, this brings the total number of shares issued to <span className="text-sm font-semibold text-gray-900">{ipoDetailsData?.bid_lot} shares</span> .
-                        </div>
-                        <div className="text-sm text-gray-600 dark:text-gray-300 px-3 pb-3">
-                            IPO opens on <span className="text-sm font-semibold text-gray-900">{formatDateTime(ipoDetailsData?.start_date, DateFormats?.DATE_DD_MM_YYYY)}</span> and closes on <span className="text-sm font-semibold text-gray-900">{formatDateTime(ipoDetailsData?.end_date, DateFormats?.DATE_DD_MM_YYYY)}</span>. After the bidding ends, the allotment is expected to be declared on <span className="text-sm font-semibold text-gray-900">{formatDateTime(ipoDetailsData?.allotment_date, DateFormats?.DATE_DD_MM_YYYY)}</span>. The company is proposed to be listed on BSE and NSE, with a tentative listing date of <span className="text-sm font-semibold text-gray-900">{formatDateTime(ipoDetailsData?.listing_date, DateFormats?.DATE_DD_MM_YYYY)}</span>. </div>
-
+                        {IPODetailsSummary(ipoDetailsData, String(ipoDetailsData?.id).slice(-1))}
                         <div className="rounded-xl ring-1 ring-gray-200 dark:ring-base-800 p-4 sm:p-6">
 
                             <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3"> {metrics.map((m, idx) => (
@@ -174,9 +169,6 @@ export default function OverviewSection({ id = "overview", ipoDetailsData }) {
                                     <span className={[`text-base text-sm font-semibold text-gray-900 dark:text-gray-100 break-words break-all whitespace-normal ${m.customClass ? m.customClass : ""}`, m.highlight ? "bg-gray-50 dark:bg-base-900 rounded-md px-3 py-2" : ""].join(" ")}
                                         dangerouslySetInnerHTML={{ __html: m.label != "GMP" ? breakBeforeBracket(m.value) : m.value }}
                                     />
-                                    {/* {m.value} */}
-
-                                    {/* </span> */}
                                 </div>
                             ))}
                             </div>
@@ -197,8 +189,8 @@ export default function OverviewSection({ id = "overview", ipoDetailsData }) {
                                 </div>
                             </div> */}
                         </div>
-
                     </div>
+
                     {/* Right: about + key points */}
                     {/* <div className="col-span-12 lg:col-span-4 space-y-6">
                         <div className="rounded-xl ring-1 ring-gray-200 dark:ring-base-800 p-5">

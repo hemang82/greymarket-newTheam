@@ -236,6 +236,7 @@ export function StyledGroupedBarChartApex({
 
     // pastel palette
     const PALETTE = ["#6EA8FE", "#FFA3AB", "#7CE7D9", "#FDE68A", "#C7F0B6", "#FFD4A8"];
+
     const KEYS = [
         { key: "assets", label: "Total Assets" },
         { key: "revenue", label: "Total Revenue" },
@@ -398,8 +399,6 @@ export function StyledGroupedBarChartApex({
     );
 }
 
-
-
 export function transformSubscriptionRecords(records = []) {
     // records: [{ ipo_subscription_detail: [{ category, times? , applied?, offered? }...], created_at }, ...]
     // returns: [{ date: "2025-11-21", stats: [{ category, times, applied, offered }, ...] }, ...]
@@ -540,3 +539,4 @@ export function SubscriptionLineChartTimes({
         </div>
     );
 }
+

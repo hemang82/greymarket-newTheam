@@ -38,6 +38,7 @@ export function IpoDetailsPages({ ipoDetailsData, ...rest }) {
     const [subscriptionGraphShow, setSubscriptionGraphShow] = useState("")
 
     return (<>
+
         <StickyTabs items={TABS} />
 
         <section className="bg-base-100 dark:bg-base-900 pt-20" {...rest}>
@@ -102,7 +103,8 @@ export function IpoDetailsPages({ ipoDetailsData, ...rest }) {
                     ipoDetailsData?.company_financial_data?.financial_data?.length > 0 && <div id="financial_data" className="scroll-mt-20 !mt-0 sm:!mt-[2.5rem]">
                         <div id="financial_data" className="scroll-mt-20">
                             <Card title={`Financials overview ${ipoDetailsData?.company_financial_data?.financial_amount_type}`} showModes={true} onGraphClick={() => setFinancialGraphShow("graph")} onTableClick={() => setFinancialGraphShow("table")}>
-                                <div className="text-sm text-gray-600 dark:text-gray-300 px-3 pb-3"> Here is a quick look at the recent financial performance of{" "} <span className="text-sm font-semibold text-gray-900"> {ipoDetailsData?.company_name} </span> . The numbers below ({" "} <span className="text-sm font-semibold text-gray-900">{ipoDetailsData?.company_financial_data?.financial_amount_type}</span> ) show how the company’s revenue and profits have changed over the last few
+                                <div className="text-sm text-gray-600 dark:text-gray-300 px-3 pb-3">
+                                    Here is a quick look at the recent financial performance of{" "} <span className="text-sm font-semibold text-gray-900"> {ipoDetailsData?.company_name} </span> . The numbers below ({" "} <span className="text-sm font-semibold text-gray-900">{ipoDetailsData?.company_financial_data?.financial_amount_type}</span> ) show how the company’s revenue and profits have changed over the last few
                                     years. This helps investors understand how strongly the business is growing
                                     and how stable its financial health is before applying for the IPO.
                                 </div>
@@ -126,10 +128,9 @@ export function IpoDetailsPages({ ipoDetailsData, ...rest }) {
 
                 {/* subscriptionDetails */}
                 {
-                    ipoDetailsData?.ipo_subscription_detail?.length > 0 &&
                     <div id="subscriptionDetails" className="scroll-mt-20 !mt-0 sm:!mt-[2.5rem]">
                         {
-                            <Card
+                            ipoDetailsData?.subscription_history?.length > 0 && <Card
                                 title={`Subscription Details (No. of Shares)`}
                                 showModes={true}
                                 onGraphClick={() => setSubscriptionGraphShow("graph")}
@@ -161,6 +162,35 @@ export function IpoDetailsPages({ ipoDetailsData, ...rest }) {
                                 }
                             </Card>
                         }
+                        {
+                            ipoDetailsData?.subscription_history?.length < 0 &&
+                            <Card
+                                title={`Subscription Details (No. of Shares)`}
+                                showModes={true}
+                                onGraphClick={() => setSubscriptionGraphShow("graph")}
+                                onTableClick={() => setSubscriptionGraphShow("table")}
+                            >
+                                {ipoDetailsData?.ipo_subscription_detail?.length > 0 && (
+                                    // <Card title="">
+                                    <div className="text-sm text-gray-600 dark:text-gray-300 px-3 pb-3">
+                                        The below shows how many shares were subscribed by each investor
+                                        category in the{" "}
+                                        <span className="text-sm font-semibold text-gray-900">
+                                            {ipoDetailsData?.company_name}
+                                        </span>{" "}
+                                        IPO. These numbers help you understand where the demand is coming
+                                        from – whether it’s retail investors, QIBs, or NIBs. Higher
+                                        subscription usually indicates strong interest and confidence from
+                                        the market.
+                                    </div>
+                                    // </Card>
+                                )}
+
+                                <SubscriptionDetailsTable title="Subscription Details (No. of Shares)" rows={ipoDetailsData?.ipo_subscription_detail?.length > 0 ? ipoDetailsData?.ipo_subscription_detail : []} />
+
+                            </Card>
+                        }
+
 
                         {
                             ipoDetailsData?.subscription_demand?.length > 0 && <Card title="">
