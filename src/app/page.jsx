@@ -62,7 +62,7 @@ export default async function Home({ searchParams }) {
 
   return (
     <>
-      
+
       {/* <Header
         logo={header.logo}
         links={header.links}

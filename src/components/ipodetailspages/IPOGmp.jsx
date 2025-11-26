@@ -186,6 +186,8 @@ export function KeyPerfomanceTable({ title = "", rows = [] }) {
 
 export function SubscriptionDetailsTable({ title = "", rows = [] }) {
 
+    console.log('SubscriptionDetailsTable rowsrowsrows', rows);
+    
     const tableColumns = [
         { key: "category", label: "Category" },
         { key: "Shares_Offered", label: "Offered" },

@@ -9,11 +9,12 @@ import OverviewSection from "./OverviewSection";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 // import GroupedBarChart from "./FinancialsChart";
-const GroupedBarChart = dynamic(() => import("./FinancialsChart"), { ssr: false }
-);
+// const GroupedBarChart = dynamic(() => import("./FinancialsChart"), { ssr: false }
+// );
 import { BsGraphDown, BsTable } from "react-icons/bs";
 import { formatGmpValue } from "@/app_config/IPOCalculation";
 import { formatIndianPrice } from "@/app_config/CommonFunction";
+import { StyledGroupedBarChartApex, SubscriptionLineChartTimes } from "./FinancialsChart";
 
 // import Accordion from "@/components/Accordion";
 
@@ -32,7 +33,9 @@ const TABS = [
 ];
 
 export function IpoDetailsPages({ ipoDetailsData, ...rest }) {
+
     const [fincialGraphShow, setFinancialGraphShow] = useState("")
+    const [subscriptionGraphShow, setSubscriptionGraphShow] = useState("")
 
     return (<>
         <StickyTabs items={TABS} />
@@ -69,8 +72,6 @@ export function IpoDetailsPages({ ipoDetailsData, ...rest }) {
                     </div>
                 </div> */}
 
-
-
                 {/* Gmp */}
                 {
                     gmpDetails?.ipo_gmp?.length > 0 && <div id="gmpDetails" className="scroll-mt-20 !mt-0 sm:!mt-[2.5rem]">
@@ -96,6 +97,7 @@ export function IpoDetailsPages({ ipoDetailsData, ...rest }) {
                         </Card>
                     </div>
                 }
+
                 {
                     ipoDetailsData?.company_financial_data?.financial_data?.length > 0 && <div id="financial_data" className="scroll-mt-20 !mt-0 sm:!mt-[2.5rem]">
                         <div id="financial_data" className="scroll-mt-20">
@@ -107,7 +109,7 @@ export function IpoDetailsPages({ ipoDetailsData, ...rest }) {
                                 {
                                     fincialGraphShow == 'table' ?
                                         <FinancialTable title={`Financials (${ipoDetailsData?.company_financial_data?.financial_amount_type})`} rows={ipoDetailsData?.company_financial_data?.financial_data?.length > 0 ? ipoDetailsData?.company_financial_data?.financial_data : []} />
-                                        : <GroupedBarChart financialData={ipoDetailsData?.company_financial_data?.financial_data} amountType={ipoDetailsData?.company_financial_data?.financial_amount_type} />
+                                        : <StyledGroupedBarChartApex financialData={ipoDetailsData?.company_financial_data?.financial_data} amountType={ipoDetailsData?.company_financial_data?.financial_amount_type} />
                                 }
                             </Card>
                         </div>
@@ -123,34 +125,55 @@ export function IpoDetailsPages({ ipoDetailsData, ...rest }) {
                 }
 
                 {/* subscriptionDetails */}
-                <div id="subscriptionDetails" className="scroll-mt-20 !mt-0 sm:!mt-[2.5rem]">
-                    {
-                        ipoDetailsData?.ipo_subscription_detail?.length > 0 && <Card title="">
-                            <div className="text-sm text-gray-600 dark:text-gray-300 px-3 pb-3">
-                                The below shows how many shares were subscribed by each investor
-                                category in the{" "}
-                                <span className="text-sm font-semibold text-gray-900">
-                                    {ipoDetailsData?.company_name}
-                                </span>{" "}
-                                IPO. These numbers help you understand where the demand is coming from -
-                                whether it’s retail investors, QIBs, or NIBs. Higher subscription usually
-                                indicates strong interest and confidence from the market.
-                            </div>
+                {
+                    ipoDetailsData?.ipo_subscription_detail?.length > 0 &&
+                    <div id="subscriptionDetails" className="scroll-mt-20 !mt-0 sm:!mt-[2.5rem]">
+                        {
+                            <Card
+                                title={`Subscription Details (No. of Shares)`}
+                                showModes={true}
+                                onGraphClick={() => setSubscriptionGraphShow("graph")}
+                                onTableClick={() => setSubscriptionGraphShow("table")}
+                            >
+                                {ipoDetailsData?.ipo_subscription_detail?.length > 0 && (
+                                    // <Card title="">
+                                    <div className="text-sm text-gray-600 dark:text-gray-300 px-3 pb-3">
+                                        The below shows how many shares were subscribed by each investor
+                                        category in the{" "}
+                                        <span className="text-sm font-semibold text-gray-900">
+                                            {ipoDetailsData?.company_name}
+                                        </span>{" "}
+                                        IPO. These numbers help you understand where the demand is coming
+                                        from – whether it’s retail investors, QIBs, or NIBs. Higher
+                                        subscription usually indicates strong interest and confidence from
+                                        the market.
+                                    </div>
+                                    // </Card>
+                                )}
+                                {
+                                    subscriptionGraphShow == 'table' ?
+                                        <SubscriptionDetailsTable title="Subscription Details (No. of Shares)" rows={ipoDetailsData?.ipo_subscription_detail?.length > 0 ? ipoDetailsData?.ipo_subscription_detail : []} />
+                                        : <SubscriptionLineChartTimes
+                                            timeSeries={ipoDetailsData?.subscription_history?.length > 0 ? ipoDetailsData?.subscription_history : []}
+                                            height={300}
+                                            title="Subscription (times)"
+                                        />
+                                }
+                            </Card>
+                        }
 
-                            <SubscriptionDetailsTable title="Subscription Details (No. of Shares)" rows={ipoDetailsData?.ipo_subscription_detail?.length > 0 ? ipoDetailsData?.ipo_subscription_detail : []} />
-                        </Card>
-                    }
-                    {
-                        ipoDetailsData?.subscription_demand?.length > 0 && <Card title="">
-                            <SubscriptionDemandTable title=" Subscription Demand (in ₹ Crore)" rows={ipoDetailsData?.subscription_demand?.length > 0 ? ipoDetailsData?.subscription_demand : []} />
-                        </Card>
-                    }
-                    {
-                        ipoDetailsData?.appplication_wise_breakup?.data?.length > 0 && <Card title="">
-                            <ApplicationBreakupTable title="Application Wise Breakup (Approx. no of Apps)" rows={ipoDetailsData?.appplication_wise_breakup?.data?.length > 0 ? ipoDetailsData?.appplication_wise_breakup?.data : []} />
-                        </Card>
-                    }
-                </div>
+                        {
+                            ipoDetailsData?.subscription_demand?.length > 0 && <Card title="">
+                                <SubscriptionDemandTable title=" Subscription Demand (in ₹ Crore)" rows={ipoDetailsData?.subscription_demand?.length > 0 ? ipoDetailsData?.subscription_demand : []} />
+                            </Card>
+                        }
+                        {
+                            ipoDetailsData?.appplication_wise_breakup?.data?.length > 0 && <Card title="">
+                                <ApplicationBreakupTable title="Application Wise Breakup (Approx. no of Apps)" rows={ipoDetailsData?.appplication_wise_breakup?.data?.length > 0 ? ipoDetailsData?.appplication_wise_breakup?.data : []} />
+                            </Card>
+                        }
+                    </div>
+                }
 
                 {/* ipoReservation */}
                 <div id="ipoReservation" className="scroll-mt-20 !mt-0 sm:!mt-[2.5rem]">
@@ -204,6 +227,7 @@ export function IpoDetailsPages({ ipoDetailsData, ...rest }) {
                         </Card>
                     }
                 </div>
+
             </div>
         </section>
     </>);
