@@ -4,13 +4,13 @@ export default async function sitemap() {
 
     // Always include a small static set (fast)
     const staticPages = [
-        { url: `${baseUrl}/`, lastModified: new Date() },
-        { url: `${baseUrl}/gmp`, lastModified: new Date() },
-        { url: `${baseUrl}/live-ipo`, lastModified: new Date() },
-        { url: `${baseUrl}/upcoming-ipo`, lastModified: new Date() },
-        { url: `${baseUrl}/news`, lastModified: new Date() },
-        { url: `${baseUrl}/privacy-policy`, lastModified: new Date() },
-        { url: `${baseUrl}/terms-and-conditions`, lastModified: new Date() },
+        { url: `${baseUrl}`, lastModified: new Date() },
+        { url: `${baseUrl}gmp`, lastModified: new Date() },
+        { url: `${baseUrl}live-ipo`, lastModified: new Date() },
+        { url: `${baseUrl}upcoming-ipo`, lastModified: new Date() },
+        { url: `${baseUrl}news`, lastModified: new Date() },
+        { url: `${baseUrl}privacy-policy`, lastModified: new Date() },
+        { url: `${baseUrl}terms-and-conditions`, lastModified: new Date() },
     ];
 
     // In development we return only the static pages to avoid slow external calls
