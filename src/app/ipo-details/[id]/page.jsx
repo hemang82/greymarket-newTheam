@@ -80,7 +80,7 @@ export default async function page({ params }) {
   const { id } = await params;
   const IPODetailsResponse = await getIPODetailsServer({ id: id });
 
-  console.log('IPODetailsResponse Server',IPODetailsResponse);
+  // console.log('IPODetailsResponse Server',IPODetailsResponse);
   
   return (<>
 

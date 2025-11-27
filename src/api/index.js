@@ -5,7 +5,16 @@ export function login(request) {
 }
 
 export function ipoListApi(request) {
-    return axiosInstance.post(`ipo/new-ipo-list?categorys=live&categorys=upcoming&page_size=${request?.pageSize}&page=${request?.page}&platform=Android`, request, true)
+    let query = '';
+    if (request?.pageSize) {
+        query += `&page_size=${request?.pageSize}`
+    }
+
+    if (request?.page) {
+        query += `&page=${request?.page}`
+    }
+
+    return axiosInstance.post(`ipo/new-ipo-list?categorys=live&categorys=upcoming&platform=Android${query}`, request, true)
 }
 
 export function getIPODetailsApi(request) {
