@@ -48,7 +48,8 @@ export default async function sitemap() {
     //         });
     //     }
     // } catch (err) {
-    //     console.warn('sitemap: failed to fetch news', err);
+    //     console.warn(
+    // 'sitemap: failed to fetch news', err);
     // }
 
     return [...staticPages];
