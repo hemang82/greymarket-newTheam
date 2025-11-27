@@ -69,7 +69,7 @@ export const PricingCard = ({ className,
       <div className={cn("flex h-full flex-col rounded-2xl border border-base bg-white dark:bg-base-950 p-4 shadow-sm hover:shadow-xl transition", className)} >
         {/* Top row: logo + name (left) | buttons (right) */}
 
-        <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center justify-between gap-2">
           {/* Left cluster */}
           <div className="flex items-center gap-3 min-w-0 hover:cursor-pointer" onMouseEnter={() => ipoDetailsNavigationPrefetch(router, ipoListData?.symbol)} onFocus={() => ipoDetailsNavigationPrefetch(router, ipoListData?.symbol)} onClick={() => ipoDetailsNavigation(router, ipoListData?.symbol)}>
             <div className="w-12 h-12 rounded-md border border-base p-1 overflow-hidden shrink-0 flex items-center justify-center">
@@ -105,15 +105,15 @@ export const PricingCard = ({ className,
 
           <div className="flex gap-2">
             {/* icon + text on sm+, icon-only on xs to save space */}
-            <button className="h-9 px-3 rounded-full min-w-max border border-1 buyButton" onClick={() => { buyButtonChange(ipoListData) }}>
+            <button className="h-8 px-3 rounded-full min-w-max border border-1 buyButton" onClick={() => { buyButtonChange(ipoListData) }}>
               {/* <ShoppingCart className="mr-2 h-4 w-4 hidden sm:inline" /> */}
-              <span className="">Buy</span>
+              <span className="sm:text-sm">Buy</span>
               {/* Buy */}
               {/* <ShoppingCart className="h-4 w-4 sm:hidden" aria-hidden /> */}
             </button>
-            <button className="h-9 px-3 rounded-full min-w-max border border-1 sellButton" onClick={() => { shellButtonChange(ipoListData) }}>
+            <button className="h-8 px-3 rounded-full min-w-max border border-1 sellButton" onClick={() => { shellButtonChange(ipoListData) }}>
               {/* <DollarSign className="mr-2 h-4 w-4 hidden sm:inline" /> */}
-              <span className="">Sell</span>
+              <span className="sm:text-sm">Sell</span>
               {/* Sell */}
               {/* <DollarSign className="h-4 w-4 sm:hidden" aria-hidden /> */}
             </button>

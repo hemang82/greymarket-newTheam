@@ -6,6 +6,8 @@ import { formatGmpValue } from "@/app_config/IPOCalculation";
 import Image from "next/image";
 import { Label } from "recharts";
 import Labels from "../cards/Labels";
+import { useRouter } from "next/navigation";
+import { ChevronLeft } from "lucide-react";
 
 const formatValue = (...values) => {
     const isValid = (v) => {
@@ -20,7 +22,7 @@ const formatValue = (...values) => {
 };
 
 export default function OverviewSection({ id = "overview", ipoDetailsData }) {
-
+    const router = useRouter();
     const metrics = [
         { label: "Start Date", value: `${formatDateTime(ipoDetailsData?.start_date, DateFormats?.DATE_DD_MM_YYYY)}` },
         { label: "End Date", value: `${formatDateTime(ipoDetailsData?.end_date, DateFormats?.DATE_DD_MM_YYYY)}` },
@@ -90,8 +92,34 @@ export default function OverviewSection({ id = "overview", ipoDetailsData }) {
                         ))}
                     </div>
                 </div> */}
+                <div className="flex items-center justify-between mb-4 w-full">
 
-                <Labels data={ipoDetailsData} live={false} className={''} position={"right"} />
+                    {/* Back Button */}
+                    <button
+                        onClick={() => router.back()}
+                        className="inline-flex items-center gap-1 px-3 py-1.5 bg-[#2f704c] text-white  text-sm font-medium rounded-md transition-all" >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-4 w-4"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                        >
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+                        </svg>
+                        Back
+                    </button>
+
+
+                    {/* Labels on the Right */}
+                    <Labels
+                        data={ipoDetailsData}
+                        live={false}
+                        position="right"
+                        className=""
+                    />
+                </div>
 
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     {/* Left: logo + title + website */}

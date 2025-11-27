@@ -36,7 +36,7 @@ const Labels = ({ data = {}, className = "", live = false, position = "left" }) 
             {(showGroup || isBoth) && (
                 <span role="status"
                     aria-label={isBoth ? (isSME ? "SME - Mainboard" : "MainBoard (NSE & BSE)") : (isSME ? `${listing} - SME` : "MainBoard")}
-                    className="inline-flex items-center gap-2 px-2 py-1 rounded-full text-xs font-medium leading-[1.0]"
+                    className="inline-flex items-center gap-2 px-2 py-1 rounded-full text-[0.55rem] sm:text-[0.60rem] md:text-[0.60rem] lg:text-[0.75rem] font-medium leading-[1.0]"
                     style={{ background: "#135c33", color: "#ffff" }}
                 >
                     {/* small white dot inside for visual */}
@@ -50,7 +50,7 @@ const Labels = ({ data = {}, className = "", live = false, position = "left" }) 
                 <span
                     role="note"
                     aria-label={`Status: ${status.status}`}
-                    className="inline-flex items-center gap-2 px-2 py-1 rounded-full text-xs font-medium leading-[1.0]"
+                    className="inline-flex items-center gap-2 px-2 py-1 rounded-full rounded-full text-[0.55rem] sm:text-[0.60rem] md:text-[0.60rem] lg:text-[0.75rem] font-medium leading-[1.0]"
                     style={badgeStyle(badgeColor, textColor)}
                 >
                     <span className="inline-block w-1 h-1 rounded-full" style={{ background: textColor }} />
