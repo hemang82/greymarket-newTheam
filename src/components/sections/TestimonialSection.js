@@ -47,8 +47,8 @@ export function TestimonialSection({ title, description, badge, testimonials, bu
           badge={badge}
         />
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 my-10">
-          {newslistZustend?.results?.length > 0 &&
-            newslistZustend?.results.map((item, index) => (
+          {newslistZustend?.data?.length > 0 &&
+            newslistZustend?.data.map((item, index) => (
               <TestimonialCard key={index} {...item} />
             ))}
         </div>
@@ -64,9 +64,10 @@ export function TestimonialSection({ title, description, badge, testimonials, bu
               pageSizeOptions={[20, 50, 100]}
             />
           </>
-            : <div className="text-center mt-10">
-              <Button label={'View All  -> '} color={'dark'} onClick={handleNavigation} className={'py-2'} />
-            </div>
+            :
+            newslistZustend?.data?.length > 4 ? <div className="text-center mt-10">
+              <Button label={'View All -> '} color={'dark'} onClick={handleNavigation} className={'py-2'} />
+            </div> : null
         }
 
       </div>

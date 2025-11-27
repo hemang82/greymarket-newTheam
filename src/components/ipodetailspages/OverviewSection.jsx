@@ -61,7 +61,9 @@ export default function OverviewSection({ id = "overview", ipoDetailsData }) {
     return (
         <section id={id} className="scroll-mt-24">
             <div className="bg-white dark:bg-base-950 rounded-2xl shadow-sm ring-1 ring-gray-200 dark:ring-base-800 p-4 sm:p-6 md:p-8">
+
                 {/* Header */}
+                
                 {/* <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     <div>
                         <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight text-gray-900 dark:text-gray-100">
@@ -92,6 +94,7 @@ export default function OverviewSection({ id = "overview", ipoDetailsData }) {
                         ))}
                     </div>
                 </div> */}
+
                 <div className="flex items-center justify-between mb-4 w-full">
 
                     {/* Back Button */}
@@ -110,7 +113,6 @@ export default function OverviewSection({ id = "overview", ipoDetailsData }) {
                         </svg>
                         Back
                     </button>
-
 
                     {/* Labels on the Right */}
                     <Labels

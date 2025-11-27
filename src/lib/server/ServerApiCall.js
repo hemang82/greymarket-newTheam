@@ -34,16 +34,35 @@ export async function getIPODetailsServer(request) {
     }
 }
 
-export async function getNewsListServer(request) {
+// export async function getNewsListServer(request) {
+//     try {
+//         const res = await getNewsListApi(request);
+//         if (res?.meta?.status_code == 200) {
+//             return res?.data || {};
+//         } else {
+//             return {};
+//         }
+//     } catch (err) {
+//         console.error("Error fetching IPO details:");
+//         return {};
+//     }
+// }
+
+export async function getNewsListServer(request = {}) {
     try {
-        const res = await getNewsListApi(request);
-        if (res?.meta?.status_code == 200) {
-            return res?.data || {};
+        const res = await fetch('https://docipo.ipo-trend.com/api/v1/common/getNewsList', {
+            method: 'POST', headers: { 'Content-Type': 'application/json', }, cache: 'no-store',
+            body: JSON.stringify(request)
+        });
+        const json = await res.json();
+        // console.log('getNewsListServer response', json?.data?.data);
+        if (json?.code == '1') {
+            return json?.data || [];
         } else {
-            return {};
+            return [];
         }
     } catch (err) {
-        console.error("Error fetching IPO details:");
-        return {};
+        console.error("Error fetching News List:", err);
+        return [];
     }
 }
