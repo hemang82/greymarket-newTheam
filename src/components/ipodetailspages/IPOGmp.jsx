@@ -187,7 +187,7 @@ export function KeyPerfomanceTable({ title = "", rows = [] }) {
 export function SubscriptionDetailsTable({ title = "", rows = [] }) {
 
     console.log('SubscriptionDetailsTable rowsrowsrows', rows);
-    
+
     const tableColumns = [
         { key: "category", label: "Category" },
         { key: "Shares_Offered", label: "Offered" },
@@ -651,16 +651,14 @@ export function DetailsCommonCard({ title, data }) {
     );
 }
 
-
 export function StrengthWeekness({ strength = "", weakness = "", note = "The pros and cons are machine generated.", showNote = false }) {
     return (
         <section className="scroll-mt-24">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
                 {/* Strengths */}
                 <div className="rounded-xl bg-white dark:bg-base-950 p-5 ring-1 ring-emerald-600">
                     <h3 className="text-sm font-semibold tracking-widest text-emerald-600">Strength Factors</h3>
-                    
+
                     <div className="mt-3">
                         <div className="prose prose-sm max-w-none text-gray-700 dark:prose-invert dark:text-gray-300 prose-ul:list-disc prose-ol:list-decimal prose-li:my-1"
                             {...cleanHTMLContent(strength)}

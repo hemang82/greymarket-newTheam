@@ -32,10 +32,12 @@ const TABS = [
     // { id: "documents", label: "Documents" },
 ];
 
-export function IpoDetailsPages({ ipoDetailsData, ...rest }) {
+export function IpoDetailsPages({ ipoDetailsData, IPODetailsUpdatedAboutUs, ...rest }) {
 
     const [fincialGraphShow, setFinancialGraphShow] = useState("")
     const [subscriptionGraphShow, setSubscriptionGraphShow] = useState("")
+
+    console.log('IPODetailsUpdatedAboutUs', IPODetailsUpdatedAboutUs);
 
     return (<>
 
@@ -233,6 +235,7 @@ export function IpoDetailsPages({ ipoDetailsData, ...rest }) {
 
                 {/* comapnyDetails */}
                 <div id="comapnyDetails" className="scroll-mt-20 !mb-20  !mt-0 sm:!mt-[2.5rem]">
+
                     <Card title="">
                         <div className="text-sm text-gray-600 dark:text-gray-300 px-3 pb-4">
                             Below you can find the official contact details of{" "}
@@ -247,13 +250,14 @@ export function IpoDetailsPages({ ipoDetailsData, ...rest }) {
                         <IpoCompanyDetails companyDetails={ipoDetailsData?.company_address} registrarDetail={ipoDetailsData?.registrar_detail} />
                     </Card>
 
-                    <Card title="">
-                        <DetailsCommonCard title={"About Company"} data={ipoDetailsData?.about_the_company} />
-                    </Card>
-
                     {
-                        ipoDetailsData?.company_weakness && <Card title="">
-                            <StrengthWeekness strength={ipoDetailsData?.company_strenght} weakness={ipoDetailsData?.company_weakness ? ipoDetailsData?.company_weakness : ""} />
+                        IPODetailsUpdatedAboutUs.find(item => item.topic === 'about_company')?.rewritten_text && <Card title="">
+                            <DetailsCommonCard title={"About Company"} data={IPODetailsUpdatedAboutUs.find(item => item.topic === 'about_company')?.rewritten_text} />
+                        </Card>
+                    }
+                    {
+                        IPODetailsUpdatedAboutUs.find(item => item.topic == 'strength_factors')?.rewritten_text && <Card title="">
+                            <StrengthWeekness strength={IPODetailsUpdatedAboutUs.find(item => item.topic === 'strength_factors')?.rewritten_text} weakness={IPODetailsUpdatedAboutUs.find(item => item.topic == "risk_factors")?.rewritten_text ? IPODetailsUpdatedAboutUs.find(item => item.topic == "risk_factors")?.rewritten_text : ""} />
                         </Card>
                     }
                 </div>

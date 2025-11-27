@@ -66,3 +66,22 @@ export async function getNewsListServer(request = {}) {
         return [];
     }
 }
+
+export async function getIPOAboutusServer(request = {}) {
+    try {
+        const res = await fetch('https://docipo.ipo-trend.com/api/v1/common/rewritecontentlisting', {
+            method: 'POST', headers: { 'Content-Type': 'application/json', }, cache: 'no-store',
+            body: JSON.stringify(request)
+        });
+        const json = await res.json();
+        // console.log('getIPOAboutusServer response', json);
+        if (json?.code == '1') {
+            return json?.data || [];
+        } else {
+            return [];
+        }
+    } catch (err) {
+        console.error("Error fetching News List:", err);
+        return [];
+    }
+}
