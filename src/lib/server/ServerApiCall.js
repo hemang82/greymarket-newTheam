@@ -24,6 +24,7 @@ export async function getIPODetailsServer(request) {
     try {
         const res = await getIPODetailsApi(request);
         if (res?.meta?.status_code == 200) {
+            // console.log('res?.data', res?.data);
             return res?.data || {};
         } else {
             return {};
@@ -69,12 +70,14 @@ export async function getNewsListServer(request = {}) {
 
 export async function getIPOAboutusServer(request = {}) {
     try {
+
+        console.log('getIPOAboutusServer request', request);
         const res = await fetch('https://docipo.ipo-trend.com/api/v1/common/rewritecontentlisting', {
             method: 'POST', headers: { 'Content-Type': 'application/json', }, cache: 'no-store',
             body: JSON.stringify(request)
         });
         const json = await res.json();
-        // console.log('getIPOAboutusServer response', json);
+        console.log('getIPOAboutusServer response', json);
         if (json?.code == '1') {
             return json?.data || [];
         } else {

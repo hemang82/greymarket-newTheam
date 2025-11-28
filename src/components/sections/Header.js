@@ -227,12 +227,10 @@ export function Header({ logo, links, buttons, className, ...rest }) {
         className={cn(
           "relative h-14 container px-0 mx-auto border-b border-base flex flex-wrap justify-start items-center gap-4 lg:gap-8",
           className
-        )}
-        {...rest}
-      >
-        <Link href={logo.href} onMouseEnter={() => safePrefetch(router, logo.href)} onFocus={() => safePrefetch(router, logo.href)}>
-          <img src={logo.src} alt={logo.alt} className="h-10 w-auto dark:invert" />
-        </Link>
+        )} {...rest} >
+        <div onClick={() => { router.push(logo.href) }} onMouseEnter={() => safePrefetch(router, logo.href)} onFocus={() => safePrefetch(router, logo.href)}>
+          <img src={logo.src} alt={logo.alt} className="h-10 w-auto dark:invert cursor-pointer" />
+        </div>
 
         <div
           className={cn(
@@ -242,7 +240,7 @@ export function Header({ logo, links, buttons, className, ...rest }) {
           )}
         >
           {pathname == "/" && (
-            <ul className="font-medium flex flex-col gap-2 p-4 md:p-0 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0">
+            <ul className="font-medium flex flex-col gap-2 p-4 md:p-0 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 header_links">
               {links.map((link, index) => (
                 <a
                   key={index}
@@ -250,7 +248,7 @@ export function Header({ logo, links, buttons, className, ...rest }) {
                   className={
                     open
                       ? "text-sm font-normal text-base-600 dark:text-base-400 hover:bg-base-100 dark:hover:bg-base-950 py-3 px-4 rounded-md"
-                      : "text-sm font-normal text-base-600 dark:text-base-400 hover:text-base-800 dark:hover:text-base-300"
+                      : "text-sm font-normal text-base-600 dark:text-base-400 hover:text-base-800 dark:hover:text-base-300 "
                   }
                   onClick={() => setOpen(false)}
                 >
@@ -265,7 +263,7 @@ export function Header({ logo, links, buttons, className, ...rest }) {
         <div className="flex gap-2 ml-auto items-center">
 
           {/* --- Search (visible md+) : placed on the right inside existing area --- */}
-          <div className="relative hidden md:block me-4">
+          <div className="relative hidden md:block me-4 header_search_section">
             <form onSubmit={handleSubmit} role="search" className="relative">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400">
                 {/* magnifier icon */}
@@ -280,7 +278,7 @@ export function Header({ logo, links, buttons, className, ...rest }) {
                 onChange={(e) => setQuery(e.target.value)}
                 onFocus={() => query && setShowDropdown(true)}
                 placeholder="Search for a company"
-                className="w-72 lg:w-80 px-9 py-2 rounded-md border border-neutral-300 dark:border-neutral-800 bg-white dark:bg-neutral-900 text-sm placeholder:text-neutral-400 focus:outline-none focus:ring-1 focus:ring-[#135c33]"
+                className="w-72 lg:w-80 px-9 py-2 rounded-md border border-neutral-300 dark:border-neutral-800 bg-white dark:bg-neutral-900 text-sm placeholder:text-neutral-400 focus:outline-none focus:ring-1 focus:ring-[#135c33] header_search"
                 aria-label="Search for a company"
               />
 

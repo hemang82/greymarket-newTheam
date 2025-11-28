@@ -86,3 +86,26 @@ section {
 .goole_login>div>div>div>div {
   max-width: max-content !important;
 }
+
+@media(max-width: 1029px) {
+  .header_search {
+    max-width: max-content;
+  }
+}
+
+@media(max-width: 1023px) {
+  .header_search_section {
+    margin-right: 0 !important;
+  }
+    .header_search {
+    max-width: 150px;
+  }
+
+
+}
+
+@media (max-width: 1023px) and (min-width: 769px) {
+  .header_links a:not(:first-child){
+    margin-left: 10px !important;
+  }
+  }
