@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import Labels from "./Labels";
 import { safePrefetch } from "../sections/Header";
+import Link from "next/link";
 
 export const ipoDetailsNavigation = (router, id) => {
   router.push(`/ipo-details/${id}`);
@@ -71,26 +72,34 @@ export const PricingCard = ({ className,
 
         <div className="flex items-center justify-between gap-2">
           {/* Left cluster */}
-          <div className="flex items-center gap-3 min-w-0 hover:cursor-pointer" onMouseEnter={() => ipoDetailsNavigationPrefetch(router, ipoListData?.symbol)} onFocus={() => ipoDetailsNavigationPrefetch(router, ipoListData?.symbol)} onClick={() => ipoDetailsNavigation(router, ipoListData?.symbol)}>
-            <div className="w-12 h-12 rounded-md border border-base p-1 overflow-hidden shrink-0 flex items-center justify-center">
-              <Image
-                src={ipoListData?.ipo_image}
-                alt={company}
-                width={48}
-                height={48}
-                className="object-contain"
-                unoptimized
-              />
-            </div>
+          <Link
+            key={ipoListData?.symbol}
+            href={`/ipo-details/${ipoListData.symbol}`}
+            prefetch
+            className="cursor-pointer"
+          >
+            {/* IPO row / card JSX */}
+            {/* onMouseEnter={() => ipoDetailsNavigationPrefetch(router, ipoListData?.symbol)} onFocus={() => ipoDetailsNavigationPrefetch(router, ipoListData?.symbol)} onClick={() => ipoDetailsNavigation(router, ipoListData?.symbol)} */}
+            <div className="flex items-center gap-3 min-w-0 hover:cursor-pointer" >
+              <div className="w-12 h-12 rounded-md border border-base p-1 overflow-hidden shrink-0 flex items-center justify-center">
+                <Image
+                  src={ipoListData?.ipo_image}
+                  alt={company}
+                  width={48}
+                  height={48}
+                  className="object-contain"
+                  unoptimized
+                />
+              </div>
 
-            <div className="min-w-0">
+              <div className="min-w-0">
 
-              {/* Keep name from pushing buttons off-screen */}
-              <h3 className="text-base font-semibold text-title truncate  max-w-[58vw] sm:max-w-[280px] md:max-w-[360px] lg:max-w-[460px] mb-2">
-                {ipoListData?.company_name}
-              </h3>
+                {/* Keep name from pushing buttons off-screen */}
+                <h3 className="text-base font-semibold text-title truncate  max-w-[58vw] sm:max-w-[280px] md:max-w-[360px] lg:max-w-[460px] mb-2">
+                  {ipoListData?.company_name}
+                </h3>
 
-              {/* {price ? (
+                {/* {price ? (
                 <div className="mt-0.5 flex items-baseline gap-2">
                   <span className="text-sm font-semibold text-gray-900 text-title">{price}</span>
                   {changeText ? (
@@ -99,9 +108,10 @@ export const PricingCard = ({ className,
                 </div>
               ) : null} */}
 
-              <Labels data={ipoListData} live={false} className={'mb-1'} position={"left"} />
+                <Labels data={ipoListData} live={false} className={'mb-1'} position={"left"} />
+              </div>
             </div>
-          </div>
+          </Link>
 
           <div className="flex gap-2">
             {/* icon + text on sm+, icon-only on xs to save space */}

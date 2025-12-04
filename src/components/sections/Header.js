@@ -178,13 +178,13 @@ export function Header({ logo, links, buttons, className, ...rest }) {
     // <header className="fixed w-full bg-[rgba(255,255,255,0.5)] dark:bg-[rgba(17,17,17,0.5)] backdrop-blur-xl z-10">
     //   <nav className={cn("relative h-14 container px-0 mx-auto border-b border-base flex flex-wrap justify-start items-center gap-4 lg:gap-8", className)}
     //     {...rest} >
-    //     <Link href={logo.href}>
-    //       <img
-    //         src={logo.src}
-    //         alt={logo.alt}
-    //         className="h-10 w-auto dark:invert"
-    //       />
-    //     </Link>
+    // <Link href={logo.href}>
+    //   <img
+    //     src={logo.src}
+    //     alt={logo.alt}
+    //     className="h-10 w-auto dark:invert"
+    //   />
+    // </Link>
     //     <div
     //       className={cn(
     //         "hidden md:block md:w-auto",
@@ -228,10 +228,16 @@ export function Header({ logo, links, buttons, className, ...rest }) {
           "relative h-14 container px-0 mx-auto border-b border-base flex flex-wrap justify-start items-center gap-4 lg:gap-8",
           className
         )} {...rest} >
-        <div onClick={() => { router.push(logo.href) }} onMouseEnter={() => safePrefetch(router, logo.href)} onFocus={() => safePrefetch(router, logo.href)}>
+        {/* <div onClick={() => { router.push(logo.href) }} onMouseEnter={() => safePrefetch(router, logo.href)} onFocus={() => safePrefetch(router, logo.href)}>
           <img src={logo.src} alt={logo.alt} className="h-10 w-auto dark:invert cursor-pointer" />
-        </div>
-
+        </div> */}
+        <Link href={logo.href} prefetch>
+          <img
+            src={logo.src}
+            alt={logo.alt}
+            className="h-10 w-auto dark:invert"
+          />
+        </Link>
         <div
           className={cn(
             "hidden md:block md:w-auto",
