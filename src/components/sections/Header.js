@@ -10,7 +10,7 @@ import { getSearchIPO } from "@/api";
 import { STORAGE_KEYS } from "@/app_config/CommonVariable";
 import { getLocalStorage, removeLocalStorage } from "@/app_config/CommonFunction";
 import AuthMenu from "./AuthMenu";
-import { ipoDetailsNavigation } from "../cards/PricingCard";
+import { ipoDetailsNavigation, ipoDetailsNavigationPrefetch } from "../cards/PricingCard";
 
 export default function ClientOnly({ children, fallback = null }) {
   const [mounted, setMounted] = useState(false);
@@ -156,6 +156,7 @@ export function Header({ logo, links, buttons, className, ...rest }) {
   function handleSelect(item) {
     setQuery("");
     setShowDropdown(false);
+    ipoDetailsNavigationPrefetch(router, item.symbol)
     ipoDetailsNavigation(router, item.symbol);
   }
 
@@ -178,13 +179,13 @@ export function Header({ logo, links, buttons, className, ...rest }) {
     // <header className="fixed w-full bg-[rgba(255,255,255,0.5)] dark:bg-[rgba(17,17,17,0.5)] backdrop-blur-xl z-10">
     //   <nav className={cn("relative h-14 container px-0 mx-auto border-b border-base flex flex-wrap justify-start items-center gap-4 lg:gap-8", className)}
     //     {...rest} >
-    //     <Link href={logo.href}>
-    //       <img
-    //         src={logo.src}
-    //         alt={logo.alt}
-    //         className="h-10 w-auto dark:invert"
-    //       />
-    //     </Link>
+    // <Link href={logo.href}>
+    //   <img
+    //     src={logo.src}
+    //     alt={logo.alt}
+    //     className="h-10 w-auto dark:invert"
+    //   />
+    // </Link>
     //     <div
     //       className={cn(
     //         "hidden md:block md:w-auto",
@@ -228,10 +229,16 @@ export function Header({ logo, links, buttons, className, ...rest }) {
           "relative h-14 container px-0 mx-auto border-b border-base flex flex-wrap justify-start items-center gap-4 lg:gap-8",
           className
         )} {...rest} >
-        <div onClick={() => { router.push(logo.href) }} onMouseEnter={() => safePrefetch(router, logo.href)} onFocus={() => safePrefetch(router, logo.href)}>
+        {/* <div onClick={() => { router.push(logo.href) }} onMouseEnter={() => safePrefetch(router, logo.href)} onFocus={() => safePrefetch(router, logo.href)}>
           <img src={logo.src} alt={logo.alt} className="h-10 w-auto dark:invert cursor-pointer" />
-        </div>
-
+        </div> */}
+        <Link href={logo.href} prefetch>
+          <img
+            src={logo.src}
+            alt={logo.alt}
+            className="h-10 w-auto dark:invert"
+          />
+        </Link>
         <div
           className={cn(
             "hidden md:block md:w-auto",
@@ -281,7 +288,6 @@ export function Header({ logo, links, buttons, className, ...rest }) {
                 className="w-72 lg:w-80 px-9 py-2 rounded-md border border-neutral-300 dark:border-neutral-800 bg-white dark:bg-neutral-900 text-sm placeholder:text-neutral-400 focus:outline-none focus:ring-1 focus:ring-[#135c33] header_search"
                 aria-label="Search for a company"
               />
-
               {query && (
                 <button
                   type="button"
@@ -292,7 +298,6 @@ export function Header({ logo, links, buttons, className, ...rest }) {
                   ✕
                 </button>
               )}
-
               {/* dropdown */}
               {showDropdown && (
                 <ul className="absolute right-0 left-0 mt-2 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-md shadow-lg max-h-64 overflow-auto z-50">

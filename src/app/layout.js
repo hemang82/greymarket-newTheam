@@ -79,7 +79,6 @@ export default async function RootLayout({ children }) {
                 fontSize: "1rem",
               }
             }} />
-
           <ThemeProvider
             attribute="class"
             defaultTheme="light"

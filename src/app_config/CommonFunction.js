@@ -84,7 +84,6 @@ export function formatOrDash(value, decimals = 2) {
     return num.toFixed(decimals);
 }
 
-
 /**
  * Format any date/time using a given Moment.js pattern.
  * 
