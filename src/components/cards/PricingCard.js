@@ -95,9 +95,23 @@ export const PricingCard = ({ className,
               <div className="min-w-0">
 
                 {/* Keep name from pushing buttons off-screen */}
-                <h3 className="text-base font-semibold text-title truncate  max-w-[58vw] sm:max-w-[280px] md:max-w-[360px] lg:max-w-[460px] mb-2">
+                {/* <h3 className="text-base font-semibold text-title truncate  max-w-[58vw] sm:max-w-[280px] md:max-w-[360px] lg:max-w-[460px] mb-2">
                   {ipoListData?.company_name}
-                </h3>
+                </h3> */}
+<h3
+  className="
+    text-base font-semibold text-title 
+    whitespace-normal    /* allow wrap on mobile */
+    sm:truncate          /* apply truncate only on >= sm */
+    max-w-full 
+    sm:max-w-[280px] 
+    md:max-w-[360px] 
+    lg:max-w-[460px] 
+    mb-2
+  "
+>
+  {ipoListData?.company_name}
+</h3>
 
                 {/* {price ? (
                 <div className="mt-0.5 flex items-baseline gap-2">
