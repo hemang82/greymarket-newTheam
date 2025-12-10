@@ -81,7 +81,7 @@ export default async function page({ params }) {
   const IPODetailsResponse = await getIPODetailsServer({ id: id });
 
   const IPODetailsUpdatedAboutUs = await getIPOAboutusServer({ symbol: IPODetailsResponse?.symbol, web: '1', topic: '' })
-  
+
   // console.log('IPODetailsResponse Server',IPODetailsResponse);
 
   return (<>
@@ -94,3 +94,4 @@ export default async function page({ params }) {
 
   </>);
 }
+

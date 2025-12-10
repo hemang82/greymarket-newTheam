@@ -35,17 +35,17 @@ export const Brands = ({ clients, className, ...rest }) => {
     //             </div>
     //   </div>
     //   </div>  
-    
+
     <div className="marquee-container ">
       <div className="marquee-track">
         <div className="marquee-group">
           {clients.map((client, index) => (
-            <div className="w-36 h-14 rounded-md border border-base p-1 bg-white  overflow-hidden shrink-0 flex items-center justify-center" key={`dup-${index}`}>
+            <div className="w-36 h-20 rounded-md border border-base p-1 bg-white  overflow-hidden shrink-0 flex items-center justify-center" key={`dup-${index}`}>
               <Image
                 src={client.src}
                 alt={client.name}
                 width={120}
-                height={100}
+                height={150}
                 className="object-contain"
                 unoptimized
               />
@@ -60,12 +60,12 @@ export const Brands = ({ clients, className, ...rest }) => {
           {/* DUPLICATE LIST FOR SEAMLESS LOOP */}
           {clients.map((client, index) => (
 
-            <div className="w-36 h-14 rounded-md border border-base bg-white p-1 overflow-hidden shrink-0 flex items-center justify-center" key={`dup-${index}`}>
+            <div className="w-36 h-20 rounded-md border border-base bg-white p-1 overflow-hidden shrink-0 flex items-center justify-center" key={`dup-${index}`}>
               <Image
                 src={client.src}
                 alt={client.name}
                 width={120}
-                height={100}
+                height={150}
                 className="object-contain"
                 unoptimized
               />
