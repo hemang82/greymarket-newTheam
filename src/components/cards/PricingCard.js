@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import { DollarSign, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 import Labels from "./Labels";
 import { safePrefetch } from "../sections/Header";
 import Link from "next/link";
@@ -19,6 +19,16 @@ export const ipoDetailsNavigation = (router, id) => {
 export const ipoDetailsNavigationPrefetch = (router, id) => {
   // router.push(`/ipo-details/${id}`);
   safePrefetch(router, `/ipo-details/${id}`)
+}
+
+export function PrefetchIPO({ id }) {
+  const router = useRouter();
+
+  useEffect(() => {
+    router.prefetch(`/ipo-details/${id}`);
+  }, [id]);
+
+  return null;
 }
 
 export const PricingCard = ({ className,
@@ -72,9 +82,10 @@ export const PricingCard = ({ className,
 
         <div className="flex items-center justify-between gap-2">
           {/* Left cluster */}
+          <PrefetchIPO id={ipoListData?.symbol} />
           <Link
             key={ipoListData?.symbol}
-            href={`/ipo-details/${ipoListData.symbol}`}
+            href={`/ipo-details/${ipoListData?.symbol}`}
             prefetch
             className="cursor-pointer"
           >
@@ -98,8 +109,8 @@ export const PricingCard = ({ className,
                 {/* <h3 className="text-base font-semibold text-title truncate  max-w-[58vw] sm:max-w-[280px] md:max-w-[360px] lg:max-w-[460px] mb-2">
                   {ipoListData?.company_name}
                 </h3> */}
-<h3
-  className="
+                <h3
+                  className="
     text-base font-semibold text-title 
     whitespace-normal    /* allow wrap on mobile */
     sm:truncate          /* apply truncate only on >= sm */
@@ -109,9 +120,9 @@ export const PricingCard = ({ className,
     lg:max-w-[460px] 
     mb-2
   "
->
-  {ipoListData?.company_name}
-</h3>
+                >
+                  {ipoListData?.company_name}
+                </h3>
 
                 {/* {price ? (
                 <div className="mt-0.5 flex items-baseline gap-2">
@@ -127,23 +138,23 @@ export const PricingCard = ({ className,
             </div>
           </Link>
 
-        <div className="flex flex-col sm:flex-row gap-2">
-  <button
-    onClick={() => buyButtonChange(ipoListData)}
-    className="h-8 px-3 rounded-full min-w-[64px] border buyButton 
+          <div className="flex flex-col sm:flex-row gap-2">
+            <button
+              onClick={() => buyButtonChange(ipoListData)}
+              className="h-8 px-3 rounded-full min-w-[64px] border buyButton 
                text-xs sm:text-sm flex items-center justify-center"
-  >
-    Buy
-  </button>
+            >
+              Buy
+            </button>
 
-  <button
-    onClick={() => shellButtonChange(ipoListData)}
-    className="h-8 px-3 rounded-full min-w-[64px] border sellButton
+            <button
+              onClick={() => shellButtonChange(ipoListData)}
+              className="h-8 px-3 rounded-full min-w-[64px] border sellButton
                text-xs sm:text-sm flex items-center justify-center"
-  >
-    Sell
-  </button>
-</div>
+            >
+              Sell
+            </button>
+          </div>
 
         </div>
 

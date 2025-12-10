@@ -37,8 +37,6 @@ export function IpoDetailsPages({ ipoDetailsData, IPODetailsUpdatedAboutUs, ...r
     const [fincialGraphShow, setFinancialGraphShow] = useState("")
     const [subscriptionGraphShow, setSubscriptionGraphShow] = useState("")
 
-    console.log('IPODetailsUpdatedAboutUs', IPODetailsUpdatedAboutUs);
-
     return (<>
 
         <StickyTabs items={TABS} />
@@ -119,7 +117,6 @@ export function IpoDetailsPages({ ipoDetailsData, IPODetailsUpdatedAboutUs, ...r
                         </div>
                     </div>
                 }
-
                 {
                     ipoDetailsData?.key_performance_indicator?.length > 0 && <div id="financial_data" className="scroll-mt-20 !mt-0 sm:!mt-[2.5rem]">
                         <Card title="" >
@@ -166,8 +163,7 @@ export function IpoDetailsPages({ ipoDetailsData, IPODetailsUpdatedAboutUs, ...r
                         }
                         {
                             ipoDetailsData?.subscription_history?.length < 0 &&
-                            <Card
-                                title={`Subscription Details (No. of Shares)`}
+                            <Card title={`Subscription Details (No. of Shares)`}
                                 showModes={true}
                                 onGraphClick={() => setSubscriptionGraphShow("graph")}
                                 onTableClick={() => setSubscriptionGraphShow("table")}
@@ -187,9 +183,7 @@ export function IpoDetailsPages({ ipoDetailsData, IPODetailsUpdatedAboutUs, ...r
                                     </div>
                                     // </Card>
                                 )}
-
                                 <SubscriptionDetailsTable title="Subscription Details (No. of Shares)" rows={ipoDetailsData?.ipo_subscription_detail?.length > 0 ? ipoDetailsData?.ipo_subscription_detail : []} />
-
                             </Card>
                         }
 
