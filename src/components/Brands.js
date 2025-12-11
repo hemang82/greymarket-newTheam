@@ -44,8 +44,8 @@ export const Brands = ({ clients, className, ...rest }) => {
               <Image
                 src={client.src}
                 alt={client.name}
-                width={120}
-                height={150}
+                width={100}
+                height={60}
                 className="object-contain"
                 unoptimized
               />
@@ -58,19 +58,20 @@ export const Brands = ({ clients, className, ...rest }) => {
               className="h-7 filter m-4 md:m-8"
             /> */}
           {/* DUPLICATE LIST FOR SEAMLESS LOOP */}
-          {clients.map((client, index) => (
 
+          {clients.map((client, index) => (
             <div className="w-36 h-20 rounded-md border border-base bg-white p-1 overflow-hidden shrink-0 flex items-center justify-center" key={`dup-${index}`}>
               <Image
                 src={client.src}
                 alt={client.name}
-                width={120}
-                height={150}
+                width={100}
+                height={60}
                 className="object-contain"
                 unoptimized
               />
             </div>
           ))}
+          
         </div>
       </div>
     </div>

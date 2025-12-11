@@ -11,6 +11,7 @@ import React, { useEffect } from "react";
 import Labels from "./Labels";
 import { safePrefetch } from "../sections/Header";
 import Link from "next/link";
+import { useIPOStore } from "@/stores/useAppStore";
 
 export const ipoDetailsNavigation = (router, id) => {
   router.push(`/ipo-details/${id}`);
@@ -47,11 +48,12 @@ export const PricingCard = ({ className,
     lotSize: "200",
     price: "500"
   },
-  ipoListData
+  ipoListData,
 }) => {
 
   const router = useRouter();
   const login_user = getLocalStorage(STORAGE_KEYS.LOGIN_KEY);
+  const setIPOLoader = useIPOStore((s) => s.setIpoLoader);
 
   const phoneNumber = '+918529247605'
   const message1 = 'Hello, I want to Buy this IPO:'
@@ -77,6 +79,7 @@ export const PricingCard = ({ className,
 
   return (
     <React.Fragment >
+
       <div className={cn("flex h-full flex-col rounded-2xl border border-base bg-white dark:bg-base-950 p-4 shadow-sm hover:shadow-xl transition", className)} >
         {/* Top row: logo + name (left) | buttons (right) */}
 
@@ -84,6 +87,7 @@ export const PricingCard = ({ className,
           {/* Left cluster */}
           <PrefetchIPO id={ipoListData?.symbol} />
           <Link
+            onClick={() => { setIPOLoader(true); }}
             key={ipoListData?.symbol}
             href={`/ipo-details/${ipoListData?.symbol}`}
             prefetch
@@ -109,18 +113,14 @@ export const PricingCard = ({ className,
                 {/* <h3 className="text-base font-semibold text-title truncate  max-w-[58vw] sm:max-w-[280px] md:max-w-[360px] lg:max-w-[460px] mb-2">
                   {ipoListData?.company_name}
                 </h3> */}
-                <h3
-                  className="
-    text-base font-semibold text-title 
+                <h3 className="text-base font-semibold text-title 
     whitespace-normal    /* allow wrap on mobile */
     sm:truncate          /* apply truncate only on >= sm */
     max-w-full 
     sm:max-w-[280px] 
     md:max-w-[360px] 
     lg:max-w-[460px] 
-    mb-2
-  "
-                >
+    mb-2" >
                   {ipoListData?.company_name}
                 </h3>
 
@@ -159,16 +159,25 @@ export const PricingCard = ({ className,
         </div>
 
         {/* Divider */}
-        <div className="my-3 w-full border-b border-base" />
         {/* Details */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-8 gap-y-2 text-sm">
-          <Field label="Offer Date" value={formatDateTime(ipoListData?.start_date, DateFormats?.DATE_DD_MM_YYYY)} />
-          <Field label="Listed At" value={formatDateTime(ipoListData?.listing_date, DateFormats?.DATE_DD_MM_YYYY)} />
-          <Field label="Allotment Date" value={formatDateTime(ipoListData?.allotment_date, DateFormats?.DATE_DD_MM_YYYY)} />
-          <Field label="Lot Size" value={formatIndianNumber(ipoListData.bid_lot)} />
-          <Field label="Price Range" value={ipoListData.price_range} />
-          <Field label="GMP" value={formatGmpValue(ipoListData)} className={'gmp_color'} />
-        </div>
+        <Link
+          onClick={() => { setIPOLoader(true); }}
+          key={ipoListData?.symbol}
+          href={`/ipo-details/${ipoListData?.symbol}`}
+          prefetch
+          className="cursor-pointer"
+        >
+          <div className="my-3 w-full border-b border-base" />
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-8 gap-y-2 text-sm">
+            <Field label="Offer Date" value={formatDateTime(ipoListData?.start_date, DateFormats?.DATE_DD_MM_YYYY)} />
+            <Field label="Listed At" value={formatDateTime(ipoListData?.listing_date, DateFormats?.DATE_DD_MM_YYYY)} />
+            <Field label="Allotment Date" value={formatDateTime(ipoListData?.allotment_date, DateFormats?.DATE_DD_MM_YYYY)} />
+            <Field label="Lot Size" value={formatIndianNumber(ipoListData.bid_lot)} />
+            <Field label="Price Range" value={ipoListData.price_range} />
+            <Field label="GMP" value={formatGmpValue(ipoListData)} className={'gmp_color'} />
+          </div>
+        </Link>
+        
       </div>
     </React.Fragment>
   );

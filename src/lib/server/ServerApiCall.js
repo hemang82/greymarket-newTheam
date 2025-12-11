@@ -5,9 +5,11 @@
  */
 
 import { getIPODetailsApi, getNewsListApi, ipoListApi } from "@/api";
+import { useIPOStore } from "@/stores/useAppStore";
 
 export async function getIPOsServer(request) {
     try {
+        
         const res = await ipoListApi(request);
         if (res?.meta?.status_code == 200) {
             return res?.data?.results?.length > 0 ? res?.data : [];

@@ -17,6 +17,9 @@ import { persist, createJSONStorage } from "zustand/middleware";
 export const useIPOStore = create(
   persist((set) => ({
 
+    ipoLoader : false,
+    setIpoLoader : (status) => set({ ipoLoader : status}),
+
     //IPO
     ipos: [],
     setIPOs: (list) => set({ ipos: list || [] }),

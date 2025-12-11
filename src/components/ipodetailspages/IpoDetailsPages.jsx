@@ -7,7 +7,7 @@ import { gmpDetails } from "@/data/gmpdata";
 import { ApplicationBreakupTable, DetailsCommonCard, FinancialTable, GmpTrendTable, IpoCompanyDetails, IPOReservationTable, KeyPerfomanceTable, LotDistributionTable, StrengthWeekness, SubscriptionDemandTable, SubscriptionDetailsTable } from "./IPOGmp";
 import OverviewSection from "./OverviewSection";
 import dynamic from "next/dynamic";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // import GroupedBarChart from "./FinancialsChart";
 // const GroupedBarChart = dynamic(() => import("./FinancialsChart"), { ssr: false }
 // );
@@ -15,6 +15,7 @@ import { BsGraphDown, BsTable } from "react-icons/bs";
 import { formatGmpValue } from "@/app_config/IPOCalculation";
 import { formatIndianPrice } from "@/app_config/CommonFunction";
 import { StyledGroupedBarChartApex, SubscriptionLineChartTimes } from "./FinancialsChart";
+import { useIPOStore } from "@/stores/useAppStore";
 
 // import Accordion from "@/components/Accordion";
 
@@ -33,9 +34,14 @@ const TABS = [
 ];
 
 export function IpoDetailsPages({ ipoDetailsData, IPODetailsUpdatedAboutUs, ...rest }) {
+    const setIPOLoader = useIPOStore((s) => s.setIpoLoader);
 
     const [fincialGraphShow, setFinancialGraphShow] = useState("")
     const [subscriptionGraphShow, setSubscriptionGraphShow] = useState("")
+
+    useEffect(() => {
+        setIPOLoader(false);
+    }, [ipoDetailsData])
 
     return (<>
 

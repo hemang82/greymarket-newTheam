@@ -11,6 +11,8 @@ import { STORAGE_KEYS } from "@/app_config/CommonVariable";
 import { getLocalStorage, removeLocalStorage } from "@/app_config/CommonFunction";
 import AuthMenu from "./AuthMenu";
 import { ipoDetailsNavigation, ipoDetailsNavigationPrefetch } from "../cards/PricingCard";
+import { useIPOStore } from "@/stores/useAppStore";
+import Spinner from "../common/Spinner";
 
 export default function ClientOnly({ children, fallback = null }) {
   const [mounted, setMounted] = useState(false);
@@ -75,8 +77,11 @@ export function Header({ logo, links, buttons, className, ...rest }) {
 
   const is_login = getLocalStorage(STORAGE_KEYS.LOGIN_KEY);
   const localUserData = getLocalStorage(STORAGE_KEYS.AUTH_KEY);
+  const ipoLoader = useIPOStore((s) => s.ipoLoader);
 
   const [open, setOpen] = useState(false);
+
+  console.log('ipoLoaderipoLoader', ipoLoader);
 
   useEffect(() => {
     const pathsToPrefetch = [
@@ -173,20 +178,22 @@ export function Header({ logo, links, buttons, className, ...rest }) {
     inputRef.current?.focus();
   }
 
-  return (
+  return (<>
 
-    // <header className="fixed w-full bg-base-50/50 dark:bg-base-950/50 backdrop-blur-xl z-10">
+    {ipoLoader && <Spinner isActive={ipoLoader} />}
+
+    {/* // <header className="fixed w-full bg-base-50/50 dark:bg-base-950/50 backdrop-blur-xl z-10">
     // <header className="fixed w-full bg-[rgba(255,255,255,0.5)] dark:bg-[rgba(17,17,17,0.5)] backdrop-blur-xl z-10">
-    //   <nav className={cn("relative h-14 container px-0 mx-auto border-b border-base flex flex-wrap justify-start items-center gap-4 lg:gap-8", className)}
-    //     {...rest} >
+    //   <nav className={cn("relative h-14 container px-0 mx-auto border-b border-base flex flex-wrap justify-start items-center gap-4 lg:gap-8", className)} */}
+    {/* //     {...rest} >
     // <Link href={logo.href}>
-    //   <img
-    //     src={logo.src}
+    //   <img */}
+    {/* //     src={logo.src}
     //     alt={logo.alt}
     //     className="h-10 w-auto dark:invert"
     //   />
-    // </Link>
-    //     <div
+    // </Link> */}
+    {/* //     <div
     //       className={cn(
     //         "hidden md:block md:w-auto",
     //         open &&
@@ -221,7 +228,7 @@ export function Header({ logo, links, buttons, className, ...rest }) {
     //       onClick={() => setOpen(!open)}
     //     />
     //   </nav>
-    // </header>
+    // </header> */}
 
     <header className="fixed w-full bg-[rgba(255,255,255,0.5)] dark:bg-[rgba(17,17,17,0.5)] backdrop-blur-xl z-[31]">
       <nav
@@ -364,5 +371,6 @@ export function Header({ logo, links, buttons, className, ...rest }) {
       </nav>
 
     </header>
+  </>
   );
 }
