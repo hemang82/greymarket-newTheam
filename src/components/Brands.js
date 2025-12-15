@@ -71,11 +71,9 @@ export const Brands = ({ clients, className, ...rest }) => {
               />
             </div>
           ))}
-          
+
         </div>
       </div>
     </div>
-
-
   );
 };
