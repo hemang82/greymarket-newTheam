@@ -1,0 +1,3 @@
+module.exports=[64097,a=>{"use strict";var b=a.i(87924);a.i(41562),a.i(97630),a.i(71987),a.i(36701),a.i(67395);var c=a.i(59085);function d({newsList:a,pageSize:d,page:e}){return(0,b.jsxs)(b.Fragment,{children:[(0,b.jsx)("div",{className:"my-7"}),(0,b.jsx)(c.TestimonialSection,{id:"testimonials",title:"IPO News & Market Updates",description:"Discover the latest updates and analysis from India’s unlisted share market, covering company news, pre-IPO performance, and exclusive investment insights.",button:{label:"Read All",href:"/news",color:"white"},newsList:a,paginationShow:!0,pageSize:d,page:e})]})}a.i(32731),a.i(42853),a.i(83918),a.s(["default",()=>d],64097)}];
+
+//# sourceMappingURL=src_app_news_NewsClient_jsx_393e52c7._.js.map

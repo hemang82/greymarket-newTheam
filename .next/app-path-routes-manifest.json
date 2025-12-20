@@ -1,0 +1,12 @@
+{
+  "/PrivacyPolicy/page": "/PrivacyPolicy",
+  "/TermsConditions/page": "/TermsConditions",
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/auth/login/page": "/auth/login",
+  "/ipo-details/[id]/page": "/ipo-details/[id]",
+  "/news/page": "/news",
+  "/page": "/",
+  "/robots.txt/route": "/robots.txt",
+  "/sitemap.xml/route": "/sitemap.xml"
+}
