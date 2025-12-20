@@ -3,7 +3,7 @@ import { getIPOsServer } from "@/lib/server/ServerApiCall";
 // app/sitemap.js
 export default async function sitemap() {
 
-    const baseUrl = (process.env.SITE_URL || '-----');
+    const baseUrl = ('https://greymarketipo.com/' || '-----');
 
     // Always include a small static set (fast)
     const staticPages = [
