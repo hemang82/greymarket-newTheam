@@ -265,7 +265,7 @@ async function Home({ searchParams }) {
                     })) : []
             }, void 0, false, {
                 fileName: "[project]/src/app/page.jsx",
-                lineNumber: 72,
+                lineNumber: 70,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$sections$2f$PricingSection$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["PricingSection"], {
@@ -283,7 +283,7 @@ async function Home({ searchParams }) {
                 ipoData: ipos
             }, void 0, false, {
                 fileName: "[project]/src/app/page.jsx",
-                lineNumber: 117,
+                lineNumber: 115,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$sections$2f$FeatureSection$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["FeatureSection"], {
@@ -293,7 +293,7 @@ async function Home({ searchParams }) {
                 features: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$data$2f$features$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["features"]
             }, void 0, false, {
                 fileName: "[project]/src/app/page.jsx",
-                lineNumber: 174,
+                lineNumber: 172,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$sections$2f$TestimonialSection$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["TestimonialSection"], {
@@ -316,7 +316,7 @@ async function Home({ searchParams }) {
                 paginationShow: false
             }, void 0, false, {
                 fileName: "[project]/src/app/page.jsx",
-                lineNumber: 181,
+                lineNumber: 179,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$sections$2f$FaqSection$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["FaqSection"], {
@@ -335,7 +335,7 @@ async function Home({ searchParams }) {
                 faqs: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$data$2f$faqs$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["faqs"]
             }, void 0, false, {
                 fileName: "[project]/src/app/page.jsx",
-                lineNumber: 201,
+                lineNumber: 199,
                 columnNumber: 7
             }, this)
         ]
