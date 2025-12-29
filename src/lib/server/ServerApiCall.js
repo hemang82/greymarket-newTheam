@@ -12,6 +12,8 @@ export async function getIPOsServer(request) {
         
         const res = await ipoListApi(request);
         if (res?.meta?.status_code == 200) {
+            console.log('res?.datares?.datares?.data', res?.data);
+            
             return res?.data?.results?.length > 0 ? res?.data : [];
         } else {
             return [];

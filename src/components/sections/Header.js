@@ -362,12 +362,14 @@ export function Header({ logo, links, buttons, className, ...rest }) {
 
         </div>
 
-        <Button
-          icon={open ? "tabler:x" : "tabler:menu-2"}
-          color="transparent"
-          className="p-2 md:hidden"
-          onClick={() => setOpen(!open)}
-        />
+        {pathname == "/" &&
+          <Button
+            icon={open ? "tabler:x" : "tabler:menu-2"}
+            color="transparent"
+            className="p-2 md:hidden"
+            onClick={() => setOpen(!open)}
+          />
+        }
       </nav>
 
     </header>

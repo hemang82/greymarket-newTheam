@@ -1,1 +1,5 @@
-{}
+{
+  "/ipo-details/[id]/page": "app/ipo-details/[id]/page.js",
+  "/page": "app/page.js",
+  "/sitemap.xml/route": "app/sitemap.xml/route.js"
+}

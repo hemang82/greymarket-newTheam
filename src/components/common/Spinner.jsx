@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react';
-import { RotatingTriangles, Triangle , ThreeDots , TailSpin , Oval    } from 'react-loader-spinner';
+import { RotatingTriangles, Triangle, ThreeDots, TailSpin, Oval } from 'react-loader-spinner';
 
 export default function Spinner({ message, isActive }) {
 
@@ -22,7 +22,7 @@ export default function Spinner({ message, isActive }) {
             bottom: 0,
             zIndex: 9999,
         }}>
-            <ThreeDots  
+            <ThreeDots
                 height="80"
                 width="80"
                 color="#2f704c"

@@ -1,9 +1,11 @@
 import { getIPOsServer } from "@/lib/server/ServerApiCall";
+const axios = require("axios");
 
 // app/sitemap.js
 export default async function sitemap() {
 
     const baseUrl = ('https://greymarketipo.com/' || '-----');
+    const escapeXml = (url) => url.replace(/&/g, "&amp;");
 
     // Always include a small static set (fast)
     const staticPages = [
@@ -21,21 +23,35 @@ export default async function sitemap() {
     // In production try to fetch dynamic routes, but fail gracefully
 
     const dynamicRoutes = [];
+    const ipoPageData = [];
+    const perpage = 40;
 
     try {
-        const iposRes = await getIPOsServer({ page: 1, pageSize: 50 });
-        console.log('iposRes', iposRes);
-        // if (iposRes.ok) {
-        // const ipos = await iposRes.json();
-        (iposRes?.results || []).forEach(i => {
-            console.log('i.symbol', i.symbol);
 
+        const iposRes = await axios.get(`https://api.ipo-trend.com/ipo/sitemap/`);
+
+        (iposRes?.data?.data?.results?.ipo_data || []).forEach(i => {
             if (i.symbol) dynamicRoutes.push({
                 url: `${baseUrl}ipo-details/${i.symbol}`,
                 lastModified: i.updated_at ? new Date(i.updated_at) : new Date(),
             });
         });
-        // }
+
+        // 🔹 Pagination pages (IMPORTANT FIX)
+        const totalCount = iposRes?.count || 0;   // total IPO records
+        const pageSize = perpage;                 // per page items
+
+        const totalPages = Math.ceil(totalCount / pageSize);
+        console.log('totalPages', totalPages);
+
+        Array.from({ length: totalPages }).forEach((_, i) => {
+            ipoPageData.push({
+                url: escapeXml(`${baseUrl}?page=${i + 1}&pageSize=${perpage}`),
+                lastModified: new Date(),
+                // priority: 0.5,
+            });
+        });
+
     } catch (err) {
         console.warn('sitemap: failed to fetch ipos', err);
     }
@@ -55,8 +71,5 @@ export default async function sitemap() {
     //     console.warn(
     // 'sitemap: failed to fetch news', err);
     // }
-
-    console.log('dynamicRoutes', ...dynamicRoutes);
-
-    return [...staticPages, ...dynamicRoutes];
+    return [...staticPages, ...dynamicRoutes, ...ipoPageData];
 }

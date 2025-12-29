@@ -4290,6 +4290,7 @@ async function getIPOsServer(request) {
     try {
         const res = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$api$2f$index$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["ipoListApi"])(request);
         if (res?.meta?.status_code == 200) {
+            console.log('res?.datares?.datares?.data', res?.data);
             return res?.data?.results?.length > 0 ? res?.data : [];
         } else {
             return [];
