@@ -11,7 +11,6 @@ import { useRouter } from 'next/navigation';
 export default function page() {
 
     const router = useRouter();
-
     function base64UrlDecode(str) {
         // Convert base64url -> base64
         str = str.replace(/-/g, '+').replace(/_/g, '/');

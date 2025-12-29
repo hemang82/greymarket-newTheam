@@ -14,6 +14,7 @@ export default async function sitemap() {
         { url: `${baseUrl}news`, lastModified: new Date() },
         { url: `${baseUrl}PrivacyPolicy`, lastModified: new Date() },
         { url: `${baseUrl}TermsConditions`, lastModified: new Date() },
+        { url: `${baseUrl}Contact-us`, lastModified: new Date() },
     ];
 
     // In development we return only the static pages to avoid slow external calls
@@ -38,19 +39,19 @@ export default async function sitemap() {
         });
 
         // 🔹 Pagination pages (IMPORTANT FIX)
-        const totalCount = iposRes?.count || 0;   // total IPO records
-        const pageSize = perpage;                 // per page items
+        // const totalCount = iposRes?.count || 0;   // total IPO records
+        // const pageSize = perpage;                 // per page items
 
-        const totalPages = Math.ceil(totalCount / pageSize);
-        console.log('totalPages', totalPages);
+        // const totalPages = Math.ceil(totalCount / pageSize);
+        // console.log('totalPages', totalPages);
 
-        Array.from({ length: totalPages }).forEach((_, i) => {
-            ipoPageData.push({
-                url: escapeXml(`${baseUrl}?page=${i + 1}&pageSize=${perpage}`),
-                lastModified: new Date(),
-                // priority: 0.5,
-            });
-        });
+        // Array.from({ length: totalPages }).forEach((_, i) => {
+        //     ipoPageData.push({
+        //         url: escapeXml(`${baseUrl}?page=${i + 1}&pageSize=${perpage}`),
+        //         lastModified: new Date(),
+        //         // priority: 0.5,
+        //     });
+        // });
 
     } catch (err) {
         console.warn('sitemap: failed to fetch ipos', err);
@@ -71,5 +72,5 @@ export default async function sitemap() {
     //     console.warn(
     // 'sitemap: failed to fetch news', err);
     // }
-    return [...staticPages, ...dynamicRoutes, ...ipoPageData];
+    return [...staticPages, ...dynamicRoutes];
 }
