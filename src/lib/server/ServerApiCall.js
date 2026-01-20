@@ -4,7 +4,7 @@
  * Always fresh per request
  */
 
-import { getIPODetailsApi, getNewsListApi, ipoListApi } from "@/api";
+import { getIPODetailsApi, getIPOGmpApi, getNewsListApi, ipoListApi } from "@/api";
 import { useIPOStore } from "@/stores/useAppStore";
 
 export async function getIPOsServer(request) {
@@ -28,7 +28,6 @@ export async function getIPODetailsServer(request) {
     try {
         const res = await getIPODetailsApi(request);
         if (res?.meta?.status_code == 200) {
-            // console.log('res?.data', res?.data);
             return res?.data || {};
         } else {
             return {};
@@ -38,6 +37,21 @@ export async function getIPODetailsServer(request) {
         return {};
     }
 }
+
+export async function getIPODetailsGMPServer(request) {
+    try {
+        const res = await getIPOGmpApi(request);
+        if (res?.meta?.status_code == 200) {
+            return res?.data || {};
+        } else {
+            return {};
+        }
+    } catch (err) {
+        console.error("Error fetching IPO details:");
+        return {};
+    }
+}
+
 
 // export async function getNewsListServer(request) {
 //     try {

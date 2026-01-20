@@ -533,8 +533,7 @@ export function IPOReservationTable({ title = "", rows = [] }) {
 
 export function IpoCompanyDetails({ companyDetails = {}, registrarDetail = "" }) {
     // Parse registrar details from comma-separated string
-    const [registrarName, registrarPhone, registrarEmail, registrarWebsite] =
-        registrarDetail?.split(",").map((item) => item.trim()) || [];
+    const [registrarName, registrarPhone, registrarEmail, registrarWebsite] = registrarDetail?.split(",").map((item) => item.trim()) || [];
 
     return (
         <section className="scroll-mt-20">
@@ -594,10 +593,10 @@ export function IpoCompanyDetails({ companyDetails = {}, registrarDetail = "" })
                             {registrarName || "-"}
                         </h4> */}
                         <div>
-                            <strong>Name:</strong> {registrarName || "—"}
+                            <strong>Name:</strong> {registrarName ? registrarName : "—"}
                         </div>
                         <div>
-                            <strong>Phone:</strong> {registrarPhone || "—"}
+                            <strong>Phone:</strong> {registrarPhone ? registrarPhone : "—"}
                         </div>
                         <div>
                             <strong>Email:</strong>{" "}

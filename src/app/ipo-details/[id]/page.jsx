@@ -3,7 +3,7 @@ import { formatDateTime } from '@/app_config/CommonFunction';
 import { DateFormats } from '@/app_config/CommonVariable';
 import { formatGmpValue } from '@/app_config/IPOCalculation';
 import { IpoDetailsPages } from '@/components/ipodetailspages/IpoDetailsPages';
-import { getIPOAboutusServer, getIPODetailsServer, getIPOsServer } from '@/lib/server/ServerApiCall';
+import { getIPOAboutusServer, getIPODetailsGMPServer, getIPODetailsServer, getIPOsServer } from '@/lib/server/ServerApiCall';
 import Head from 'next/head';
 import React from 'react'
 
@@ -78,11 +78,14 @@ export default async function page({ params }) {
   // title : {{companyName}} IPO Details {{year}} – Price, GMP, Dates, Allotment, Review
   // Description : Get complete information on the {{companyName}} IPO including price band, issue size, dates, lot size, subscription status, GMP, allotment date, and listing details. Check latest updates, tips, and important insights before applying.
   const { id } = await params;
+
   const IPODetailsResponse = await getIPODetailsServer({ id: id });
 
-  const IPODetailsUpdatedAboutUs = await getIPOAboutusServer({ symbol: IPODetailsResponse?.symbol, web: '1', topic: '' })
+  const IPOGMPResponse = await getIPODetailsGMPServer({ id: id });
 
-  // console.log('IPODetailsResponse Server',IPODetailsResponse);
+  console.log("IPOGMPResponse", IPODetailsResponse);
+
+  const IPODetailsUpdatedAboutUs = await getIPOAboutusServer({ symbol: IPODetailsResponse?.symbol, web: '1', topic: '' })
 
   return (<>
 
@@ -90,7 +93,7 @@ export default async function page({ params }) {
       <title>IPO Details</title>
     </Head>
 
-    <IpoDetailsPages ipoDetailsData={IPODetailsResponse} IPODetailsUpdatedAboutUs={IPODetailsUpdatedAboutUs} />
+    <IpoDetailsPages ipoDetailsData={IPODetailsResponse} IPODetailsUpdatedAboutUs={IPODetailsUpdatedAboutUs} IPOGMPResponse={IPOGMPResponse} />
 
   </>);
 }

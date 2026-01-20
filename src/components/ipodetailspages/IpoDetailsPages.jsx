@@ -33,7 +33,7 @@ const TABS = [
     // { id: "documents", label: "Documents" },
 ];
 
-export function IpoDetailsPages({ ipoDetailsData, IPODetailsUpdatedAboutUs, ...rest }) {
+export function IpoDetailsPages({ ipoDetailsData, IPODetailsUpdatedAboutUs, IPOGMPResponse, ...rest }) {
     const setIPOLoader = useIPOStore((s) => s.setIpoLoader);
 
     const [fincialGraphShow, setFinancialGraphShow] = useState("")
@@ -81,7 +81,7 @@ export function IpoDetailsPages({ ipoDetailsData, IPODetailsUpdatedAboutUs, ...r
 
                 {/* Gmp */}
                 {
-                    gmpDetails?.ipo_gmp?.length > 0 && <div id="gmpDetails" className="scroll-mt-20 !mt-0 sm:!mt-[2.5rem]">
+                    IPOGMPResponse?.ipo_gmp?.length > 0 && <div id="gmpDetails" className="scroll-mt-20 !mt-0 sm:!mt-[2.5rem]">
                         <Card title="" >
                             <div className="text-sm text-gray-600 dark:text-gray-300 px-3 pb-3">
                                 The Grey Market Premium (GMP) for{" "}
@@ -100,13 +100,12 @@ export function IpoDetailsPages({ ipoDetailsData, IPODetailsUpdatedAboutUs, ...r
                                 Please note that GMP values are unofficial and can change frequently as they depend
                                 on demand, market conditions, and investor activity.
                             </div>
-                            <GmpTrendTable title="Gmp Details" rows={gmpDetails?.ipo_gmp?.length > 0 ? gmpDetails?.ipo_gmp : []} />
+                            <GmpTrendTable title="Gmp Details" rows={IPOGMPResponse?.ipo_gmp?.length > 0 ? IPOGMPResponse?.ipo_gmp : []} />
                         </Card>
                     </div>
                 }
-
                 {
-                    ipoDetailsData?.company_financial_data?.financial_data?.length > 0 && <div id="financial_data" className="scroll-mt-20 !mt-0 sm:!mt-[2.5rem]">
+                    ipoDetailsData?.company_financial_data?.financial_data?.length > 1 && <div id="financial_data" className="scroll-mt-20 !mt-0 sm:!mt-[2.5rem]">
                         <div id="financial_data" className="scroll-mt-20">
                             <Card title={`Financials overview ${ipoDetailsData?.company_financial_data?.financial_amount_type}`} showModes={true} onGraphClick={() => setFinancialGraphShow("graph")} onTableClick={() => setFinancialGraphShow("table")}>
                                 <div className="text-sm text-gray-600 dark:text-gray-300 px-3 pb-3">
@@ -124,7 +123,8 @@ export function IpoDetailsPages({ ipoDetailsData, IPODetailsUpdatedAboutUs, ...r
                     </div>
                 }
                 {
-                    ipoDetailsData?.key_performance_indicator?.length > 0 && <div id="financial_data" className="scroll-mt-20 !mt-0 sm:!mt-[2.5rem]">
+
+                    ipoDetailsData?.key_performance_indicator?.length > 1 && <div id="financial_data" className="scroll-mt-20 !mt-0 sm:!mt-[2.5rem]">
                         <Card title="" >
                             <KeyPerfomanceTable title="Key Performance" rows={ipoDetailsData?.key_performance_indicator?.length > 0 ? ipoDetailsData?.key_performance_indicator : []} />
                         </Card>
