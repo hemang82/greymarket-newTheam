@@ -74,7 +74,7 @@ export default async function Home({ searchParams }) {
           icon: "tabler:arrow-right",
           label: "😻 Learn What's New",
         }}
-        title="Live/Upcoming IPOs"
+        title="Live/Upcoming IPOss"
         description="Explore all live and upcoming IPOs with detailed insights - issue price, dates, lot size, and Grey Market Premium (GMP) updates."
         buttons={[
           {
