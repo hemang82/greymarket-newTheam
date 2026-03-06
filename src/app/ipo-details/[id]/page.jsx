@@ -4,7 +4,6 @@ import { DateFormats } from '@/app_config/CommonVariable';
 import { formatGmpValue } from '@/app_config/IPOCalculation';
 import { IpoDetailsPages } from '@/components/ipodetailspages/IpoDetailsPages';
 import { getIPOAboutusServer, getIPODetailsGMPServer, getIPODetailsServer, getIPOsServer } from '@/lib/server/ServerApiCall';
-import Head from 'next/head';
 import React from 'react'
 
 export async function generateMetadata({ params }) {
@@ -74,27 +73,39 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function page({ params }) {
-  // =============== SEO ===================;
-  // title : {{companyName}} IPO Details {{year}} – Price, GMP, Dates, Allotment, Review
-  // Description : Get complete information on the {{companyName}} IPO including price band, issue size, dates, lot size, subscription status, GMP, allotment date, and listing details. Check latest updates, tips, and important insights before applying.
   const { id } = await params;
 
-  const IPODetailsResponse = await getIPODetailsServer({ id: id });
+  try {
+    const [IPODetailsResponse, IPOGMPResponse] = await Promise.all([
+      getIPODetailsServer({ id: id }),
+      getIPODetailsGMPServer({ id: id })
+    ]);
 
-  const IPOGMPResponse = await getIPODetailsGMPServer({ id: id });
+    // Use symbol from details to fetch "About Us" content
+    const IPODetailsUpdatedAboutUs = await getIPOAboutusServer({
+      symbol: IPODetailsResponse?.symbol,
+      web: '1',
+      topic: ''
+    });
 
-  console.log("IPOGMPResponse", IPODetailsResponse);
-
-  const IPODetailsUpdatedAboutUs = await getIPOAboutusServer({ symbol: IPODetailsResponse?.symbol, web: '1', topic: '' })
-
-  return (<>
-
-    <Head>
-      <title>IPO Details</title>
-    </Head>
-
-    <IpoDetailsPages ipoDetailsData={IPODetailsResponse} IPODetailsUpdatedAboutUs={IPODetailsUpdatedAboutUs} IPOGMPResponse={IPOGMPResponse} />
-
-  </>);
+    return (
+      <IpoDetailsPages
+        ipoDetailsData={IPODetailsResponse}
+        IPODetailsUpdatedAboutUs={IPODetailsUpdatedAboutUs || []}
+        IPOGMPResponse={IPOGMPResponse}
+      />
+    );
+  } catch (err) {
+    console.error("Error rendering IPO Details page:", err);
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-base-50 dark:bg-base-950">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold mb-4">Error loading IPO details</h1>
+          <p className="text-base-500 mb-6">Something went wrong while fetching the data. Please try again later.</p>
+          <a href="/" className="text-[#135c33] font-bold hover:underline">Back to Home</a>
+        </div>
+      </div>
+    );
+  }
 }
 

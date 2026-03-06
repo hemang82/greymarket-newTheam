@@ -19,8 +19,8 @@ export async function getIPOsServer(request) {
             return [];
         }
     } catch (err) {
-        console.error("Error fetching IPO list:", err);
-        return [];
+        console.error("Error fetching IPO list:", err?.message || err);
+        return { results: [], count: 0 };
     }
 }
 
@@ -33,7 +33,7 @@ export async function getIPODetailsServer(request) {
             return {};
         }
     } catch (err) {
-        console.error("Error fetching IPO details:");
+        console.error("Error fetching IPO details:", err?.message || err);
         return {};
     }
 }
@@ -47,7 +47,7 @@ export async function getIPODetailsGMPServer(request) {
             return {};
         }
     } catch (err) {
-        console.error("Error fetching IPO details:");
+        console.error("Error fetching IPO GMP data:", err?.message || err);
         return {};
     }
 }
