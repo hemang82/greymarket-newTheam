@@ -1,11 +1,9 @@
 "use client"
-/* eslint-disable @next/next/no-img-element */
-
+import Link from 'next/link';
 import { SectionHeading } from "#/SectionHeading";
-import { TestimonialCard } from "#/cards";
+import { NewsCard } from "#/cards";
 import { useIPOStore } from "@/stores/useAppStore";
 import { useCallback, useEffect } from "react";
-import { Button } from "../base/Button";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import CustomPagination from "../CustomPagination";
 
@@ -19,10 +17,6 @@ export function TestimonialSection({ title, description, badge, testimonials, bu
   const newslistZustend = useIPOStore((s) => s.news);
 
   useEffect(() => { (async () => { setNews(newsList || {}) })() }, [newsList, setNews]);
-
-  const handleNavigation = (data) => {
-    router.push('/news')
-  }
 
   const handlePageChange = useCallback(({ page: newPage = 1, pageSize: newSize = pageSize }) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -46,10 +40,10 @@ export function TestimonialSection({ title, description, badge, testimonials, bu
           description={description}
           badge={badge}
         />
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 my-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 my-12">
           {newslistZustend?.data?.length > 0 &&
             newslistZustend?.data.map((item, index) => (
-              <TestimonialCard key={index} {...item} />
+              <NewsCard key={index} {...item} />
             ))}
         </div>
         {
@@ -65,9 +59,19 @@ export function TestimonialSection({ title, description, badge, testimonials, bu
             />
           </>
             :
-            newslistZustend?.data?.length > 4 ? <div className="text-center mt-10">
-              <Button label={'View All -> '} color={'dark'} onClick={handleNavigation} className={'py-2'} />
-            </div> : null
+            newslistZustend?.data?.length > 0 ? (
+              <div className="text-center mt-12 animate-fade-in-up">
+                <Link
+                  href="/news"
+                  className="inline-flex items-center gap-3 px-7 py-3.5 bg-[#135c33] hover:bg-[#0c4424] text-white font-bold rounded-xl shadow-md shadow-emerald-900/10 transition-all duration-300 hover:-translate-y-0.5"
+                >
+                  View More News
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </Link>
+              </div>
+            ) : null
         }
 
       </div>

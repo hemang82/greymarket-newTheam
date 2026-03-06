@@ -17,8 +17,8 @@ import { persist, createJSONStorage } from "zustand/middleware";
 export const useIPOStore = create(
   persist((set) => ({
 
-    ipoLoader : false,
-    setIpoLoader : (status) => set({ ipoLoader : status}),
+    ipoLoader: false,
+    setIpoLoader: (status) => set({ ipoLoader: status }),
 
     //IPO
     ipos: [],
@@ -26,8 +26,8 @@ export const useIPOStore = create(
     reset: () => set({ ipos: [] }),
 
     // News slice (new)
-    news: [],
-    setNews: (list) => set({ news: list || [] }),
+    news: null,
+    setNews: (list) => set({ news: list }),
     addNews: (item) => set((s) => ({ news: [...(s.news || []), item] })),
     updateNews: (id, patch) => set((s) => ({ news: (s.news || []).map((n) => (n.id === id ? { ...n, ...patch } : n)), })),
     removeNews: (id) => set((s) => ({ news: (s.news || []).filter((n) => n.id !== id) })),
