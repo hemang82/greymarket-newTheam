@@ -9,14 +9,11 @@ import { useIPOStore } from "@/stores/useAppStore";
 
 export async function getIPOsServer(request) {
     try {
-
         const res = await ipoListApi(request);
         if (res?.meta?.status_code == 200) {
-            console.log('res?.datares?.datares?.data', res?.data);
-
-            return res?.data?.results?.length > 0 ? res?.data : [];
+            return res?.data || { results: [], count: 0 };
         } else {
-            return [];
+            return { results: [], count: 0 };
         }
     } catch (err) {
         console.error("Error fetching IPO list:", err?.message || err);
@@ -72,15 +69,15 @@ export async function getNewsListServer(request = {}) {
             method: 'POST', headers: { 'Content-Type': 'application/json', }, cache: 'no-store',
             body: JSON.stringify(request)
         });
+        if (!res.ok) return [];
         const json = await res.json();
-        // console.log('getNewsListServer response', json?.data?.data);
         if (json?.code == '1') {
             return json?.data || [];
         } else {
             return [];
         }
     } catch (err) {
-        console.error("Error fetching News List:", err);
+        console.error("Error fetching News List:", err?.message || err);
         return [];
     }
 }
@@ -93,6 +90,7 @@ export async function getNewsItemServer(id) {
             cache: 'no-store',
             body: JSON.stringify({ page: 1, pageSize: 150 })
         });
+        if (!res.ok) return null;
         const json = await res.json();
         if (json?.code == '1' && json?.data?.data) {
             const item = json.data.data.find(n => String(n.id) === String(id));
@@ -100,28 +98,26 @@ export async function getNewsItemServer(id) {
         }
         return null;
     } catch (err) {
-        console.error("Error fetching News Item:", err);
+        console.error("Error fetching News Item:", err?.message || err);
         return null;
     }
 }
 
 export async function getIPOAboutusServer(request = {}) {
     try {
-
-        console.log('getIPOAboutusServer request', request);
         const res = await fetch('https://docipo.ipo-trend.com/api/v1/common/rewritecontentlisting', {
             method: 'POST', headers: { 'Content-Type': 'application/json', }, cache: 'no-store',
             body: JSON.stringify(request)
         });
+        if (!res.ok) return [];
         const json = await res.json();
-        console.log('getIPOAboutusServer response', json);
         if (json?.code == '1') {
             return json?.data || [];
         } else {
             return [];
         }
     } catch (err) {
-        console.error("Error fetching News List:", err);
+        console.error("Error fetching IPO About Us:", err?.message || err);
         return [];
     }
 }

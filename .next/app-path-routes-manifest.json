@@ -5,6 +5,7 @@
   "/_not-found/page": "/_not-found",
   "/auth/login/page": "/auth/login",
   "/ipo-details/[id]/page": "/ipo-details/[id]",
+  "/news/[id]/page": "/news/[id]",
   "/news/page": "/news",
   "/page": "/",
   "/robots.txt/route": "/robots.txt",
