@@ -73,13 +73,16 @@ export default function NewsClient({ newsList, pageSize, page }) {
             </section>
 
             <div className="container mx-auto px-4 -mt-12">
+
                 {/* Featured News Section Label */}
+
                 {/* {featuredNews && (
                     <div className="flex items-center gap-3 mb-6 animate-fade-in">
                         <span className="w-10 h-1 bg-[#135c33] rounded-full"></span>
                         <h2 className="text-sm font-black text-[#135c33] uppercase tracking-[0.2em]">Primary Highlight</h2>
                     </div>
                 )} */}
+
                 {/* Featured News */}
                 {featuredNews && (
                     <div className="mb-20 animate-fade-in-up">
@@ -158,6 +161,8 @@ export default function NewsClient({ newsList, pageSize, page }) {
                         className="shadow-md ring-[#135c33]/5"
                     />
                 </div>
+
+
             </div>
 
         </div>

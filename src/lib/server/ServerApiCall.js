@@ -52,7 +52,6 @@ export async function getIPODetailsGMPServer(request) {
     }
 }
 
-
 // export async function getNewsListServer(request) {
 //     try {
 //         const res = await getNewsListApi(request);
