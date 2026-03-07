@@ -1,6 +1,7 @@
 "use client";
 
-import { cleanHTMLContent, formatDateTime, formatIndianNumber, formatIndianPrice, formatToFixed } from "@/app_config/CommonFunction";
+import { formatDateTime, formatIndianNumber, formatIndianPrice, formatToFixed } from "@/app_config/CommonFunction";
+import { cleanHTMLContent } from "@/app_config/cleanHTML";
 import ResponsiveTable from "../ResponsiveTable";
 import { DateFormats } from "@/app_config/CommonVariable";
 import { checkingNonZeroValueDistributionTable } from "@/app_config/IPOCalculation";
