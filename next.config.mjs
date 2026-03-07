@@ -30,12 +30,12 @@ const nextConfig = {
             key: 'Content-Security-Policy',
             value:
               "default-src 'self'; " +
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://www.clarity.ms https://scripts.clarity.ms; " +
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://www.clarity.ms https://scripts.clarity.ms https://accounts.google.com; " +
               "style-src 'self' 'unsafe-inline' https:; " +
               "img-src 'self' data: https: blob:; " +
               "font-src 'self' data: https:; " +
               "connect-src 'self' https://www.google-analytics.com https://www.clarity.ms https://api.ipo-trend.com wss://ws.ipo-trend.com https:; " +
-              "frame-src https://www.clarity.ms; " +
+              "frame-src https://www.clarity.ms https://accounts.google.com; " +
               "frame-ancestors 'none';",
           },
           {

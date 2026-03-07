@@ -24,7 +24,7 @@ export function getIPODetailsApi(request) {
 // https://api.ipo-trend.com/ipo/ipo-gmp-detail/SHADOWFAX/?platform=Web
 
 export function getIPOGmpApi(request) {
-    return axiosInstance.get(`/ipo/ipo-gmp-detail/${request?.id}/?platform=Android`, {}, true)
+    return axiosInstance.get(`ipo/ipo-gmp-detail/${request?.id}/?platform=Android`, {}, true)
 }
 
 export function getSearchIPO(request) {
