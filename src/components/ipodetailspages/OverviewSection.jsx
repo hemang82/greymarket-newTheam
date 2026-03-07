@@ -1,3 +1,5 @@
+"use client"
+
 // components/OverviewSection.jsx
 
 import { formatDateTime, formatIndianPrice, IPODetailsSummary } from "@/app_config/CommonFunction";
@@ -63,7 +65,7 @@ export default function OverviewSection({ id = "overview", ipoDetailsData }) {
             <div className="bg-white dark:bg-base-950 rounded-2xl shadow-sm ring-1 ring-gray-200 dark:ring-base-800 p-4 sm:p-6 md:p-8">
 
                 {/* Header */}
-                
+
                 {/* <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     <div>
                         <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight text-gray-900 dark:text-gray-100">

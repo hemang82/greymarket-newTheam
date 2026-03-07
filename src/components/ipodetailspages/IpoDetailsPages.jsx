@@ -1,6 +1,6 @@
 
-// sections/IpoDetailsPages.jsx
 "use client";
+// sections/IpoDetailsPages.jsx
 import StickyTabs from "@/components/ipodetailspages/StickyTabs";
 // import SectionHeading from "@/components/sections/SectionHeading";
 import { gmpDetails } from "@/data/gmpdata";
