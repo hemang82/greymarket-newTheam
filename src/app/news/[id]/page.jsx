@@ -1,5 +1,6 @@
 import { getNewsItemServer, getNewsListServer } from "@/lib/server/ServerApiCall";
 import { NewsDetailsPage } from "@/components/news/NewsDetailsPage";
+import { truncateText } from "@/app_config/CommonFunction";
 
 export async function generateMetadata({ params }) {
     const { id } = await params;
@@ -7,14 +8,14 @@ export async function generateMetadata({ params }) {
 
     if (!newsItem) {
         return {
-            title: `News Not Found | ${process.env.SITE_NAME}`,
-            description: "The requested news update could not be found."
+            title: truncateText(`News Not Found | ${process.env.SITE_NAME}`, 60),
+            description: truncateText("The requested news update could not be found.", 150)
         };
     }
 
     return {
-        title: `${newsItem.title} | Latest IPO News - ${process.env.SITE_NAME}`,
-        description: newsItem.short_description,
+        title: truncateText(`${newsItem.title} | Latest IPO News - ${process.env.SITE_NAME}`, 60),
+        description: truncateText(newsItem.short_description, 150),
         keywords: [
             'IPO News',
             'Market Updates',
@@ -25,8 +26,8 @@ export async function generateMetadata({ params }) {
             canonical: `${process.env.SITE_URL}news/${id}`,
         },
         openGraph: {
-            title: newsItem.title,
-            description: newsItem.short_description,
+            title: truncateText(newsItem.title, 60),
+            description: truncateText(newsItem.short_description, 150),
             url: `${process.env.SITE_URL}news/${id}`,
             images: [
                 {
@@ -39,8 +40,8 @@ export async function generateMetadata({ params }) {
         },
         twitter: {
             card: 'summary_large_image',
-            title: newsItem.title,
-            description: newsItem.short_description,
+            title: truncateText(newsItem.title, 60),
+            description: truncateText(newsItem.short_description, 150),
             images: [newsItem.news_image],
         },
     };

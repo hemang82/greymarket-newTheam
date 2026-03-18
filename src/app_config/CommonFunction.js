@@ -441,3 +441,14 @@ export function IPODetailsSummary(ipoDetailsData = {}, number = 0) {
             );
     }
 }
+/**
+ * Truncate text to a maximum length.
+ * 
+ * @param {string} text - The string to truncate.
+ * @param {number} maxLength - Maximum allowed length.
+ * @returns {string} Truncated string.
+ */
+export function truncateText(text, maxLength) {
+    if (!text || typeof text !== "string") return text;
+    return text.length > maxLength ? text.substring(0, maxLength) : text;
+}

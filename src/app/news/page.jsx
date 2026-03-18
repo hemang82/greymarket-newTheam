@@ -1,10 +1,11 @@
 import { getNewsListServer } from "@/lib/server/ServerApiCall";
 import NewsClient from "./NewsClient";
+import { truncateText } from "@/app_config/CommonFunction";
 export const metadata = {
-    title: `Latest IPO News & Updates – Live & Upcoming IPO Announcements | ${process.env.SITE_NAME}`,
+    title: truncateText(`Latest IPO News & Updates – Live & Upcoming IPO Announcements | ${process.env.SITE_NAME}`, 60),
 
-    description:
-        "Read the latest IPO news and updates including new DRHP filings, issue openings, price bands, subscription updates, and key announcements for upcoming and live IPOs.",
+    description: truncateText(
+        "Read the latest IPO news and updates including new DRHP filings, issue openings, price bands, subscription updates, and key announcements for upcoming and live IPOs.", 150),
 
     keywords: [
         'IPO News',
@@ -24,9 +25,9 @@ export const metadata = {
     },
 
     openGraph: {
-        title: `Latest IPO News & Market Updates | ${process.env.SITE_NAME}`,
-        description:
-            "Stay updated with real-time IPO news, DRHP filings, issue announcements, subscription updates, and market insights for live and upcoming IPOs.",
+        title: truncateText(`Latest IPO News & Market Updates | ${process.env.SITE_NAME}`, 60),
+        description: truncateText(
+            "Stay updated with real-time IPO news, DRHP filings, issue announcements, subscription updates, and market insights for live and upcoming IPOs.", 150),
         url: `${process.env.SITE_URL}news`,
         images: [
             {
@@ -40,9 +41,9 @@ export const metadata = {
 
     twitter: {
         card: 'summary_large_image',
-        title: `IPO News Today – Latest Live & Upcoming IPO Updates | ${process.env.SITE_NAME}`,
-        description:
-            "Get real-time IPO news including issue announcements, DRHP updates, subscription status insights, and upcoming IPO developments.",
+        title: truncateText(`IPO News Today – Latest Live & Upcoming IPO Updates | ${process.env.SITE_NAME}`, 60),
+        description: truncateText(
+            "Get real-time IPO news including issue announcements, DRHP updates, subscription status insights, and upcoming IPO developments.", 150),
         images: ['/og-news.png'],
     },
 };

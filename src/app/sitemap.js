@@ -1,8 +1,20 @@
 import { getIPOsServer, getNewsListServer } from "@/lib/server/ServerApiCall";
+import axios from "axios";
 
 // app/sitemap.js
+
+const transformCompanyName = (name) => {
+    return name
+        ?.toLowerCase()
+        ?.replace(/[^a-zA-Z0-9\s]/g, "") // Remove special characters except spaces
+        ?.trim()
+        ?.replace(/\s+/g, "-"); // Replace spaces with hyphens
+};
+
 export default async function sitemap() {
+
     let baseUrl = process.env.SITE_URL || "https://greymarketipo.com";
+
     // Remove trailing slash if present
     if (baseUrl.endsWith("/")) {
         baseUrl = baseUrl.slice(0, -1);
@@ -19,19 +31,37 @@ export default async function sitemap() {
     ];
 
     const dynamicRoutes = [];
+    let allIPO = [];
 
     try {
-        // 1. Fetch IPOs for dynamic routes (Limit to 200 for now to keep sitemap generation fast)
+        const response = await axios.get(`https://api.ipo-trend.com/ipo/sitemap/`);
+
+        allIPO = response?.data?.data?.results?.ipo_data?.map(company => {
+            const encodedSymbol = encodeURIComponent(company.symbol || "");
+            const url = `${baseUrl}/ipo-details/${encodedSymbol}`;
+            return {
+                url: url,
+                lastModified: new Date(),
+                changeFrequency: 'daily',
+                priority: 1.0
+            };
+        }) || [];
+
+        // 1. Fetch IPOs for dynamic routes (backup/additional)
         const iposData = await getIPOsServer({ page: 1, pageSize: 200 });
         const iposList = iposData?.results || [];
 
         iposList.forEach((ipo) => {
             if (ipo.id) {
-                dynamicRoutes.push({
-                    url: `${baseUrl}/ipo-details/${ipo.id}`,
-                    // Some IPOs might not have updated_at, fallback to current date
-                    lastModified: ipo.updated_at ? new Date(ipo.updated_at) : new Date(),
-                });
+                const encodedSymbol = encodeURIComponent(ipo.symbol || "");
+                const url = `${baseUrl}/ipo-details/${encodedSymbol}`;
+                // Avoid duplication if already in allIPO
+                if (!allIPO.some(item => item.url == url)) {
+                    dynamicRoutes.push({
+                        url: url,
+                        lastModified: ipo.updated_at ? new Date(ipo.updated_at) : new Date(),
+                    });
+                }
             }
         });
 
@@ -49,10 +79,10 @@ export default async function sitemap() {
         });
 
     } catch (err) {
+
         console.error("Sitemap generation error:", err);
-        // Even if dynamic routes fail, we still have static ones
     }
 
     // Next.js expects a flat array of sitemap items
-    return [...staticPages, ...dynamicRoutes];
+    return [...staticPages, ...allIPO, ...dynamicRoutes];
 }

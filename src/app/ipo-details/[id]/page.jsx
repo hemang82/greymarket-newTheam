@@ -3,7 +3,7 @@
 // ✅ FIXED: app/ipo-details/[id]/page.jsx
 
 import { notFound } from 'next/navigation'; // ✅ Add karo
-import { formatDateTime } from '@/app_config/CommonFunction';
+import { formatDateTime, truncateText } from '@/app_config/CommonFunction';
 import { DateFormats } from '@/app_config/CommonVariable';
 import { formatGmpValue } from '@/app_config/IPOCalculation';
 import { IpoDetailsPages } from '@/components/ipodetailspages/IpoDetailsPages';
@@ -32,30 +32,30 @@ export async function generateMetadata({ params }) {
     const ogImage = data.ipo_image || '/og-image.png'; // ✅ duplicate hatavyu
 
     return {
-      title: `${company} IPO Details — GMP: ${gmp} | ${process.env.SITE_NAME}`,
-      description: `${company} IPO details: GMP ${gmp}, price band ${priceBand}, issue dates ${openDate} to ${closeDate}.`,
+      title: truncateText(`${company} IPO Details — GMP: ${gmp} | ${process.env.SITE_NAME}`, 60),
+      description: truncateText(`${company} IPO details: GMP ${gmp}, price band ${priceBand}, issue dates ${openDate} to ${closeDate}.`, 150),
       keywords: [
         `${company} IPO`, `${company} GMP`, `${company} IPO price band`,
         'IPO Grey Market', 'live IPO', 'upcoming IPO', process.env.SITE_NAME,
       ],
       alternates: { canonical: pageUrl },
       openGraph: {
-        title: `${company} IPO — GMP: ${gmp} | ${process.env.SITE_NAME}`,
-        description: `Check ${company} IPO GMP, price band, issue dates, and live updates.`,
+        title: truncateText(`${company} IPO — GMP: ${gmp} | ${process.env.SITE_NAME}`, 60),
+        description: truncateText(`Check ${company} IPO GMP, price band, issue dates, and live updates.`, 150),
         url: pageUrl,
         images: [{ url: ogImage, width: 1200, height: 630, alt: `${company} IPO` }],
       },
       twitter: {
         card: 'summary_large_image',
-        title: `${company} IPO — ${process.env.SITE_NAME}`,
-        description: `GMP: ${gmp}. Price band: ${priceBand}. Dates: ${openDate} — ${closeDate}.`,
+        title: truncateText(`${company} IPO — ${process.env.SITE_NAME}`, 60),
+        description: truncateText(`GMP: ${gmp}. Price band: ${priceBand}. Dates: ${openDate} — ${closeDate}.`, 150),
         images: [ogImage],
       },
     };
   } catch (err) {
     return {
-      title: `IPO Details | ${process.env.SITE_NAME}`,
-      description: `IPO details and live GMP updates on ${process.env.SITE_NAME}.`,
+      title: truncateText(`IPO Details | ${process.env.SITE_NAME}`, 60),
+      description: truncateText(`IPO details and live GMP updates on ${process.env.SITE_NAME}.`, 150),
     };
   }
 }

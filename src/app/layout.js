@@ -11,6 +11,7 @@ import Constant from "@/app_config/Constant";
 import { Toaster, toast } from "sonner";
 import { Footer } from "@/components/sections";
 import Head from "next/head";
+import { truncateText } from "@/app_config/CommonFunction";
 
 // fonts
 const display = Syne({ subsets: ["latin"], variable: "--font-display" });
@@ -22,8 +23,8 @@ const body = Inter({ subsets: ["latin"], variable: "--font-body" });
 // };
 
 export const metadata = {
-  title: `IPO Grey Market Premium (GMP) Today – Live & Upcoming IPO GMP Updates | ${process.env.SITE_NAME}`,
-  description: "Track real-time IPO Grey Market Premium (GMP) for live and upcoming IPOs. Stay updated with the latest unofficial premium, estimated listing gains, price trends, and market sentiment for ongoing and future IPOs.",
+  title: truncateText(`IPO Grey Market Premium (GMP) Today – Live & Upcoming IPO GMP Updates | ${process.env.SITE_NAME}`, 60),
+  description: truncateText("Track real-time IPO Grey Market Premium (GMP) for live and upcoming IPOs. Stay updated with the latest unofficial premium, estimated listing gains, price trends, and market sentiment for ongoing and future IPOs.", 150),
   keywords: [
     'IPO Grey Market',
     'GMP Today',
@@ -41,9 +42,9 @@ export const metadata = {
   },
 
   openGraph: {
-    title: `IPO Grey Market Premium (GMP) Today – Live & Upcoming IPO GMP | ${process.env.SITE_NAME}`,
-    description:
-      "Get accurate IPO Grey Market Premium (GMP) for live and upcoming IPOs. Check market trends, demand sentiment, and expected listing premiums.",
+    title: truncateText(`IPO Grey Market Premium (GMP) Today – Live & Upcoming IPO GMP | ${process.env.SITE_NAME}`, 60),
+    description: truncateText(
+      "Get accurate IPO Grey Market Premium (GMP) for live and upcoming IPOs. Check market trends, demand sentiment, and expected listing premiums.", 150),
     url: `${process.env.SITE_URL}`,
     images: [
       {
@@ -57,8 +58,8 @@ export const metadata = {
   icons: { icon: '/favicons.svg' },
   twitter: {
     card: 'summary_large_image',
-    title: `Live & Upcoming IPO GMP – IPO Grey Market Premium Today | ${process.env.SITE_NAME}`,
-    description: "Check real-time IPO Grey Market Premium (GMP) for ongoing and upcoming IPOs. Reliable and fast GMP updates.",
+    title: truncateText(`Live & Upcoming IPO GMP – IPO Grey Market Premium Today | ${process.env.SITE_NAME}`, 60),
+    description: truncateText("Check real-time IPO Grey Market Premium (GMP) for ongoing and upcoming IPOs. Reliable and fast GMP updates.", 150),
     images: ['/og-image.png'],
   },
 };

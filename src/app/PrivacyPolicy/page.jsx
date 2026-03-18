@@ -1,10 +1,11 @@
 
+import { truncateText } from "@/app_config/CommonFunction";
 
 export const metadata = {
-    title: `Privacy Policy | ${process.env.SITE_NAME}`,
+    title: truncateText(`Privacy Policy | ${process.env.SITE_NAME}`, 60),
 
-    description:
-        `Read the Privacy Policy of ${process.env.SITE_NAME}. Learn how we collect, use, store, and protect your personal information when accessing IPO grey market updates, live GMP data, and upcoming IPO insights.`,
+    description: truncateText(
+        `Read the Privacy Policy of ${process.env.SITE_NAME}. Learn how we collect, use, store, and protect your personal information when accessing IPO grey market updates, live GMP data, and upcoming IPO insights.`, 150),
 
     keywords: [
         'Privacy Policy',
@@ -19,9 +20,9 @@ export const metadata = {
     },
 
     openGraph: {
-        title: `Privacy Policy | ${process.env.SITE_NAME}`,
-        description:
-            `Understand how ${process.env.SITE_NAME} handles user data, privacy practices, cookies, and security when you use our IPO Grey Market and IPO updates platform.`,
+        title: truncateText(`Privacy Policy | ${process.env.SITE_NAME}`, 60),
+        description: truncateText(
+            `Understand how ${process.env.SITE_NAME} handles user data, privacy practices, cookies, and security when you use our IPO Grey Market and IPO updates platform.`, 150),
         url: `${process.env.SITE_URL}privacy-policy`,
         images: [
             {
@@ -35,9 +36,9 @@ export const metadata = {
 
     twitter: {
         card: 'summary_large_image',
-        title: `Privacy Policy | ${process.env.SITE_NAME}`,
-        description:
-            `Read how ${process.env.SITE_NAME} protects your privacy, data usage, and cookie practices.`,
+        title: truncateText(`Privacy Policy | ${process.env.SITE_NAME}`, 60),
+        description: truncateText(
+            `Read how ${process.env.SITE_NAME} protects your privacy, data usage, and cookie practices.`, 150),
         images: ['/og-default.png'],
     },
 };

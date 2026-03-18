@@ -1,7 +1,8 @@
+import { truncateText } from "@/app_config/CommonFunction";
 
 export const metadata = {
-    title: `Terms & Conditions | ${process.env.SITE_NAME}`,
-    description: `Read the Terms & Conditions of ${process.env.SITE_NAME}. Understand the rules, limitations, disclaimers, and acceptable use of our platform providing IPO Grey Market Premium (GMP) updates and IPO-related information.`,
+    title: truncateText(`Terms & Conditions | ${process.env.SITE_NAME}`, 60),
+    description: truncateText(`Read the Terms & Conditions of ${process.env.SITE_NAME}. Understand the rules, limitations, disclaimers, and acceptable use of our platform providing IPO Grey Market Premium (GMP) updates and IPO-related information.`, 150),
     keywords: [
         'Terms and Conditions',
         'Website terms',
@@ -13,9 +14,9 @@ export const metadata = {
         canonical: `${process.env.SITE_URL}terms-and-conditions`,
     },
     openGraph: {
-        title: `Terms & Conditions | ${process.env.SITE_NAME}`,
-        description:
-            `Learn about the usage terms, disclaimers, and service conditions for accessing IPO Grey Market data and IPO information on ${process.env.SITE_NAME}.`,
+        title: truncateText(`Terms & Conditions | ${process.env.SITE_NAME}`, 60),
+        description: truncateText(
+            `Learn about the usage terms, disclaimers, and service conditions for accessing IPO Grey Market data and IPO information on ${process.env.SITE_NAME}.`, 150),
         url: `${process.env.SITE_URL}terms-and-conditions`,
         images: [
             {
@@ -28,9 +29,9 @@ export const metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: `Terms & Conditions | ${process.env.SITE_NAME}`,
-        description:
-            `Read the Terms & Conditions of ${process.env.SITE_NAME} covering user responsibilities, limitations, and service rules.`,
+        title: truncateText(`Terms & Conditions | ${process.env.SITE_NAME}`, 60),
+        description: truncateText(
+            `Read the Terms & Conditions of ${process.env.SITE_NAME} covering user responsibilities, limitations, and service rules.`, 150),
         images: ['/og-default.png'],
     },
 };
