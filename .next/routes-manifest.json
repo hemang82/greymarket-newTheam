@@ -116,10 +116,10 @@
       "namedRegex": "^/news(?:/)?$"
     },
     {
-      "page": "/PrivacyPolicy",
-      "regex": "^/PrivacyPolicy(?:/)?$",
+      "page": "/privacy-policy",
+      "regex": "^/privacy\\-policy(?:/)?$",
       "routeKeys": {},
-      "namedRegex": "^/PrivacyPolicy(?:/)?$"
+      "namedRegex": "^/privacy\\-policy(?:/)?$"
     },
     {
       "page": "/robots.txt",
@@ -134,10 +134,10 @@
       "namedRegex": "^/sitemap\\.xml(?:/)?$"
     },
     {
-      "page": "/TermsConditions",
-      "regex": "^/TermsConditions(?:/)?$",
+      "page": "/terms-and-conditions",
+      "regex": "^/terms\\-and\\-conditions(?:/)?$",
       "routeKeys": {},
-      "namedRegex": "^/TermsConditions(?:/)?$"
+      "namedRegex": "^/terms\\-and\\-conditions(?:/)?$"
     }
   ],
   "dataRoutes": [],

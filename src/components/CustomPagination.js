@@ -1,10 +1,8 @@
 // components/Pagination.js
 "use client";
 import { useMemo } from "react";
-
-
-
-
+import { usePathname, useSearchParams } from "next/navigation";
+import Link from "next/link";
 
 function usePageRange({ total, pageSize, current }) {
     // returns an array like: [1, 2, 3, '…', 10]
@@ -34,16 +32,14 @@ export default function CustomPagination({
     className = "",
 }) {
     const { pages, totalPages } = usePageRange({ total, pageSize, current });
-    const go = (p) => {
-        if (p < 1 || p > totalPages || p === current) return;
-        onChange({ page: p, pageSize });
-    };
+    const pathname = usePathname();
+    const searchParams = useSearchParams();
 
-    const changeSize = (e) => {
-        const newSize = Number(e.target.value) || 10;
-        const newTotalPages = Math.max(1, Math.ceil(total / newSize));
-        const newPage = Math.min(current, newTotalPages);
-        onChange({ page: newPage, pageSize: newSize });
+    const getHref = (pageNumber) => {
+        const params = new URLSearchParams(searchParams.toString());
+        params.set("page", String(pageNumber));
+        params.set("pageSize", String(pageSize));
+        return `${pathname}?${params.toString()}`;
     };
 
     const baseBtn = "h-8 min-w-8 px-2 inline-flex items-center justify-center rounded-lg border text-sm transition";
@@ -51,10 +47,6 @@ export default function CustomPagination({
     const active = "border-[#135c33] text-[#135c33] bg-[#135c3317] dark:border-[#135c33] dark:text-[#135c33] dark:bg-[#135c3317]";
 
     return (<>
-
-
-        {/* w-[50%] lg:w-[50%] md:w-[50%] */}
-
         {
             total > pageSize ?
                 <div className="flex items-center justify-center w-full py-6 bg-base-100 border-gray-200 dark:border-base-800">
@@ -64,14 +56,20 @@ export default function CustomPagination({
                     >
                         {/* Left: pager */}
                         <div className="flex items-center gap-2">
-                            <button
-                                className={`${baseBtn} ${neutral}`}
-                                disabled={current <= 1}
-                                onClick={() => go(current - 1)}
+                            <Link
+                                className={`${baseBtn} ${neutral} ${current <= 1 ? "pointer-events-none opacity-50" : ""}`}
+                                href={current > 1 ? getHref(current - 1) : "#"}
+                                onClick={(e) => {
+                                    if (current <= 1) {
+                                        e.preventDefault();
+                                        return;
+                                    }
+                                    onChange({ page: current - 1, pageSize });
+                                }}
                                 aria-label="Previous page"
                             >
                                 Previous
-                            </button>
+                            </Link>
 
                             {pages.map((p, i) =>
                                 p === "…" ? (
@@ -79,42 +77,35 @@ export default function CustomPagination({
                                         …
                                     </span>
                                 ) : (
-                                    <button
+                                    <Link
                                         key={p}
                                         className={`${baseBtn} ${p === current ? active : neutral}`}
-                                        onClick={() => go(p)}
+                                        href={getHref(p)}
+                                        onClick={() => {
+                                            onChange({ page: p, pageSize });
+                                        }}
                                         aria-current={p === current ? "page" : undefined}
                                     >
                                         {p}
-                                    </button>
+                                    </Link>
                                 )
                             )}
 
-                            <button
-                                className={`${baseBtn} ${neutral}`}
-                                disabled={current >= totalPages}
-                                onClick={() => go(current + 1)}
+                            <Link
+                                className={`${baseBtn} ${neutral} ${current >= totalPages ? "pointer-events-none opacity-50" : ""}`}
+                                href={current < totalPages ? getHref(current + 1) : "#"}
+                                onClick={(e) => {
+                                    if (current >= totalPages) {
+                                        e.preventDefault();
+                                        return;
+                                    }
+                                    onChange({ page: current + 1, pageSize });
+                                }}
                                 aria-label="Next page"
                             >
                                 Next
-                            </button>
+                            </Link>
                         </div>
-
-                        {/* Right: page size */}
-                        {/* <label className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
-                    <span>Rows</span>
-                    <select
-                        className="h-8 rounded-md border border-gray-300 dark:border-base-700 bg-white dark:bg-base-950 px-2"
-                        value={pageSize}
-                        onChange={changeSize}
-                    >
-                        {pageSizeOptions.map((n) => (
-                            <option key={n} value={n}>
-                                {n} / page
-                            </option>
-                        ))}
-                    </select>
-                </label> */}
                     </div>
                 </div>
                 : null

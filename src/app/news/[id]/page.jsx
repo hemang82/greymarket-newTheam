@@ -1,6 +1,8 @@
 import { getNewsItemServer, getNewsListServer } from "@/lib/server/ServerApiCall";
 import { NewsDetailsPage } from "@/components/news/NewsDetailsPage";
 import { truncateText } from "@/app_config/CommonFunction";
+import { getCleanSiteUrl } from "@/lib/utils";
+import { notFound } from "next/navigation";
 
 export async function generateMetadata({ params }) {
     const { id } = await params;
@@ -13,6 +15,10 @@ export async function generateMetadata({ params }) {
         };
     }
 
+    const cleanSiteUrl = getCleanSiteUrl();
+    const cleanId = String(id).toLowerCase();
+    const pageUrl = `${cleanSiteUrl}/news/${cleanId}`;
+
     return {
         title: truncateText(`${newsItem.title} | Latest IPO News - ${process.env.SITE_NAME}`, 60),
         description: truncateText(newsItem.short_description, 150),
@@ -23,12 +29,12 @@ export async function generateMetadata({ params }) {
             process.env.SITE_NAME
         ],
         alternates: {
-            canonical: `${process.env.SITE_URL}news/${id}`,
+            canonical: pageUrl,
         },
         openGraph: {
             title: truncateText(newsItem.title, 60),
             description: truncateText(newsItem.short_description, 150),
-            url: `${process.env.SITE_URL}news/${id}`,
+            url: pageUrl,
             images: [
                 {
                     url: newsItem.news_image,
@@ -55,6 +61,11 @@ export default async function NewsDetailPage({ params }) {
         getNewsItemServer(id),
         getNewsListServer({ page: 1, pageSize: 4 })
     ]);
+
+    // ✅ Clean 404 check instead of rendering and throwing 500 null reference exception
+    if (!newsItem) {
+        notFound();
+    }
 
     return (
         <NewsDetailsPage

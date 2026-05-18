@@ -1,6 +1,4 @@
 {
-  "/PrivacyPolicy/page": "/PrivacyPolicy",
-  "/TermsConditions/page": "/TermsConditions",
   "/_global-error/page": "/_global-error",
   "/_not-found/page": "/_not-found",
   "/auth/login/page": "/auth/login",
@@ -8,6 +6,8 @@
   "/news/[id]/page": "/news/[id]",
   "/news/page": "/news",
   "/page": "/",
+  "/privacy-policy/page": "/privacy-policy",
   "/robots.txt/route": "/robots.txt",
-  "/sitemap.xml/route": "/sitemap.xml"
+  "/sitemap.xml/route": "/sitemap.xml",
+  "/terms-and-conditions/page": "/terms-and-conditions"
 }

@@ -1,5 +1,7 @@
-
 import { truncateText } from "@/app_config/CommonFunction";
+import { getCleanSiteUrl } from "@/lib/utils";
+
+const cleanSiteUrl = getCleanSiteUrl();
 
 export const metadata = {
     title: truncateText(`Privacy Policy | ${process.env.SITE_NAME}`, 60),
@@ -16,14 +18,14 @@ export const metadata = {
     ],
 
     alternates: {
-        canonical: `${process.env.SITE_URL}privacy-policy`,
+        canonical: `${cleanSiteUrl}/privacy-policy`,
     },
 
     openGraph: {
         title: truncateText(`Privacy Policy | ${process.env.SITE_NAME}`, 60),
         description: truncateText(
             `Understand how ${process.env.SITE_NAME} handles user data, privacy practices, cookies, and security when you use our IPO Grey Market and IPO updates platform.`, 150),
-        url: `${process.env.SITE_URL}privacy-policy`,
+        url: `${cleanSiteUrl}/privacy-policy`,
         images: [
             {
                 url: '/og-default.png', // You can also create: /og-privacy.png

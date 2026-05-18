@@ -1,5 +1,3 @@
-
-
 // ✅ FIXED: app/ipo-details/[id]/page.jsx
 
 import { notFound } from 'next/navigation'; // ✅ Add karo
@@ -9,6 +7,7 @@ import { formatGmpValue } from '@/app_config/IPOCalculation';
 import { IpoDetailsPages } from '@/components/ipodetailspages/IpoDetailsPages';
 import { getIPOAboutusServer, getIPODetailsGMPServer, getIPODetailsServer } from '@/lib/server/ServerApiCall'; // ✅ getIPOsServer remove karo
 import React from 'react';
+import { getCleanSiteUrl } from '@/lib/utils';
 
 export async function generateMetadata({ params }) {
   const { id } = await params;
@@ -28,7 +27,10 @@ export async function generateMetadata({ params }) {
     const priceBand = data.price_range ?? '₹0';
     const openDate = formatDateTime(data.start_date, DateFormats?.DATE_DD_MM_YYYY) ?? '';
     const closeDate = formatDateTime(data.end_date, DateFormats?.DATE_DD_MM_YYYY) ?? '';
-    const pageUrl = `${process.env.SITE_URL}ipo-details/${id}`; // ✅ path sahi karo
+    
+    const cleanSiteUrl = getCleanSiteUrl();
+    const cleanId = String(id).toLowerCase();
+    const pageUrl = `${cleanSiteUrl}/ipo-details/${cleanId}`;
     const ogImage = data.ipo_image || '/og-image.png'; // ✅ duplicate hatavyu
 
     return {

@@ -1,3 +1,6 @@
 User-Agent: *
+Allow: /
+Disallow: /auth/
+Disallow: /api/
 
-Sitemap: https://greymarketipo.com//sitemap.xml
+Sitemap: https://greymarketipo.com/sitemap.xml

@@ -25,7 +25,7 @@ export function NewsDetailsPage({ newsItemServer, recentNews }) {
 
     return (
         <div className="bg-base-50 dark:bg-base-950 min-h-screen pt-24 pb-20">
-            <div className="container mx-auto px-4 max-w-4xl">
+            <div className="container mx-auto px-4 max-w-8xl">
                 {/* Breadcrumbs */}
                 <nav className="flex items-center gap-2 text-sm text-base-500 mb-8 animate-fade-in">
                     <Link href="/" className="hover:text-[#135c33]">Home</Link>

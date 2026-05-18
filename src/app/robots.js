@@ -1,8 +1,15 @@
+import { getCleanSiteUrl } from "@/lib/utils";
+
 export default function robots() {
+    const cleanSiteUrl = getCleanSiteUrl();
     return {
         rules: [
-            { userAgent: '*' },
+            {
+                userAgent: '*',
+                allow: '/',
+                disallow: ['/auth/', '/api/'],
+            },
         ],
-        sitemap: `${process.env.SITE_URL}/sitemap.xml`,
+        sitemap: `${cleanSiteUrl}/sitemap.xml`,
     };
 }

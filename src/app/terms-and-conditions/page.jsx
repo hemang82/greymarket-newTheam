@@ -1,4 +1,7 @@
 import { truncateText } from "@/app_config/CommonFunction";
+import { getCleanSiteUrl } from "@/lib/utils";
+
+const cleanSiteUrl = getCleanSiteUrl();
 
 export const metadata = {
     title: truncateText(`Terms & Conditions | ${process.env.SITE_NAME}`, 60),
@@ -11,13 +14,13 @@ export const metadata = {
         `${process.env.SITE_NAME} terms`,
     ],
     alternates: {
-        canonical: `${process.env.SITE_URL}terms-and-conditions`,
+        canonical: `${cleanSiteUrl}/terms-and-conditions`,
     },
     openGraph: {
         title: truncateText(`Terms & Conditions | ${process.env.SITE_NAME}`, 60),
         description: truncateText(
             `Learn about the usage terms, disclaimers, and service conditions for accessing IPO Grey Market data and IPO information on ${process.env.SITE_NAME}.`, 150),
-        url: `${process.env.SITE_URL}terms-and-conditions`,
+        url: `${cleanSiteUrl}/terms-and-conditions`,
         images: [
             {
                 url: '/og-default.png',

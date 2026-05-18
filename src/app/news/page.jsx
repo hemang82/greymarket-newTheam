@@ -1,6 +1,10 @@
 import { getNewsListServer } from "@/lib/server/ServerApiCall";
 import NewsClient from "./NewsClient";
 import { truncateText } from "@/app_config/CommonFunction";
+import { getCleanSiteUrl } from "@/lib/utils";
+
+const cleanSiteUrl = getCleanSiteUrl();
+
 export const metadata = {
     title: truncateText(`Latest IPO News & Updates – Live & Upcoming IPO Announcements | ${process.env.SITE_NAME}`, 60),
 
@@ -21,14 +25,14 @@ export const metadata = {
     ],
 
     alternates: {
-        canonical: `${process.env.SITE_URL}news`,
+        canonical: `${cleanSiteUrl}/news`,
     },
 
     openGraph: {
         title: truncateText(`Latest IPO News & Market Updates | ${process.env.SITE_NAME}`, 60),
         description: truncateText(
             "Stay updated with real-time IPO news, DRHP filings, issue announcements, subscription updates, and market insights for live and upcoming IPOs.", 150),
-        url: `${process.env.SITE_URL}news`,
+        url: `${cleanSiteUrl}/news`,
         images: [
             {
                 url: '/og-news.png',

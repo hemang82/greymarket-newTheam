@@ -173,9 +173,9 @@ export default function page() {
 
                                     <p className="mt-6 text-[11px] leading-relaxed text-neutral-500">
                                         By continuing, you agree to our{" "}
-                                        <a className="underline hover:text-neutral-700" href="/terms">Terms</a>{" "}
+                                        <a className="underline hover:text-neutral-700" href="/terms-and-conditions">Terms</a>{" "}
                                         and{" "}
-                                        <a className="underline hover:text-neutral-700" href="/privacy">Privacy Policy</a>.
+                                        <a className="underline hover:text-neutral-700" href="/privacy-policy">Privacy Policy</a>.
                                     </p>
                                 </div>
                             </div>
