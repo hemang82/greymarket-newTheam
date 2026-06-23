@@ -12,6 +12,8 @@ import { Toaster, toast } from "sonner";
 import { Footer } from "@/components/sections";
 import Head from "next/head";
 import { truncateText } from "@/app_config/CommonFunction";
+import Script from "next/script";
+
 
 // fonts
 const display = Syne({ subsets: ["latin"], variable: "--font-display" });
@@ -71,8 +73,23 @@ export default async function RootLayout({ children }) {
         <link rel="icon" href="/logo-mark.png" />
       </Head> */}
       <body className={`${display.variable} ${body.variable} flex min-h-screen flex-col font-body text-base-600 dark:text-base-500 bg-base-50 dark:bg-base-950`} >
+        
+        {/* Google Analytics */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-Q3WX3HDP44"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-Q3WX3HDP44');
+          `}
+        </Script>
 
         <GoogleOAuthProvider clientId={Constant?.GOOGLE_CLIENT_ID || ""} >
+
 
           <Toaster richColors position="top-right"
             toastOptions={{
