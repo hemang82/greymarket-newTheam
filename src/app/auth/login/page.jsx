@@ -75,7 +75,6 @@ export default function page() {
     return (
         <>
             <main className="min-h-[calc(100vh-165px)] w-full bg-neutral-50 dark:bg-neutral-950 flex items-center justify-center px-4 py-10">
-
                 <div className="w-full max-w-5xl">
                     {/* card */}
                     <div className="grid grid-cols-1 md:grid-cols-2 rounded-2xl overflow-hidden bg-white/80 dark:bg-neutral-900/80 shadow-[0_10px_40px_rgba(0,0,0,.08)] ring-1 ring-black/5 backdrop-blur-md">

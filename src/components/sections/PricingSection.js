@@ -56,13 +56,20 @@ export function PricingSection({ title, description, badge, pricing, ipoData, pa
     <section className="bg-base-100 dark:bg-base-900 pt-16 pb-16" {...rest}>
 
       <div className="mx-auto container px-2 sm:px-3 md:px-4">
-        {ipoListData?.results?.length > 0 ?
-          <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-6">
-            {ipoListData?.results?.map((p, i) => (
-              <PricingCard ipoListData={p} key={i} />
-            ))}
-          </div>
-          : <>
+        {ipoListData?.results?.length > 0 ? (() => {
+          const sortedResults = [...ipoListData.results].sort((a, b) => {
+            const gmpA = Number(a?.gmp ?? 0);
+            const gmpB = Number(b?.gmp ?? 0);
+            return gmpB - gmpA;
+          });
+          return (
+            <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-6">
+              {sortedResults.map((p, i) => (
+                <PricingCard ipoListData={p} key={i} />
+              ))}
+            </div>
+          );
+        })() : <>
             <DataNotFound
               title="No IPOs Available"
               description="No live or upcoming IPO data is available right now."
