@@ -38,3 +38,13 @@ export function getSearchIPO(request) {
 export function getNewsListApi(request) {
     return axiosInstance.get(`news/?page=${request?.page}&page_size=${request?.pageSize}&platform=Android`, {}, true)
 }
+
+export function getIpoCalendarApi(request) {
+    const month = request?.month || (new Date().getMonth() + 1);
+    const year = request?.year || new Date().getFullYear();
+    let query = `?platform=Android&month=${month}&year=${year}`;
+    if (request?.ipo_type && request.ipo_type !== "all") {
+        query += `&ipo_type=${request.ipo_type}`;
+    }
+    return axiosInstance.get(`ipo/year-wise-list-of-upcoming-ipo${query}`, {}, true);
+}

@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Link from "next/link";
 import { FeatureSection } from "@/components/sections/FeatureSection";
 import { Header, HeroSection, TestimonialSection, FaqSection, Footer, PricingSection, LargeFeatureSection, CtaSection } from "@/components/sections";
 import { header, faqs, testimonials, features, pricing, clients, footer } from "@/data";
@@ -75,7 +76,18 @@ export default async function Home({ searchParams }) {
           icon: "tabler:arrow-right",
           label: "😻 Learn What's New",
         }}
-        title="Live/Upcoming IPOs & Grey Market Premium (GMP) Updates"
+        title={
+          <>
+            Live/Upcoming IPOs &{" "}
+            <Link
+              href="/ipo-gmp-today"
+              className="text-[#135c33] dark:text-emerald-400 hover:underline transition decoration-2 underline-offset-4"
+            >
+              Grey Market Premium (GMP)
+            </Link>{" "}
+            Updates
+          </>
+        }
         description="Explore all live and upcoming IPOs with detailed insights - issue price, dates, lot size, and Grey Market Premium (GMP) updates."
         buttons={[
           {

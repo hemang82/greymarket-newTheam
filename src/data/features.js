@@ -6,7 +6,7 @@ export const features = [
   },
   {
     title: "Deal Processing",
-    description: "First, the buyer sends payment to our bank Then UnlistedZone team starts processing.",
+    description: "First, the buyer sends payment to our bank Then GreyMarketIPO team starts processing.",
     icon: "tabler:stack",
   },
   {

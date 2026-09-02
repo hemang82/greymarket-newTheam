@@ -7,7 +7,15 @@ export const header = {
   links: [
     {
       label: "Home",
-      href: "#home",
+      href: "/",
+    },
+    {
+      label: "IPO GMP Today",
+      href: "/ipo-gmp-today",
+    },
+    {
+      label: "IPO Calendar",
+      href: "/ipo-calendar",
     },
     {
       label: "IPO List",
@@ -19,7 +27,7 @@ export const header = {
     },
     {
       label: "News",
-      href: "#testimonials",
+      href: "/news",
     },
     {
       label: "FAQs",

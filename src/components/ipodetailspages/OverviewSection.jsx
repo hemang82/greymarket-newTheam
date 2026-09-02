@@ -25,6 +25,13 @@ const formatValue = (...values) => {
 
 export default function OverviewSection({ id = "overview", ipoDetailsData }) {
     const router = useRouter();
+
+    const isListed =
+        ipoDetailsData?.ipo_status?.status?.toLowerCase() === "listed" ||
+        ipoDetailsData?.status?.toLowerCase() === "listed" ||
+        Boolean(ipoDetailsData?.listed_price && Number(ipoDetailsData?.listed_price) > 0) ||
+        Boolean(ipoDetailsData?.listing_date && new Date(ipoDetailsData.listing_date) <= new Date());
+
     const metrics = [
         { label: "Start Date", value: `${formatDateTime(ipoDetailsData?.start_date, DateFormats?.DATE_DD_MM_YYYY)}` },
         { label: "End Date", value: `${formatDateTime(ipoDetailsData?.end_date, DateFormats?.DATE_DD_MM_YYYY)}` },
@@ -169,7 +176,25 @@ export default function OverviewSection({ id = "overview", ipoDetailsData }) {
                     </div>
 
                     {/* Right: action buttons */}
-                    <div className="flex flex-wrap gap-3">
+                    <div className="flex flex-wrap gap-2.5 items-center">
+                        {isListed && ipoDetailsData?.symbol && (
+                            <a
+                                href={`https://ipotrending.com/ipo-live-market/${ipoDetailsData.symbol.toLowerCase()}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-2 h-9 rounded-lg px-3.5 text-xs sm:text-sm font-semibold bg-[#135c33] hover:bg-[#16a34a] text-white shadow-sm transition-all cursor-pointer"
+                            >
+                                <span className="relative flex h-2 w-2">
+                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-300"></span>
+                                </span>
+                                <span>Watch Live Market</span>
+                                <svg className="w-3.5 h-3.5 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                </svg>
+                            </a>
+                        )}
+
                         {ipoDetailsData?.ipo_doc_link?.length > 0 &&
                             ipoDetailsData.ipo_doc_link.map((a, i) => (
                                 <button

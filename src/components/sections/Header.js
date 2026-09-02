@@ -230,22 +230,21 @@ export function Header({ logo, links, buttons, className, ...rest }) {
     //   </nav>
     // </header> */}
 
-    <header className="fixed w-full bg-[rgba(255,255,255,0.5)] dark:bg-[rgba(17,17,17,0.5)] backdrop-blur-xl z-[31]">
+    <header className="fixed w-full bg-[rgba(255,255,255,0.85)] dark:bg-[rgba(17,17,17,0.85)] backdrop-blur-xl z-[31]">
       <nav
         className={cn(
-          "relative h-14 container px-0 mx-auto border-b border-base flex flex-wrap justify-start items-center gap-4 lg:gap-8",
+          "relative h-14 container px-0 mx-auto border-b border-base flex flex-nowrap justify-between items-center gap-2 lg:gap-4 xl:gap-6",
           className
         )} {...rest} >
-        {/* <div onClick={() => { router.push(logo.href) }} onMouseEnter={() => safePrefetch(router, logo.href)} onFocus={() => safePrefetch(router, logo.href)}>
-          <img src={logo.src} alt={logo.alt} className="h-10 w-auto dark:invert cursor-pointer" />
-        </div> */}
-        <Link href={logo.href} prefetch>
+        <Link href={logo.href} prefetch className="shrink-0">
           <img
             src={logo.src}
             alt={logo.alt}
-            className="h-10 w-auto dark:invert"
+            className="h-9 sm:h-10 w-auto dark:invert"
           />
         </Link>
+
+        {/* Desktop & Tablet Links (Visible md+) */}
         <div
           className={cn(
             "hidden md:block md:w-auto",
@@ -253,31 +252,36 @@ export function Header({ logo, links, buttons, className, ...rest }) {
             "block absolute top-14 m-2 right-0 w-2/3 border border-base dark:border-base-900 rounded-lg overflow-hidden bg-base-50 dark:bg-base-900 shadow-xl"
           )}
         >
-          {pathname == "/" && (
-            <ul className="font-medium flex flex-col gap-2 p-4 md:p-0 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 header_links">
-              {links.map((link, index) => (
-                <a
+          <ul className="font-medium flex flex-col gap-2 p-4 md:p-0 md:flex-row md:space-x-2.5 lg:space-x-4 xl:space-x-6 rtl:space-x-reverse md:mt-0 md:border-0 header_links">
+            {links.map((link, index) => {
+              const isActive = pathname === link.href || (link.href === "/" && pathname === "/");
+              return (
+                <Link
                   key={index}
                   href={link.href}
-                  className={
+                  className={cn(
+                    "text-xs xl:text-sm transition py-1 whitespace-nowrap",
                     open
-                      ? "text-sm font-normal text-base-600 dark:text-base-400 hover:bg-base-100 dark:hover:bg-base-950 py-3 px-4 rounded-md"
-                      : "text-sm font-normal text-base-600 dark:text-base-400 hover:text-base-800 dark:hover:text-base-300 "
-                  }
+                      ? "font-normal text-base-600 dark:text-base-400 hover:bg-base-100 dark:hover:bg-base-950 py-3 px-4 rounded-md"
+                      : "hover:text-[#135c33] dark:hover:text-emerald-400",
+                    isActive
+                      ? "font-semibold text-[#135c33] dark:text-emerald-400"
+                      : "text-base-600 dark:text-base-400"
+                  )}
                   onClick={() => setOpen(false)}
                 >
                   {link.label}
-                </a>
-              ))}
-            </ul>
-          )}
+                </Link>
+              );
+            })}
+          </ul>
         </div>
 
         {/* -------- RIGHT SIDE: search + existing controls (ThemeSwitch + Buttons) -------- */}
-        <div className="flex gap-2 ml-auto items-center">
+        <div className="flex gap-2 items-center shrink-0">
 
-          {/* --- Search (visible md+) : placed on the right inside existing area --- */}
-          <div className="relative hidden md:block me-4 header_search_section">
+          {/* --- Search (visible xl+) --- */}
+          <div className="relative hidden xl:block header_search_section">
             <form onSubmit={handleSubmit} role="search" className="relative">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400">
                 {/* magnifier icon */}
@@ -340,36 +344,17 @@ export function Header({ logo, links, buttons, className, ...rest }) {
           {/* Keep your existing ThemeSwitch and buttons exactly as before */}
           {/* <ThemeSwitch /> */}
 
-          <div className="flex gap-2 ml-auto">
-            {/* <ThemeSwitch /> */}
-            {/* {buttons.map((button, index) => (
-              <Button key={index} {...button} />
-            ))} */}
-            {/* <ClientOnly
-              fallback={
-                <Button
-                  key="signin"
-                  label="Sign In"
-                  href="/auth/login"
-                  color="dark"
-                  size="small"
-                />
-              }
-            > */}
+          <div className="flex gap-2 items-center">
             <AuthMenu />
-            {/* </ClientOnly> */}
+            <Button
+              icon={open ? "tabler:x" : "tabler:menu-2"}
+              color="transparent"
+              className="p-2 md:hidden"
+              onClick={() => setOpen(!open)}
+            />
           </div>
 
         </div>
-
-        {pathname == "/" &&
-          <Button
-            icon={open ? "tabler:x" : "tabler:menu-2"}
-            color="transparent"
-            className="p-2 md:hidden"
-            onClick={() => setOpen(!open)}
-          />
-        }
       </nav>
 
     </header>
