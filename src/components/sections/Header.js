@@ -87,6 +87,9 @@ export function Header({ logo, links, buttons, className, ...rest }) {
     const pathsToPrefetch = [
       '/',
       '/ipo-details',
+      '/ipo-gmp-today',
+      '/listed-ipos',
+      '/ipo-calendar',
     ];
     pathsToPrefetch.forEach((path) => {
       router.prefetch(path);
@@ -254,7 +257,33 @@ export function Header({ logo, links, buttons, className, ...rest }) {
         >
           <ul className="font-medium flex flex-col gap-2 p-4 md:p-0 md:flex-row md:space-x-2.5 lg:space-x-4 xl:space-x-6 rtl:space-x-reverse md:mt-0 md:border-0 header_links">
             {links.map((link, index) => {
+              const isExternal = link.href.startsWith("http");
               const isActive = pathname === link.href || (link.href === "/" && pathname === "/");
+
+              if (isExternal) {
+                return (
+                  <a
+                    key={index}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener"
+                    title={link.label}
+                    className={cn(
+                      "text-xs xl:text-sm transition py-1 whitespace-nowrap inline-flex items-center gap-0.5",
+                      open
+                        ? "font-normal text-base-600 dark:text-base-400 hover:bg-base-100 dark:hover:bg-base-950 py-3 px-4 rounded-md"
+                        : "text-emerald-700 dark:text-emerald-400 font-semibold hover:text-[#135c33] dark:hover:text-emerald-300"
+                    )}
+                    onClick={() => setOpen(false)}
+                  >
+                    <span>{link.label}</span>
+                    <svg className="w-3 h-3 opacity-80 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                  </a>
+                );
+              }
+
               return (
                 <Link
                   key={index}

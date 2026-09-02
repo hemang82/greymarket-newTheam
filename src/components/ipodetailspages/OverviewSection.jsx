@@ -177,6 +177,19 @@ export default function OverviewSection({ id = "overview", ipoDetailsData }) {
 
                     {/* Right: action buttons */}
                     <div className="flex flex-wrap gap-2.5 items-center">
+                        <a
+                            href="https://allotmentstatus.com/"
+                            target="_blank"
+                            rel="noopener"
+                            title="Check IPO Allotment Status on AllotmentStatus.com"
+                            className="inline-flex items-center gap-1.5 h-9 rounded-lg px-3.5 text-xs sm:text-sm font-semibold bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm transition-all cursor-pointer"
+                        >
+                            <span>Check Allotment</span>
+                            <svg className="w-3.5 h-3.5 opacity-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                            </svg>
+                        </a>
+
                         {isListed && ipoDetailsData?.symbol && (
                             <a
                                 href={`https://ipotrending.com/ipo-live-market/${ipoDetailsData.symbol.toLowerCase()}`}

@@ -14,7 +14,26 @@ export function ipoListApi(request) {
         query += `&page=${request?.page}`
     }
 
-    return axiosInstance.post(`ipo/new-ipo-list?categorys=live&categorys=upcoming&platform=Android${query}`, request, true)
+    if (request?.ipo_type && request.ipo_type !== 'all') {
+        query += `&ipo_type=${encodeURIComponent(request.ipo_type)}`;
+    }
+
+    let catQuery = 'categorys=live&categorys=upcoming';
+    if (request?.categories) {
+        if (Array.isArray(request.categories)) {
+            catQuery = request.categories.map(c => `categorys=${encodeURIComponent(c)}`).join('&');
+        } else {
+            catQuery = `categorys=${encodeURIComponent(request.categories)}`;
+        }
+    } else if (request?.categorys) {
+        if (Array.isArray(request.categorys)) {
+            catQuery = request.categorys.map(c => `categorys=${encodeURIComponent(c)}`).join('&');
+        } else {
+            catQuery = `categorys=${encodeURIComponent(request.categorys)}`;
+        }
+    }
+
+    return axiosInstance.post(`ipo/new-ipo-list?${catQuery}&platform=Android${query}`, request, true)
 }
 
 export function getIPODetailsApi(request) {

@@ -14,6 +14,10 @@ export const header = {
       href: "/ipo-gmp-today",
     },
     {
+      label: "Listed IPOs",
+      href: "/listed-ipos",
+    },
+    {
       label: "IPO Calendar",
       href: "/ipo-calendar",
     },

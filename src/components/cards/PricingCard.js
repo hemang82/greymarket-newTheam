@@ -138,7 +138,7 @@ export const PricingCard = ({ className,
             </div>
           </Link>
 
-          <div className="flex flex-col sm:flex-row gap-2">
+          <div className="flex flex-col sm:flex-row gap-2 shrink-0">
             <button
               onClick={() => buyButtonChange(ipoListData)}
               className="h-8 px-3 rounded-full min-w-[64px] border buyButton 
@@ -171,12 +171,36 @@ export const PricingCard = ({ className,
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-8 gap-y-2 text-sm">
             <Field label="Offer Date" value={formatDateTime(ipoListData?.start_date, DateFormats?.DATE_DD_MM_YYYY)} />
             <Field label="Listed At" value={formatDateTime(ipoListData?.listing_date, DateFormats?.DATE_DD_MM_YYYY)} />
-            <Field label="Allotment Date" value={formatDateTime(ipoListData?.allotment_date, DateFormats?.DATE_DD_MM_YYYY)} />
+            <div className="flex items-start justify-between sm:block">
+              <p className="text-muted font-medium">Allotment Date</p>
+              <div className="flex items-center gap-1 sm:mt-0.5">
+                <p className="text-body font-semibold text-sm text-base">
+                  {formatDateTime(ipoListData?.allotment_date, DateFormats?.DATE_DD_MM_YYYY)}
+                </p>
+              </div>
+            </div>
             <Field label="Lot Size" value={formatIndianNumber(ipoListData.bid_lot)} />
             <Field label="Price Range" value={ipoListData.price_range} />
             <Field label="GMP" value={formatGmpValue(ipoListData)} className={'gmp_color'} />
           </div>
         </Link>
+
+        {/* Bottom Allotment Action Link */}
+        <div className="mt-3 pt-2.5 border-t border-base flex items-center justify-end text-xs">
+          <a
+            href="https://allotmentstatus.com/"
+            target="_blank"
+            rel="noopener"
+            title="Check IPO Allotment Status on AllotmentStatus.com"
+            onClick={(e) => e.stopPropagation()}
+            className="inline-flex items-center gap-1 font-semibold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 hover:underline transition-colors"
+          >
+            <span>Check Allotment</span>
+            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </a>
+        </div>
         
       </div>
     </React.Fragment>
